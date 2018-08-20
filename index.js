@@ -1,3 +1,4 @@
+require('dotenv').load();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 var http = require('http');
@@ -5,17 +6,15 @@ var fs = require('fs');
 
 var pass = process.env['ADMIN_PASS'];
 // Create connection to database
-var config = 
-   {
+var config = {
      userName: 'smasadmin',
      password: pass,
      server: 'smas.database.windows.net',
-     options: 
-        {
+     options: {
            database: 'SMASDatabase'
            , encrypt: true
-        }
-   }
+     }
+}
 var connection = new Connection(config);
 
 
@@ -40,7 +39,7 @@ function queryDatabase()
 
 	   // Read all rows from table
 	 request = new Request(
-		  "SELECT * FROM test",
+		  "SELECT * FROM staff",
 			 function(err, rowCount, rows) 
 				{
 					console.log(rowCount + ' row(s) returned');

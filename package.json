@@ -10,5 +10,9 @@
     },
     "scripts": {
         "start": "node index.js"
+    },
+    "dependencies": {
+        "dotenv": "^6.0.0",
+        "tedious": "^2.6.4"
     }
 }
