@@ -33,10 +33,8 @@ connection.on('connect', function(err)
  );
 
 function queryDatabase()
-   { 
-   
+   {
    console.log('Reading rows from the Table...');
-
 	   // Read all rows from table
 	 request = new Request(
 		  "SELECT * FROM staff",
@@ -44,23 +42,15 @@ function queryDatabase()
 				{
 					console.log(rowCount + ' row(s) returned');
 					process.exit();
-				}
-			);
-			
-	 request.on('row', function(columns) {
-		columns.forEach(function(column) {
-			console.log("%s\t%s", column.metadata.colName, column.value);
-		 });
-	 });
+				});
 	 connection.execSql(request);
    }
-   
+
 //creates server on website
 var server = http.createServer(function(request, response) {
-	fs.readFile('index.html', function(err, data) {
-		response.writeHead(200, {'Content-Type': 'text/html'});
-		response.write(data);
-	});
+    var dataStuff = 'datataaaaaaaaaaaa';
+    response.write('Testing node.js');
+    response.end(dataStuff);
 });
 
 var port = process.env.PORT || 1337;
