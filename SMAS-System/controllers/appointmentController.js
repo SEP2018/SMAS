@@ -36,7 +36,7 @@ exports.appointment_create_post = [
                 return;
             }
             else {
-                Appointment.makeAppointment(req.body.time, req.body.description, req.body.studentID);
+                Appointment.makeAppointment(req.body.time, req.body.description, req.body.student_id);
                 res.redirect('/');
             }
         }
