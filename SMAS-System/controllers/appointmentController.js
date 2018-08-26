@@ -24,9 +24,11 @@ exports.appointment_create_post = [
         // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     sanitizeBody('description').trim().escape(),
+    sanitizeBody('date').toDate(),
 
 
         (req, res, next) => {
+            console.log(req.body.time);
             const errors = validationResult(req);
             if(!errors.isEmpty()) {
                 res.render('createAppointment', { title: 'Create an Appointment', errors: errors.array() });

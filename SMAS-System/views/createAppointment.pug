@@ -19,6 +19,13 @@ block content
             div(class='formElement')
                 input#time.form-control(placeholder='Date...' type="text" onfocus="(this.type='date')" name='time' required='true')
             div(class='formElement')
+                label(for='appointTime') Appointment Time:
+                select#appointTime
+                    option(value='09:30:00') 9:30am
+                    option(value='10:00:00') 10:00am
+                    option(value='10:30:00') 10:30am
+                    option(value='11:30:00') 11:30am
+            div(class='formElement')
                 button.btn.btn-primary(type='submit' id='largeButton') Make Appointment
         if errors
             ul
