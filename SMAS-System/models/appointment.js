@@ -35,13 +35,17 @@ test.create({
     });
 
 // make a new Appointment object
-module.exports = function makeAppointment(time, description, studentID){// notes, emoployeeID, studentID, roomID) {
-    Appointment.create({
-        time: time,
-        description: description,
-        studentID: studentID,
-    });
+var makeAppointment = {
+        makeAppointment : function(time, description, studentID){// notes, emoployeeID, studentID, roomID) {
+        Appointment.create({
+            time: time,
+            description: description,
+            studentID: studentID,
+        });
+    }
 };
+module.exports = makeAppointment;
+
 
 // shows all Appointment objects
 /*Appointment.findAll().then(appointments => {
