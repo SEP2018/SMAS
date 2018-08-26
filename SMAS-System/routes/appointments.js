@@ -15,10 +15,10 @@ router.get('/create', appointment_controller.appointment_create_get);
 router.post('/create', appointment_controller.appointment_create_post);
 
 //GET request for appointment deletion
-router.get('/delete', appointment_controller.appointment_delete_get);
+router.get('/cancel', appointment_controller.appointment_cancel_get);
 
 //POST request for appointment deletion
-router.post('/delete', appointment_controller.appointment_delete_post);
+router.post('/cancel', appointment_controller.appointment_cancel_post);
 
 
 module.exports = router;
