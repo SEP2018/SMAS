@@ -1,4 +1,5 @@
 *.env 
+*.xml
 
 # Logs
 logs

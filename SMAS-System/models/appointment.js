@@ -47,7 +47,7 @@ const Appointment = sequelize.define('Appointment', {
 
 // make a new Appointment object
 var makeAppointment = {
-    makeAppointment : function(time, description, notes = null, cancellationFlag = null, studentID, employeeID = null, roomID = null){
+    makeAppointment : function(time, description, studentID, notes = null, cancellationFlag = null, employeeID = null, roomID = null){
         Appointment.create({
             time: time,
             description: description,
