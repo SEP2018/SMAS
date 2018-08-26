@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
-require('dotenv').config({path: '../.env'});
+require('dotenv');
 const sequelize = new Sequelize('SMASDatabase', 'smasadmin', process.env['ADMIN_PASS'], {
     dialect: 'mssql',
+    host:'smas.database.windows.net',
     operatorsAliases: false,
-    server: 'smas.database.windows.net',
-    port: 8080,
-    options: {
+    dialectOptions: {
         encrypt: true
     },
 
