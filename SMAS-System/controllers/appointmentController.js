@@ -1,7 +1,6 @@
 var Appointment = require('../models/appointment');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
-const validator = require('validator');
 const {sanitizeBody} = require('express-validator/filter');
 
 // Display home page
@@ -19,7 +18,7 @@ exports.appointment_create_post = [
      //Field Validation
     body('student_id').isLength({ min: 8, max: 8 }).trim().withMessage('Enter valid Student ID'),
     body('description').isLength({ max: 200 }).trim().withMessage('Description must be specified'),
-    body('time').isISO8601(),
+    body('time').optional().isISO8601(),
 
         // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
@@ -27,8 +26,10 @@ exports.appointment_create_post = [
     sanitizeBody('date').toDate(),
 
 
+
         (req, res, next) => {
-            console.log(req.body.time);
+
+
             const errors = validationResult(req);
             if(!errors.isEmpty()) {
                 res.render('createAppointment', { title: 'Create an Appointment', errors: errors.array() });
