@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1= title
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='student_id') Student ID:
+            input#student_id.form-control(type='text' placeholder='Student ID' name='student_id' required='true')
+        div.form-group
+            label(for='description') Description:
+            input#description.form-control(type='text' placeholder='Brief description of the problem' name='description' required='true')
+        div.form-group
+            label(for='time') Appointment Date:
+            input#time.form-control(type='date' name='time' required='true')
+        button.btn.btn-primary(type='submit') Make Appointment
+    if errors
+        ul
+            for error in errors
+                li!= error.msg
