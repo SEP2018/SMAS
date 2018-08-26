@@ -5,6 +5,7 @@ const Appointment = sequelize.define('Appointment', {
     appointmentID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        autoIncrement: true
     },
     time: {
         type: Sequelize.DATE
@@ -28,11 +29,6 @@ const Appointment = sequelize.define('Appointment', {
         type: Sequelize.INTEGER
     },
 });
-
-const test = sequelize.define('IncrementTest', {faveColour: {type: Sequelize.STRING}});
-test.create({
-        faveColour: 'green',
-    });
 
 // make a new Appointment object
 var makeAppointment = {

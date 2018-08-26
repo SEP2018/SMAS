@@ -1,7 +1,8 @@
-var Appointment = require('../models/appointment')
+var Appointment = require('../models/appointment');
 // Validation of form data
-const {body,validationResult} = require('express-validator/check')
-const {sanitizeBody} = require('express-validator/filter')
+const {body,validationResult} = require('express-validator/check');
+const validator = require('validator');
+const {sanitizeBody} = require('express-validator/filter');
 
 // Display home page
 exports.index = function(req, res) {
@@ -23,7 +24,7 @@ exports.appointment_create_post = [
         // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     sanitizeBody('description').trim().escape(),
-    sanitizeBody('time').toDate(),
+
 
         (req, res, next) => {
             const errors = validationResult(req);
@@ -32,6 +33,7 @@ exports.appointment_create_post = [
                 return;
             }
             else {
+                Appointment.makeAppointment(req.body.time, req.body.description, req.body.studentID);
                 res.redirect('/');
             }
         }
