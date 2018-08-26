@@ -1,9 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  a(href='/appointments/create')
-    button(style='largeButton') Make Appointment
-    a(href='/appointments/cancel')
-      button(style='largeButton') Cancel Appointment
+	div(class='header')
+		div(class='container')
+			div(id='top_header')
+				h1= title
+			p Welcome to #{title}
+
+	div(class='body')
+		table
+			td
+				a(href='/appointments/create')
+					button(id='largeButton') Make Appointment
+			td
+				a(href='/appointments/cancel')
+					button(id='largeButton') Cancel Appointment

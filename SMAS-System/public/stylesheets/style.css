@@ -1,44 +1,165 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+	margin: 0;
+	text-align: center;
+	background-color: #0f0f0f;
 }
 
-a {
-  color: #00B7FF;
+.container {
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
 }
 
-#cancel {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    padding: 5px;
-    width: 33%;
+.header {
+	background: #0f0f0f;
+	color: #cd3935;
+	padding-top: 20px;
+	min-height: 60px;
+	border-bottom: #cd3935 3px solid;
+	text-align: center;
 }
 
-#cancel table {
-	border: 1px solid black;
+.header p {
+	color: #cd3935;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 14px
 }
 
-#cancel tr:nth-child(even) {
+.header a {
+	color: #ffffff;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
+.header #top_header {
+	margin: 0;
+	font-size: 20px;
+}
+
+.body {
+	padding: 10px;
+}
+
+.body table {
+	padding: 10px;
+	margin: auto;
+}
+
+.body td {
+	padding: 10px;
+}
+
+#largeButton {
+  font-family: arial;
+  color: #0F0F0F !important;
+  font-size: 16px;
+  padding: 20px 30px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 3px solid #1F7D50;
+  background: #63B8EE;
+  background: linear-gradient(top,  #5DD79D,  #2EBA78);
+  background: -ms-linear-gradient(top,  #5DD79D,  #2EBA78);
+  background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
+  background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
+}
+#largeButton:hover {
+  color: #14396A !important;
+  background: #468CCF;
+  background: linear-gradient(top,  #2EBA78,  #5DD79D);
+  background: -ms-linear-gradient(top,  #2EBA78,  #5DD79D);
+  background: -webkit-gradient(linear, left top, left bottom, from(#2EBA78), to(#5DD79D));
+  background: -moz-linear-gradient(top,  #2EBA78,  #5DD79D);
+}
+
+#smallButton {
+  font-family: arial;
+  color: #0F0F0F !important;
+  font-size: 12px;
+  padding: 5px 5px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border-radius: 50px;
+  border: 2px solid #1F7D50;
+  background: #63B8EE;
+  background: linear-gradient(top,  #5DD79D,  #2EBA78);
+  background: -ms-linear-gradient(top,  #5DD79D,  #2EBA78);
+  background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
+  background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
+}
+#smallButton:hover {
+  color: #14396A !important;
+  background: #468CCF;
+  background: linear-gradient(top,  #2EBA78,  #5DD79D);
+  background: -ms-linear-gradient(top,  #2EBA78,  #5DD79D);
+  background: -webkit-gradient(linear, left top, left bottom, from(#2EBA78), to(#5DD79D));
+  background: -moz-linear-gradient(top,  #2EBA78,  #5DD79D);
+}
+
+.createForm {
+	border-radius: 5px;
+    background-color: #151515;
+    padding: 20px;
+    display: inline-block;
+    color: #ffffff
+}
+
+.formElement {
+	padding: 5px;
+}
+
+input[type=text], input[type=date] {
+    width: 300px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="date"]:focus::before {
+   content: "" !important;
+}
+
+.deleteTable {
+	padding: 10px;
+}
+
+.deleteTable table {
+	margin: auto;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	width: 50%;
+	padding: 10px;
+}
+
+.deleteTable tr {
+	background-color: #ffffff;
+}
+
+.deleteTable tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
 
-#cancel tr:hover {
+.deleteTable tr:hover {
 	background-color: #ddd;
 }
 
-#cancel tr.selected {
-	background-color: #ddd;
-}
-
-#cancel td, #cancel th {
+.deleteTable td, .deleteTable th {
 	padding: 5px;
-	border: 1px solid #ddd;
 }
 
-#cancel th {
+.deleteTable th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
-    background-color: black;
+    text-align: center;
+    background-color: #cd3935;
     color: white;
 }
