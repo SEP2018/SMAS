@@ -29,19 +29,19 @@ const Appointment = sequelize.define('Appointment', {
     },
 });
 
-// make a new Appointment object
-/*Appointment.sync({force: true}).then(() => {
-    // Table created
-    return Appointment.create({
-        appointmentID: 1,
-        time: Date.now(),
-        description: 'Help I have a cold',
-        notes: 'Help before it kills me',
-        employeeID: 3,
-        studentID: 12878765,
-        roomID: 8
+const test = sequelize.define('IncrementTest', {faveColour: {type: Sequelize.STRING}});
+test.create({
+        faveColour: 'green',
     });
-});*/
+
+// make a new Appointment object
+module.exports = function makeAppointment(time, description, studentID){// notes, emoployeeID, studentID, roomID) {
+    Appointment.create({
+        time: time,
+        description: description,
+        studentID: studentID,
+    });
+};
 
 // shows all Appointment objects
 /*Appointment.findAll().then(appointments => {
