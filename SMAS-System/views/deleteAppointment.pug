@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	h1= title
+
+	table(id='delete' onclick='selectRow();')
+		tr
+			th Student ID
+			th Description
+			th Time
+			th
+		tr
+			td 12345678
+			td Sore throat.
+			td 27/08/2018
+			td #[input(type='button' value='Delete' onclick='DeleteRow(this)')]
+		tr
+			td 19876543
+			td Migranes.
+			td 29/08/2018
+			td #[input(type='button' value='Delete' onclick='DeleteRow(this)')]
+		tr
+			td 12346789
+			td Ligma.
+			td 06/09/2018
+			td #[input(type='button' value='Delete' onclick='DeleteRow(this)')]
+
+	script.
+		function DeleteRow(o) {
+			var p=o.parentNode.parentNode;
+			p.parentNode.removeChild(p);
+		}

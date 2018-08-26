@@ -6,3 +6,39 @@ body {
 a {
   color: #00B7FF;
 }
+
+#delete {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 33%;
+}
+
+#delete table {
+	border: 1px solid black;
+}
+
+#delete tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#delete tr:hover {
+	background-color: #ddd;
+}
+
+#delete tr.selected {
+	background-color: #ddd;
+}
+
+#delete td, #delete th {
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+
+#delete th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+}
