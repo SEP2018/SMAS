@@ -41,7 +41,7 @@ exports.appointment_create_post = [
 
 // Display Appointment deletion form on GET
 exports.appointment_delete_get = function(req, res){
-    res.send('To be implemented');
+    res.render('deleteAppointment', { title: 'Delete an Appointment' });
 };
 
 // Handle Appointment deletion on POST
