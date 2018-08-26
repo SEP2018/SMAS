@@ -1,26 +1,54 @@
 const Sequelize = require('sequelize');
-require('dotenv');
-const sequelize = new Sequelize('SMASDatabase', 'smasadmin', process.env['ADMIN_PASS'], {
-    dialect: 'mssql',
-    host:'smas.database.windows.net',
-    operatorsAliases: false,
-    dialectOptions: {
-        encrypt: true
+var orm = require('./orm');
+sequelize = orm.seq;
+const Appointment = sequelize.define('Appointment', {
+    appointmentID: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
     },
-
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
+    time: {
+        type: Sequelize.DATE
+    },
+    description: {
+        type: Sequelize.STRING
+    },
+    notes: {
+        type: Sequelize.STRING
+    },
+    cancellationFlag: {
+        type: Sequelize.BOOLEAN
+    },
+    studentID: {
+        type: Sequelize.INTEGER
+    },
+    employeeID: {
+        type: Sequelize.INTEGER
+    },
+    roomID: {
+        type: Sequelize.INTEGER
     },
 });
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
+const test = sequelize.define('IncrementTest', {faveColour: {type: Sequelize.STRING}});
+test.create({
+        faveColour: 'green',
     });
+
+// make a new Appointment object
+var makeAppointment = {
+        makeAppointment : function(time, description, studentID){// notes, emoployeeID, studentID, roomID) {
+        Appointment.create({
+            time: time,
+            description: description,
+            studentID: studentID,
+        });
+    }
+};
+module.exports = makeAppointment;
+
+
+// shows all Appointment objects
+/*Appointment.findAll().then(appointments => {
+    console.log(appointments)
+});
+*/
