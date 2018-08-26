@@ -7,35 +7,35 @@ a {
   color: #00B7FF;
 }
 
-#delete {
+#cancel {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     padding: 5px;
     width: 33%;
 }
 
-#delete table {
+#cancel table {
 	border: 1px solid black;
 }
 
-#delete tr:nth-child(even) {
+#cancel tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
 
-#delete tr:hover {
+#cancel tr:hover {
 	background-color: #ddd;
 }
 
-#delete tr.selected {
+#cancel tr.selected {
 	background-color: #ddd;
 }
 
-#delete td, #delete th {
+#cancel td, #cancel th {
 	padding: 5px;
 	border: 1px solid #ddd;
 }
 
-#delete th {
+#cancel th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
