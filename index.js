@@ -1,0 +1,1 @@
+require('./SMAS-System/app.js');
