@@ -4,6 +4,16 @@ block content
 	div(class='header')
 		h1= title
 
+	form(method='POST' action='')
+		div(class='cancelForm')
+			span(class='formElement')
+				label(for='student_id') Student ID:
+			span(class='formElement')
+				input#student_id.form-control(type='text' placeholder='Your Student ID...' name='student_id' required='true')
+			span(class='formElement')
+				button(class='smallButton') Continue
+
+
 	div(class='deleteTable')
 		table(onclick='selectRow();')
 			tr
