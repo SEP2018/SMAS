@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    div(class='header')
+        h1= title
+    div(class='createForm')
+        h2= 'Appointment created for ' + studentid
+        h2= 'on the ' + date
+        a(href='/')
+            button(class='largeButton') Home

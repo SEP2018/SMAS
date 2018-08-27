@@ -54,7 +54,7 @@ body {
 	padding: 10px;
 }
 
-#largeButton {
+.largeButton {
   font-family: arial;
   color: #0F0F0F !important;
   font-size: 16px;
@@ -69,7 +69,7 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
   background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
 }
-#largeButton:hover {
+.largeButton:hover {
   color: #14396A !important;
   background: #468CCF;
   background: linear-gradient(top,  #2EBA78,  #5DD79D);
@@ -78,7 +78,7 @@ body {
   background: -moz-linear-gradient(top,  #2EBA78,  #5DD79D);
 }
 
-#smallButton {
+.smallButton {
   font-family: arial;
   color: #0F0F0F !important;
   font-size: 12px;
@@ -93,7 +93,7 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
   background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
 }
-#smallButton:hover {
+.smallButton:hover {
   color: #14396A !important;
   background: #468CCF;
   background: linear-gradient(top,  #2EBA78,  #5DD79D);
