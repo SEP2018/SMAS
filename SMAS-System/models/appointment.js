@@ -60,8 +60,33 @@ var makeAppointment = {
     }
 };
 
+//cancel/delete an Appointment object
+var cancelAppointment = {
+    cancelAppointment : function(appointmentID){
+        Appointment.destroy({
+            where: {
+                appointmentID: appointmentID
+            }
+        });
+    }
+};
+
+var findAppointments = {
+    findAppointments : function(studentID){
+        Appointment.findAll({
+            where: {
+                studentID: studentID
+            }
+        });
+    }
+};
+
 //export functions
-module.exports = makeAppointment;
+module.exports = {
+    makeAppointment: makeAppointment,
+    cancelAppointment: cancelAppointment,
+    findAppointments: findAppointments
+};
 
 // shows all Appointment objects
 /*Appointment.findAll().then(appointments => {
