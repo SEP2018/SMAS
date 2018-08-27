@@ -55,7 +55,19 @@ exports.appointment_cancel_post = [
             return;
         }
         else {
-            var appointments = Appointment.findAppointments(req.body.student_id);
+            var appointmentsResults = Appointment.findAppointments(req.body.student_id);
+            var appointments = [];
+            for (var i = 0; i < appointmentsResults.length; i++) {
+                // Create an object to save current row's data
+                var appointment = {
+                    'studentID':rows[i].studentID,
+                    'description':rows[i].description,
+                    'time':rows[i].time
+                };
+                // Add object into array
+                appointments.push(appointment);
+            }
+            res.render('cancelAppointment', {appointments: appointments});
         }
     }
 
