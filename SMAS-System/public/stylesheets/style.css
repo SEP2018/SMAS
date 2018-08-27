@@ -110,8 +110,13 @@ body {
     color: #ffffff
 }
 
+.cancelForm {
+    padding: 10px;
+}
+
 .formElement {
 	padding: 5px;
+    color: #ffffff;
 }
 
 input[type=text], input[type=date] {
