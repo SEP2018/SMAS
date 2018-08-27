@@ -4,7 +4,7 @@ var orm = require('./orm');
 sequelize = orm.seq;
 const Student = sequelize.define('Student', {
     studentID: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true,
         autoIncrement: true,
     },

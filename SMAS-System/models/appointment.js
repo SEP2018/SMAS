@@ -23,7 +23,7 @@ const Appointment = sequelize.define('Appointment', {
         type: Sequelize.BOOLEAN
     },
     studentID: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
             model: Student,
             key: 'studentID'
