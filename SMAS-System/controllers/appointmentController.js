@@ -23,7 +23,7 @@ exports.appointment_create_post = [
         // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     sanitizeBody('description').trim().escape(),
-    sanitizeBody('date').toDate(),
+
 
 
         (req, res, next) => {
@@ -34,7 +34,7 @@ exports.appointment_create_post = [
             }
             else {
                 Appointment.makeAppointment(req.body.time, req.body.description, req.body.student_id);
-                res.redirect('/');
+                res.render('createAppointmentSuccess', {title: 'Success!', studentid: req.body.student_id, date: req.body.time});
             }
         }
 
