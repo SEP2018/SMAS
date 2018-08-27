@@ -26,7 +26,10 @@ exports.appointment_create_post = [
     sanitizeBody('date').toDate(),
 
 
+
         (req, res, next) => {
+
+
             const errors = validationResult(req);
             if(!errors.isEmpty()) {
                 res.render('createAppointment', { title: 'Create an Appointment', errors: errors.array() });
