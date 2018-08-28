@@ -1,5 +1,5 @@
 *.env 
-.idea/workspace.xml
+.idea/*
 
 # Logs
 logs
@@ -39,3 +39,5 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 SMAS-System/.idea/workspace.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
