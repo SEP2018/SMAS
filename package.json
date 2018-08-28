@@ -1,18 +1,28 @@
 {
-    "name": "app-service-hello-world",
-    "description": "Simple Hello World Node.js sample for Azure App Service",
-    "version": "0.0.1",
-    "private": true,
-    "license": "MIT",
-    "author": "Microsoft",
-    "engines": {
-        "node": ">=6.9.1"
-    },
-    "scripts": {
-        "start": "node index.js"
-    },
-    "dependencies": {
-        "dotenv": "^6.0.0",
-        "tedious": "^2.6.4"
+  "name": "WebMatrixExpressSite",
+  "version": "0.2.0",
+  "author": "The WebMatrix Team <webmatrix@microsoft.com>",
+  "description": "A simple boilerplate for building node applications on Windows Azure (or wherever)",
+  "contributors": [
+    {
+      "name": "Microsoft",
+      "email": "appgal@microsoft.com"
     }
+  ],
+  "main": "./server.js",
+  "keywords": [
+    "azure",
+    "boilerplate",
+    "express"
+  ],
+  "dependencies": {
+    "express": "~3.1.0",
+    "jade": "*",
+    "tedious": "^2.6.4"
+  },
+  "noAnalyze": true,
+  "license": "Apache",
+  "engines": {
+    "node": "~0.10.0 || ~4.2.0"
+  }
 }
