@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-require('dotenv');
+dotenvLocation = "../";
+require('dotenv').load(dotenvLocation+".env");
 
 const sequelize = new Sequelize('SMASDatabase', 'smasadmin', process.env['ADMIN_PASS'], {
     dialect: 'mssql',
