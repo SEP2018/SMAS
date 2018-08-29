@@ -65,21 +65,22 @@ module.exports = {
             }
         });
     },
-    findAppointments : function(studentID){
+    findAppointmentsByStudent : function(studentID){
         Appointment.findAll({
             where: {
                 studentID: studentID
             }
         });
+    },
+    getUnavailableTimesByStaff: function(staffID){
+        Appointment.findAll({
+            attributes : {time},
+            where : {
+                staffID: staffID,
+            }
+        });
     }
 };
-
-//export functions
-// module.exports = {
-//     makeAppointment,
-//     cancelAppointment,
-//     findAppointments
-// };
 
 // shows all Appointment objects
 /*Appointment.findAll().then(appointments => {

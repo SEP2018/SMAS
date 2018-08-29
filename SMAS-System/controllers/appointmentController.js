@@ -56,7 +56,7 @@ exports.appointment_cancel_post = [
             return;
         }
         else {
-            var appointmentsResults = Appointment.findAppointments(req.body.student_id);
+            var appointmentsResults = Appointment.findAppointmentsByStudent(req.body.student_id);
             var appointments = [];
             for (var i = 0; i < appointmentsResults.length; i++) {
                 // Create an object to save current row's data
