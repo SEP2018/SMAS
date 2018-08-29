@@ -46,32 +46,25 @@ const Appointment = sequelize.define('Appointment', {
 });
 
 // make a new Appointment object
-var makeAppointment = {
-    makeAppointment : function(time, description, studentID, notes = null, cancellationFlag = null, employeeID = null, roomID = null){
+module.exports = {
+    makeAppointment : function(time, description, studentID){
         Appointment.create({
             time: time,
             description: description,
-            notes: notes,
-            cancellationFlag: cancellationFlag,
+            notes: null,
+            cancellationFlag: null,
             studentID: studentID,
-            employeeID: employeeID,
-            roomID: roomID
+            employeeID: null,
+            roomID: null
         });
-    }
-};
-
-//cancel/delete an Appointment object
-var cancelAppointment = {
+    },
     cancelAppointment : function(appointmentID){
         Appointment.destroy({
             where: {
                 appointmentID: appointmentID
             }
         });
-    }
-};
-
-var findAppointments = {
+    },
     findAppointments : function(studentID){
         Appointment.findAll({
             where: {
@@ -82,11 +75,11 @@ var findAppointments = {
 };
 
 //export functions
-module.exports = {
-    makeAppointment: makeAppointment,
-    cancelAppointment: cancelAppointment,
-    findAppointments: findAppointments
-};
+// module.exports = {
+//     makeAppointment,
+//     cancelAppointment,
+//     findAppointments
+// };
 
 // shows all Appointment objects
 /*Appointment.findAll().then(appointments => {
