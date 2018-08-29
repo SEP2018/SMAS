@@ -19,6 +19,7 @@ exports.appointment_create_post = [
     body('student_id').isLength({ min: 8, max: 8 }).trim().withMessage('Enter valid Student ID'),
     body('description').isLength({ max: 200 }).trim().withMessage('Description must be specified'),
     body('time').optional().isISO8601(),
+    body('appointTime').trim(),
 
         // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
@@ -31,7 +32,7 @@ exports.appointment_create_post = [
                 return;
             }
             else {
-                Appointment.makeAppointment(req.body.time, req.body.description, req.body.student_id);
+                Appointment.makeAppointment(req.body.time.toString().concat(' ' + req.body.appointTime + ' +00:00'), req.body.description, req.body.student_id);
                 res.render('createAppointmentSuccess', {title: 'Success!', studentid: req.body.student_id, date: req.body.time});
             }
         }
