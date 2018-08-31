@@ -50,7 +50,7 @@ exports.appointment_create_post = [
 
 // Display Appointment deletion form on GET
 exports.appointment_cancel_get = function(req, res){
-    res.render('cancelAppointment', { title: 'Cancel an Appointment' });
+    res.render('cancelAppointment', { title: 'Cancel an Appointment', appointments: []});
 };
 
 // Handle Appointment deletion on POST
@@ -69,13 +69,10 @@ exports.appointment_cancel_post = [
             var appointmentsResults = Appointment.findAppointmentsByStudent(req.body.student_id);
             appointmentsResults.then( async function() {
                 appointmentsResults = await appointmentsResults;
-                for (var i = 0; i < appointmentsResults.length; i++) {
-                    console.log("TIME:");
-                    console.log(appointmentsResults[i].time);
-                }
+                res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: appointmentsResults})
             });
         }
-        res.render('cancelAppointment', {appointments: appointmentsResults});
+        ;
     }
 
 ];
