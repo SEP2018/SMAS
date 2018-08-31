@@ -7,6 +7,12 @@ block content
     div(class='createForm')
         form(method='POST' action='')
             div(class='formElement')
+                label(for='doctor') Doctor:
+            div(class='formElement')
+                select#doctor(name='selectedStaff')
+                    for staff in allStaff
+                        option(value=staff.employeeID)=staff.lastName
+            div(class='formElement')
                 label(for='student_id') Student ID:
             div(class='formElement')
                 input#student_id.form-control(type='text' placeholder='Your Student ID...' name='student_id' required='true')

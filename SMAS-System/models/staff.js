@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 var orm = require('./orm');
 sequelize = orm.seq;
 const Staff = sequelize.define('Staff', {
-    staffID: {
+    employeeID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -43,7 +43,7 @@ var createStaff = {
 
 //export functions
 module.exports = {
-    getAllStaff: function() {
+    getAllStaff: async function() {
         return new Promise(function(resolve, reject) {
             return Staff.findAll().then(staff => {
                 resolve(staff);
