@@ -15,18 +15,23 @@ const Service = sequelize.define('Service', {
     }
 });
 
-// make a new Service object
-var createService = {
-    createService : function(description, daysAvailable){
-        Service.create({
-            description: description,
-            daysAvailable: daysAvailable
+//export functions
+module.exports = {
+    getAllServices: async function() {
+        return new Promise(function(resolve, reject) {
+            return Service.findAll().then(services => {
+                if (error){
+                    reject(error);
+                }
+                else{
+                    resolve(services);
+                }
+            });
+        }).then(services => {
+            return services;
         });
     }
 };
-
-//export functions
-module.exports = createService;
 
 /*
 // shows all Room objects

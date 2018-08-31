@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 var Service = require('./service');
-var Staff = require('./staff')
+var Staff = require('./staff');
 var orm = require('./orm');
 sequelize = orm.seq;
 const ServiceProvider = sequelize.define('ServiceProvider', {
@@ -20,18 +20,30 @@ const ServiceProvider = sequelize.define('ServiceProvider', {
     }
 });
 
-// make a new Service Provider object
-var createServiceProvider = {
-    createServiceProvider : function(serviceID, employeeID){
-        ServiceProvider.create({
-            serviceID: serviceID,
-            staffID: employeeID,
+//export functions
+module.exports = {
+
+    getAllStaffForService: async function(serviceID) {
+        return new Promise(function(resolve, reject) {
+            return ServiceProvider.findAll({
+                where: {serviceID: serviceID},
+                include: [{
+                        association: Staff,
+                        through: {where: {serviceID: serviceID}}
+                    }]
+            }).then(function (staff) {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(staff);
+                }
+            });
+        }).then(staff => {
+            return staff;
         });
     }
 };
-
-//export functions
-module.exports = createServiceProvider;
 
 /*
 // shows all Service Provider objects

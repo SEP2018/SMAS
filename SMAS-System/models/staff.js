@@ -27,26 +27,17 @@ const Staff = sequelize.define('Staff', {
     }
 });
 
-// make a new Room object
-var createStaff = {
-    createStaff : function(firstName, lastName, DOB, gender, abstract = null, specialisation = null){
-        Staff.create({
-            firstName: firstName,
-            lastName: lastName,
-            DOB: DOB,
-            gender: gender,
-            abstract: abstract,
-            specialisation: specialisation
-        });
-    }
-};
-
 //export functions
 module.exports = {
     getAllStaff: async function() {
         return new Promise(function(resolve, reject) {
             return Staff.findAll().then(staff => {
-                resolve(staff);
+                if (error){
+                    reject(error);
+                }
+                else{
+                    resolve(staff);
+                }
             });
         }).then(staff => {
             return staff;

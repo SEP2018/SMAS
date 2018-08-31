@@ -74,7 +74,12 @@ module.exports = {
                     studentID: studentID
                 }
             }).then(result => {
-                resolve(result);
+                if (error){
+                    reject(error);
+                }
+                else {
+                    resolve(result);
+                }
             });
         }).then(result => {
             return result;
