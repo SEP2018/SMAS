@@ -65,12 +65,21 @@ module.exports = {
             }
         });
     },
-    findAppointmentsByStudent : function(studentID){
-        Appointment.findAll({
-            where: {
-                studentID: studentID
-            }
+
+    findAppointmentsByStudent : async function(studentID) {
+        return new Promise(function(resolve, reject) {
+            return Appointment.findAll({
+                attributes: {appointmentID, studentID, description, time},
+                where: {
+                    studentID: studentID
+                }
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
         });
+
     },
     getUnavailableTimesByStaff: function(staffID){
         Appointment.findAll({
