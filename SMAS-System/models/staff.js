@@ -42,7 +42,17 @@ var createStaff = {
 };
 
 //export functions
-module.exports = createStaff;
+module.exports = {
+    getAllStaff: function() {
+        return new Promise(function(resolve, reject) {
+            return Staff.findAll().then(staff => {
+                resolve(staff);
+            });
+        }).then(staff => {
+            return staff;
+        });
+    }
+};
 
 /*
 // shows all Staff objects
