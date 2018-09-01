@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-var Staff = require('./staff');
-var orm = require('./orm');
+const Staff = require('./staff');
+const orm = require('./orm');
 sequelize = orm.seq;
 const Student = sequelize.define('Student', {
     studentID: {
@@ -30,7 +30,7 @@ const Student = sequelize.define('Student', {
 });
 
 // make a new Student object
-var createStudent = {
+const createStudent = {
     createStudent : function(firstName, lastName, DOB, gender, employeeID = null){
         Student.create({
             firstName: firstName,

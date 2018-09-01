@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-var Service = require('./service');
-var Staff = require('./staff');
-var orm = require('./orm');
+const Service = require('./service');
+const Staff = require('./staff');
+const orm = require('./orm');
 sequelize = orm.seq;
 const ServiceProvider = sequelize.define('ServiceProvider', {
     serviceID: {

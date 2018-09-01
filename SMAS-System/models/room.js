@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-var orm = require('./orm');
-var Staff = require('./staff');
+const orm = require('./orm');
+const Staff = require('./staff');
 sequelize = orm.seq;
 const Room = sequelize.define('Room', {
     roomID: {
@@ -21,7 +21,7 @@ const Room = sequelize.define('Room', {
 });
 
 // make a new Room object
-var createRoom = {
+const createRoom = {
     createRoom : function(type, employeeID = null){// employeeID) {
         Room.create({
             type: type,

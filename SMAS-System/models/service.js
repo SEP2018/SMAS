@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-var orm = require('./orm');
+const orm = require('./orm');
 sequelize = orm.seq;
 const Service = sequelize.define('Service', {
     serviceID: {

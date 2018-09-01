@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
-var orm = require('./orm');
-var Student = require('./student');
-var Staff = require('./staff');
-var Room = require('./room');
+const orm = require('./orm');
+const Student = require('./student');
+const Staff = require('./staff');
+const Room = require('./room');
+const Service = require('./service')
 sequelize = orm.seq;
 const Appointment = sequelize.define('Appointment', {
     appointmentID: {
@@ -48,6 +49,13 @@ const Appointment = sequelize.define('Appointment', {
     },
     appointmentDate: {
         type: Sequelize.DATEONLY
+    },
+    serviceID: {
+        type: Sequelize.INTEGER
+        references: {
+            model: Service,
+            key: ''
+        }
     }
 });
 

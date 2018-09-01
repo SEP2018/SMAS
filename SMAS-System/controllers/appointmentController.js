@@ -1,4 +1,4 @@
-var Appointment = require('../models/appointment')
+const Appointment = require('../models/appointment')
     , Staff = require('../models/staff');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
@@ -74,5 +74,4 @@ exports.appointment_cancel_post = [
         }
         ;
     }
-
 ];
