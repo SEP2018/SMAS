@@ -80,13 +80,11 @@ module.exports = {
                 where: {
                     studentID: studentID
                 }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
             }).then(result => {
-                if (error){
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
+                resolve(result);
             });
         }).then(result => {
             return result;

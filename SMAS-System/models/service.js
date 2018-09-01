@@ -19,13 +19,11 @@ const Service = sequelize.define('Service', {
 module.exports = {
     getAllServices: async function() {
         return new Promise(function(resolve, reject) {
-            return Service.findAll().then(services => {
-                if (error){
-                    reject(error);
-                }
-                else{
-                    resolve(services);
-                }
+            return Service.findAll().catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(services => {
+                resolve(services);
             });
         }).then(services => {
             return services;
