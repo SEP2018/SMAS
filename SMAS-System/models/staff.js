@@ -31,13 +31,11 @@ const Staff = sequelize.define('Staff', {
 module.exports = {
     getAllStaff: async function() {
         return new Promise(function(resolve, reject) {
-            return Staff.findAll().then(staff => {
-                if (error){
-                    reject(error);
-                }
-                else{
-                    resolve(staff);
-                }
+            return Staff.findAll().catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(staff => {
+                resolve(staff);
             });
         }).then(staff => {
             return staff;
