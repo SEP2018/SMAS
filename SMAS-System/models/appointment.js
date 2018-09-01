@@ -10,9 +10,6 @@ const Appointment = sequelize.define('Appointment', {
         primaryKey: true,
         autoIncrement: true,
     },
-    time: {
-        type: Sequelize.DATE
-    },
     description: {
         type: Sequelize.STRING
     },
@@ -43,19 +40,29 @@ const Appointment = sequelize.define('Appointment', {
             key: 'roomID'
         }
     },
+    startTime: {
+        type: Sequelize.TIME
+    },
+    endTime: {
+        type: Sequelize.TIME
+    },
+    appointmentDate: {
+        type: Sequelize.DATEONLY
+    }
 });
 
 // make a new Appointment object
 module.exports = {
-    makeAppointment : function(time, description, studentID, employeeID){
+    makeAppointment : function(description, studentID, employeeID, startTime, appointmentDate){
         Appointment.create({
-            time: time,
             description: description,
             notes: null,
             cancellationFlag: null,
             studentID: studentID,
             employeeID: employeeID,
-            roomID: null
+            roomID: null,
+            startTime: startTime,
+            appointmentDate: appointmentDate
         });
     },
     cancelAppointment : function(appointmentID){
@@ -69,7 +76,7 @@ module.exports = {
     findAppointmentsByStudent : async function(studentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
-                attributes: ['appointmentID', 'studentID', 'description', 'time'],
+                attributes: ['appointmentID', 'studentID', 'description', 'startTime', 'appointmentDate'],
                 where: {
                     studentID: studentID
                 }
