@@ -12,6 +12,9 @@ const Service = sequelize.define('Service', {
     },
     daysAvailable: {
         type: Sequelize.STRING
+    },
+    duration: {
+        type: Sequelize.TIME
     }
 });
 
