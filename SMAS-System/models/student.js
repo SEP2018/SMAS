@@ -29,25 +29,10 @@ const Student = sequelize.define('Student', {
     }
 });
 
-// make a new Student object
-const createStudent = {
-    createStudent : function(firstName, lastName, DOB, gender, staffID = null){
-        Student.create({
-            firstName: firstName,
-            lastName: lastName,
-            DOB: DOB,
-            gender: gender,
-            staffID: staffID
-        });
-    }
-};
 
 //export functions
-module.exports = createStudent;
+module.exports = {
+    setPreferredDoctor: function() {
 
-/*
-// shows all Staff objects
-Student.findAll().then(students => {
-    console.log(students)
-});
-*/
+    }
+};

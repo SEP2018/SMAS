@@ -40,12 +40,8 @@ module.exports = {
         }).then(staff => {
             return staff;
         });
+    },
+    getStaffByService: async function(title) {
+
     }
 };
-
-/*
-// shows all Staff objects
-Staff.findAll().then(staff => {
-    console.log(staff)
-});
-*/

@@ -106,11 +106,11 @@ module.exports = {
                 staffID: staffID,
             }
         });
+    },
+    getAvailableTimesByStaff: function(staffID) {
+
+    },
+    getAvailableSlotsForService: function(serviceID, availableTimeByStaff) {
+
     }
 };
-
-// shows all Appointment objects
-/*Appointment.findAll().then(appointments => {
-    console.log(appointments)
-});
-*/

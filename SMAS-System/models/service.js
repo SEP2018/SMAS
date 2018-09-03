@@ -33,10 +33,3 @@ module.exports = {
         });
     }
 };
-
-/*
-// shows all Room objects
-Service.findAll().then(services => {
-    console.log(services)
-});
-*/

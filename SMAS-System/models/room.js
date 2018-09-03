@@ -20,22 +20,9 @@ const Room = sequelize.define('Room', {
     }
 });
 
-// make a new Room object
-const createRoom = {
-    createRoom : function(type, staffID = null){// staffID) {
-        Room.create({
-            type: type,
-            staffID: staffID
-        });
+//export functions
+module.exports = {
+    getRoomByStaff: function(staffID) {
+
     }
 };
-
-//export functions
-module.exports = createRoom;
-
-/*
-// shows all Room objects
-Room.findAll().then(rooms => {
-    console.log(rooms)
-});
-*/
