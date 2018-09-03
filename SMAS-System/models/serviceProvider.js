@@ -11,11 +11,11 @@ const ServiceProvider = sequelize.define('ServiceProvider', {
             key: 'serviceID'
         }
     },
-    employeeID: {
+    staffID: {
         type: Sequelize.INTEGER,
         references: {
             model: Staff,
-            key: 'employeeID'
+            key: 'staffID'
         }
     }
 });

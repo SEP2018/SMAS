@@ -11,7 +11,7 @@ block content
             div(class='formElement')
                 select#doctor(name='selectedStaff')
                     for staff in allStaff
-                        option(value=staff.employeeID)=staff.lastName
+                        option(value=staff.staffID)=staff.lastName
             div(class='formElement')
                 label(for='student_id') Student ID:
             div(class='formElement')

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const orm = require('./orm');
 sequelize = orm.seq;
 const Staff = sequelize.define('Staff', {
-    employeeID: {
+    staffID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,

@@ -20,7 +20,7 @@ const Student = sequelize.define('Student', {
     gender: {
         type: Sequelize.STRING
     },
-    employeeID: {
+    staffID: {
         type: Sequelize.INTEGER,
         references: {
             model: Staff,
@@ -31,13 +31,13 @@ const Student = sequelize.define('Student', {
 
 // make a new Student object
 const createStudent = {
-    createStudent : function(firstName, lastName, DOB, gender, employeeID = null){
+    createStudent : function(firstName, lastName, DOB, gender, staffID = null){
         Student.create({
             firstName: firstName,
             lastName: lastName,
             DOB: DOB,
             gender: gender,
-            employeeID: employeeID
+            staffID: staffID
         });
     }
 };

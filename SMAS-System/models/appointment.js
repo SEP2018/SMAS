@@ -27,11 +27,11 @@ const Appointment = sequelize.define('Appointment', {
             key: 'studentID'
         }
     },
-    employeeID: {
+    staffID: {
         type: Sequelize.INTEGER,
         references: {
             model: Staff,
-            key: 'employeeID'
+            key: 'staffID'
         }
     },
     roomID: {
@@ -61,13 +61,13 @@ const Appointment = sequelize.define('Appointment', {
 
 // make a new Appointment object
 module.exports = {
-    makeAppointment : function(description, studentID, employeeID, startTime, appointmentDate){
+    makeAppointment : function(description, studentID, staffID, startTime, appointmentDate){
         Appointment.create({
             description: description,
             notes: null,
             cancellationFlag: null,
             studentID: studentID,
-            employeeID: employeeID,
+            staffID: staffID,
             roomID: null,
             startTime: startTime,
             appointmentDate: appointmentDate

@@ -42,7 +42,7 @@ exports.appointment_create_post = [
                 return;
             }
             else {
-                Appointment.makeAppointment(req.body.time.toString().concat(' ' + req.body.appointTime + ' +00:00'), req.body.description, req.body.student_id, req.body.selectedStaff);
+                Appointment.makeAppointment(req.body.description, req.body.student_id, req.body.selectedStaff, req.body.time, req.body.appointTime);
                 res.render('createAppointmentSuccess', {title: 'Success!', studentid: req.body.student_id, date: req.body.time});
             }
         }

@@ -11,7 +11,7 @@ const Room = sequelize.define('Room', {
     type: {
         type: Sequelize.STRING
     },
-    employeeID: {
+    staffID: {
         type: Sequelize.INTEGER,
         references: {
             model: Staff,
@@ -22,10 +22,10 @@ const Room = sequelize.define('Room', {
 
 // make a new Room object
 const createRoom = {
-    createRoom : function(type, employeeID = null){// employeeID) {
+    createRoom : function(type, staffID = null){// staffID) {
         Room.create({
             type: type,
-            employeeID: employeeID
+            staffID: staffID
         });
     }
 };
