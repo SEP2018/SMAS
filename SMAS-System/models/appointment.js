@@ -51,10 +51,10 @@ const Appointment = sequelize.define('Appointment', {
         type: Sequelize.DATEONLY
     },
     serviceID: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
         references: {
             model: Service,
-            key: ''
+            key: 'serviceID'
         }
     }
 });
