@@ -1,5 +1,6 @@
 *.env 
 .idea/*
+SMAS-System/.idea/*
 
 # Logs
 logs
