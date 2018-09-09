@@ -2,6 +2,9 @@
 .idea/*
 SMAS-System/.idea/*
 
+# Google Calendar API
+SMAS-System/models/token.json
+
 # Logs
 logs
 *.log
