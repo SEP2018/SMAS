@@ -10,7 +10,7 @@ const TOKEN_PATH = 'token.json';
 fs.readFile('credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Calendar API.
-    authorize(JSON.parse(content), listEvents);
+    authorize(JSON.parse(content), insertEvent);
 });
 
 /**
@@ -63,10 +63,60 @@ function getAccessToken(oAuth2Client, callback) {
     });
 }
 
+let event = {
+    'summary': 'TEST SMAS Appointment',
+    'location': '15 Broadway, Ultimo NSW 2007',
+    'description': 'The description I gave for... ',
+    'start': {
+        //'dateTime': '2015-05-28T09:00:00-07:00',
+        'dateTime': '2018-09-15T09:00:00',
+        'timeZone': 'Australia/Sydney',
+    },
+    'end': {
+        //'dateTime': '2015-05-28T17:00:00-07:00',
+        'dateTime': '2018-09-15T10:30:00',
+        'timeZone': 'Australia/Sydney',
+    },
+    /*'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+    ],
+    'attendees': [
+        {'email': 'lpage@example.com'},
+        {'email': 'sbrin@example.com'},
+    ],*/
+    'reminders': {
+        'useDefault': false,
+        'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 2 * 60},
+        ],
+    },
+};
+
+
+//https://developers.google.com/calendar/create-events
+
+function insertEvent(auth) {
+    const calendar = google.calendar({version: 'v3', auth});;
+    calendar.events.insert({
+        auth: auth,
+        calendarId: 'primary',
+        resource: event,
+        sendNotifications: true,
+    }, function(err, event) {
+        if (err) {
+            console.log('There was an error contacting the Calendar service: ' + err);
+            return;
+        }
+        console.log('Event created: %s', event.htmlLink);
+    });
+}
+
+/*
 /**
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
- */
+
 function listEvents(auth) {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.list({
@@ -89,51 +139,4 @@ function listEvents(auth) {
         }
     });
 }
-
-var event = {
-    'summary': 'Appointment',
-    'location': '15 Broadway, Ultimo NSW 2007',
-    'description': 'The description I gave for my cold...',
-    'start': {
-        //'dateTime': '2015-05-28T09:00:00-07:00',
-        'dateTime': '2015-05-28T09:00:00',
-        'timeZone': 'Australia/Sydney',
-    },
-    'end': {
-        //'dateTime': '2015-05-28T17:00:00-07:00',
-        'dateTime': '2015-05-28T17:00:00',
-        'timeZone': 'Australia/Sydney',
-    },
-    /*'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=2'
-    ],
-    'attendees': [
-        {'email': 'lpage@example.com'},
-        {'email': 'sbrin@example.com'},
-    ],*/
-    'reminders': {
-        'useDefault': false,
-        'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 10},
-        ],
-    },
-};
-
-
-//https://developers.google.com/calendar/create-events
-
-
-const calendar = google.calendar({version: 'v3', auth});;
-calendar.events.insert({
-    auth: auth,
-    calendarId: 'primary',
-    resource: event,
-    sendNotifications: true,
-}, function(err, event) {
-    if (err) {
-        console.log('There was an error contacting the Calendar service: ' + err);
-        return;
-    }
-    console.log('Event created: %s', event.htmlLink);
-});
+*/
