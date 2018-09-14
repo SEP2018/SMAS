@@ -3,3 +3,8 @@ before_install: cd SMAS-System
 node_js:
   - "node"
   - "8.11.4"
+
+deploy:
+  provider: azure_web_apps
+  skip_cleanup: true
+  verbose: true
