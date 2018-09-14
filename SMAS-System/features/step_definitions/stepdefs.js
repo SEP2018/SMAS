@@ -18,5 +18,5 @@ const { Given, When, Then } = require('cucumber');
     });
 
     Then('the selected doctor is assigned to the appointment', function () {
-        assert.equal(this.actualAnswer, 'Thiccsworth');
+        assert.equal(this.actualAnswer, 'Unsworth');
     });
