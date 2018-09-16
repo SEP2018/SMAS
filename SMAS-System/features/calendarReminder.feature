@@ -1,9 +1,9 @@
-#viewAppointments.feature
-  Feature: View existing appointments
-      I should be able to view my existing appointments
+#calendarReminder.feature
+  Feature: Set Calendar Reminder
+      I should be able to opt-in for calendar reminders
 
-  Scenario: View Appointments is selected
-    Given a user is logged in to SMAS
-    And the user has booked at least one appointment
-    When they select the 'View Appointments' button
-    Then a list of existing appointments is displayed on the screen
+  Scenario: User opts to create a calendar event
+    Given a user has scheduled an appointment
+    When the user opts to create a calendar event
+    And the Google account authentication is successful
+    Then a Google Calendar reminder is created for the appointment
