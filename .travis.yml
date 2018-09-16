@@ -1,6 +1,7 @@
 language: node_js
-before_install: cd SMAS-System
-install: git fetch --unshallow
+before_install:
+  - cd SMAS-System
+  - git fetch --unshallow
 node_js:
   - "node"
 
