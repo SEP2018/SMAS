@@ -7,164 +7,155 @@ body {
 	background-color: #ffffff;
 }
 
-.container {
-	width: 80%;
-	margin: auto;
-	overflow: hidden;
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+.header{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
 }
 
-.header {
-	background: #0f0f0f;
-	color: #cd3935;
-	padding-top: 20px;
-	min-height: 60px;
-	border-bottom: #cd3935 3px solid;
-	text-align: center;
+.top-header-bg {
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-.header p {
-	color: #cd3935;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-size: 14px
+.logo {
+    float: left;
+    height: 30px;
+    padding: 5px 5px 5px 50px;
 }
 
-.header a {
-	color: #ffffff;
-	text-decoration: none;
-	text-transform: uppercase;
-	font-size: 16px;
+.logout-btn{
+    max-height: 15px;
+    padding-left: 10px;
 }
 
-.header #top_header {
-	margin: 0;
-	font-size: 20px;
-}
-
-.body {
-	padding: 10px;
-}
-
-.body table {
-	padding: 10px;
-	margin: auto;
-}
-
-.body td {
-	padding: 10px;
-}
-
-.largeButton {
-  font-family: arial;
-  color: #0F0F0F !important;
-  font-size: 16px;
-  padding: 20px 30px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  border: 3px solid #1F7D50;
-  background: #63B8EE;
-  background: linear-gradient(top,  #5DD79D,  #2EBA78);
-  background: -ms-linear-gradient(top,  #5DD79D,  #2EBA78);
-  background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
-  background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
-}
-.largeButton:hover {
-  color: #14396A !important;
-  background: #468CCF;
-  background: linear-gradient(top,  #2EBA78,  #5DD79D);
-  background: -ms-linear-gradient(top,  #2EBA78,  #5DD79D);
-  background: -webkit-gradient(linear, left top, left bottom, from(#2EBA78), to(#5DD79D));
-  background: -moz-linear-gradient(top,  #2EBA78,  #5DD79D);
-}
-
-.smallButton {
-  font-family: arial;
-  color: #0F0F0F !important;
-  font-size: 12px;
-  padding: 5px 5px;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
-  border: 2px solid #1F7D50;
-  background: #63B8EE;
-  background: linear-gradient(top,  #5DD79D,  #2EBA78);
-  background: -ms-linear-gradient(top,  #5DD79D,  #2EBA78);
-  background: -webkit-gradient(linear, left top, left bottom, from(#5DD79D), to(#2EBA78));
-  background: -moz-linear-gradient(top,  #5DD79D,  #2EBA78);
-}
-.smallButton:hover {
-  color: #14396A !important;
-  background: #468CCF;
-  background: linear-gradient(top,  #2EBA78,  #5DD79D);
-  background: -ms-linear-gradient(top,  #2EBA78,  #5DD79D);
-  background: -webkit-gradient(linear, left top, left bottom, from(#2EBA78), to(#5DD79D));
-  background: -moz-linear-gradient(top,  #2EBA78,  #5DD79D);
-}
-
-.createForm {
-	border-radius: 5px;
-    background-color: #151515;
-    padding: 20px;
+.username{
+    color: #fff;
     display: inline-block;
-    color: #ffffff
+    font-weight: 500;
+    vertical-align: middle;
+    font-size: 15px;
+
 }
 
-.cancelForm {
-    padding: 10px;
-}
-
-.formElement {
-	padding: 5px;
-    color: #ffffff;
-}
-
-input[type=text], input[type=date] {
-    width: 300px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-input[type="date"]:focus::before {
-   content: "" !important;
-}
-
-.deleteTable {
-	padding: 10px;
-}
-
-.deleteTable table {
-	margin: auto;
-	border: 1px solid #000000;
-	border-collapse: collapse;
-	width: 50%;
-	padding: 10px;
-}
-
-.deleteTable tr {
-	background-color: #ffffff;
-}
-
-.deleteTable tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-.deleteTable tr:hover {
-	background-color: #ddd;
-}
-
-.deleteTable td, .deleteTable th {
-	padding: 5px;
-}
-
-.deleteTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+.header-user{
     text-align: center;
-    background-color: #cd3935;
-    color: white;
+    vertical-align: middle;
+    line-height: 15px;
+    height:40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #69be00;
+    margin-right: 60px;
+    float: right;
+}
+
+/*--------------------------------------------------------------
+# Banner
+--------------------------------------------------------------*/
+
+.banner-area{
+    margin-top: 0;
+    position: relative;
+    z-index: 0;
+}
+
+.banner{
+    max-width: 100%;
+    background-size: cover;
+    position: relative;
+}
+
+.banner-heading{
+    margin-top: 180px;
+    position: relative;
+}
+
+.banner-heading-position{
+    width: 500px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: -50px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+.nav-menu-bg {
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.nav-menu, .nav-menu * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-menu ul {
+    position: absolute;
+    display: none;
+}
+
+.nav-menu li {
+    position: relative;
+    float:right;
+    margin-left: 10px;
+}
+
+/* Nav Meu Styling */
+.nav-menu a {
+    padding: 10px 15px 10px 15px;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-menu li:hover > a {
+    color: #69be00;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+.footer-bg{
+    background-color: #222222;
+    height: 220px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.footer-content{
+    width: 380px;
+    margin: 0 auto;
+
+}
+
+.footer-logo{
+    height: 80px;
+}
+
+.footer-text{
+    color: #ffffff;
+    padding-bottom: 0;
 }
