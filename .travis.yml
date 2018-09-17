@@ -1,5 +1,11 @@
 language: node_js
-before_install: cd SMAS-System
+before_install:
+  - cd SMAS-System
+  - git fetch --unshallow
 node_js:
   - "node"
-  - "8.11.4"
+
+deploy:
+  provider: azure_web_apps
+  skip_cleanup: true
+  verbose: true

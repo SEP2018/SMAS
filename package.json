@@ -16,6 +16,7 @@
     "express"
   ],
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "~3.1.0",
     "jade": "*",
     "tedious": "^2.6.4"

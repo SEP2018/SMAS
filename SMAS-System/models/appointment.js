@@ -3,7 +3,7 @@ const orm = require('./orm');
 const Student = require('./student');
 const Staff = require('./staff');
 const Room = require('./room');
-const Service = require('./service')
+const Service = require('./service');
 sequelize = orm.seq;
 const Appointment = sequelize.define('Appointment', {
     appointmentID: {
@@ -99,18 +99,15 @@ module.exports = {
         });
 
     },
-    getUnavailableTimesByStaff: function(staffID){
-        Appointment.findAll({
-            attributes : {time},
-            where : {
-                staffID: staffID,
-            }
+    getAvailabilityByStaffAndDayForService: function(serviceID, staffID, appointmentDate){
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate);',
+                {replacements: { serviceID: serviceID, staffID: staffID, appointmentDate: appointmentDate }})
+                .then(function(response){
+                console.log(response);
+            }).error(function(err){
+                console.log(err);
+            });
         });
-    },
-    getAvailableTimesByStaff: function(staffID) {
-
-    },
-    getAvailableSlotsForService: function(serviceID, availableTimeByStaff) {
-
     }
 };
