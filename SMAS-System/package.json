@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "cucumber-js"
+    "test": "concurrently 'cucumber-js' 'jasmine'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
