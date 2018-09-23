@@ -228,13 +228,13 @@ h2{
     margin: 0 auto;
 }
 
-th{
+.form-th{
     text-align: left;
     border-bottom: 1px solid #69be00;
     font-weight: normal;
 }
 
-td{
+.form-td{
     text-align: right;
     border-bottom: 1px solid #69be00;
 }
