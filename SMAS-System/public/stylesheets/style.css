@@ -8,6 +8,58 @@ body {
 }
 
 /*--------------------------------------------------------------
+# Login Page
+--------------------------------------------------------------*/
+
+.login-bg{
+    width: 100%;
+}
+
+.login-logo{
+    maring-top: 10px;
+    height: 100px;
+    margin-bottom: -30px;
+
+}
+
+
+.login-form-bg{
+    position: fixed;
+    width: 400px;
+    height: 350px;
+    padding-left: 25px;
+    padding-right: 25px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #ffffff;
+    opacity: 0.7;
+    box-shadow: 3px 3px 10px black;
+    z-index: 98;
+}
+
+.login-form-container{
+    position: fixed;
+    width: 400px;
+    height: 350px;
+    padding-left: 25px;
+    padding-right: 25px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    opacity: 1;
+    z-index: 99;
+}
+
+.login-form{
+    margin-top: 10px;
+}
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 
@@ -102,6 +154,10 @@ h1 {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.nav-menu-container {
+    margin-right: 50px;
+}
+
 .nav-menu, .nav-menu * {
     margin: 0;
     padding: 0;
@@ -136,6 +192,158 @@ h1 {
 }
 
 /*--------------------------------------------------------------
+# About Section
+--------------------------------------------------------------*/
+
+h2{
+    margin-bottom: 0;
+}
+
+.about-section{
+    padding: 40px;
+}
+
+.about-side{
+    width:50%;
+    z-index: 1;
+}
+
+.about-description{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.booking-side{
+    position: absolute;
+    width: 35%;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 10px black;
+    top: 380px;
+    left: 55%;
+    z-index: 99;
+}
+
+.service-hours{
+    border-spacing: 10px;
+    margin: 0 auto;
+}
+
+.form-th{
+    text-align: left;
+    border-bottom: 1px solid #69be00;
+    font-weight: normal;
+}
+
+.form-td{
+    text-align: right;
+    border-bottom: 1px solid #69be00;
+}
+
+.booking-form{
+    padding: 10px;
+}
+
+.form-item{
+    width: 330px;
+    padding: 5px;
+    margin: 7px;
+}
+
+.form-item-desc{
+    width: 330px;
+    height: 70px;
+    padding: 5px;
+    margin: 10px;
+}
+
+.form-feedback{
+    font-size: 15px;
+}
+
+.form-submit{
+    width: 340px;
+    background-color: #69be00;
+    font-size: 15px;
+    color: white;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+
+/*--------------------------------------------------------------
+# HOME - Service & Doctor Area
+--------------------------------------------------------------*/
+
+.h2-service{
+    color: white;
+}
+
+.service-area{
+    background-color: #707070;
+    padding:40px;
+}
+
+
+.home-item{
+    height: 200px;
+}
+
+.home-item-container{
+    position: relative;
+    height:200px;
+    width:200px;
+    display: inline-block;
+    padding:25px;
+}
+
+.img-overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    margin:25px;
+    transition: .5s ease;
+    background-color: #69be00;
+}
+
+.home-item-container:hover .img-overlay {
+    opacity: 0.7;
+}
+
+.img-overlay-text{
+    color: white;
+}
+
+.img-text-service{
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.img-text-doctor{
+    font-weight: bold;
+    color: black;
+    margin: 0;
+}
+/*--------------------------------------------------------------
+# HOME - Doctor Area
+--------------------------------------------------------------*/
+
+.doctor-area{
+    background-color: #ffffff;
+    padding:40px;
+}
+
+.doctor-item{
+    height: 200px;
+    padding: 25px;
+}
+/*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 
@@ -144,12 +352,12 @@ h1 {
     height: 220px;
     padding-top: 30px;
     padding-bottom: 30px;
+
 }
 
 .footer-content{
     width: 380px;
     margin: 0 auto;
-
 }
 
 .footer-logo{
@@ -159,4 +367,44 @@ h1 {
 .footer-text{
     color: #ffffff;
     padding-bottom: 0;
+}
+
+.footer-links {
+    margin: 0 auto;
+}
+
+/*--------------------------------------------------------------
+# Staff View
+--------------------------------------------------------------*/
+.h1-staff {
+    font-size: 48px;
+    margin-bottom: -50px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.daily-appointments {
+    margin-top: 6em;
+    margin-left: 5em;
+    margin-right: 5em;
+    background: #F0F0F0;
+    padding: 2em;
+
+}
+
+.daily-table{
+    background: #ffffff;
+    padding: 1em;
+    border: 1px solid #808080;
+    margin-top: 6em;
+    border-spacing: 1em;
+
+}
+
+.h3-date {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+    font-weight: 700;
+    float: left;
 }

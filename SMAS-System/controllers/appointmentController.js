@@ -22,6 +22,16 @@ exports.appointment_create_get = function(req, res){
     });
 };
 
+//Loads bookings page
+exports.bookings_get = function(req, res) {
+    res.render('bookings', {title: 'Manage Bookings'})
+}
+
+//POST request for bookings page
+exports.bookings_post = function(req, res) {
+    res.render('bookings', {title: 'Manage Bookings'})
+}
+
 // Handle Appointment creation form on POST
 exports.appointment_create_post = [
      //Field Validation

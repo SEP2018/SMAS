@@ -1,0 +1,58 @@
+extends layout
+block content
+    header(class='header')
+        div(class='top-header-bg')
+            a(href='/')
+                img(src='/img/logo.png' class='logo')
+            div(class='header-user')
+                div(class='username')
+                    p Chloe Dizon
+                    // above is placeholder
+                img(src='/img/logoutbtn.png' class='logout-btn')
+                // above needs link + logout
+        div(class='nav-menu-bg')
+            div(class='nav-menu-container')
+                ul.nav-menu
+                    li
+                        a(href='doctors.pug') Doctor
+                        // needs routing
+                    li
+                        a(href='services.pug') Services
+                        // needs routing
+                    li
+                        a(href='bookings.pug') Bookings
+                        // needs routing
+                    li
+                        a(href='/') Home
+
+        div(class='page-title')
+            h1(class='h1-staff') Appointments
+
+        div(class='daily-appointments')
+                h3(class='h3-date') 14 September
+                // above is placeholder date//
+
+                div
+                    table(class='daily-table')
+                        tr
+                            td 9:00
+                            td John Smith
+                            td General Check-Up
+                        tr
+                            td 9:15
+                            td John Smith
+                            td General Check-Up
+                        tr
+                            td 9:30
+                        tr
+                            td 9:45
+                        tr
+                            td 10:00
+                        tr
+                            td 10:15
+                        tr
+                            td 10:30
+                        tr
+                            td 10:45
+                        tr
+                            td 11:00

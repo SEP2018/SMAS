@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    header(class='header')
+        div(class='top-header-bg')
+            a(href='/')
+                img(src='/img/logo.png' class='logo')
+            div(class='header-user')
+                div(class='username')
+                    p Chloe Dizon
+                    // above is placeholder
+                img(src='/img/logoutbtn.png' class='logout-btn')
+                // above needs link + logout
+        div(class='nav-menu-bg')
+            div(class='nav-menu-container')
+                ul.nav-menu
+                    li
+                        a(href='/doctors') Doctor
+                    li
+                        a(href='/services') Services
+                    li
+                        a(href='/appointments/bookings') Bookings
+                    li
+                        a(href='/') Home
+
+    div(class='banner-area')
+        img(src='/img/doctors-banner.jpg' class='banner')
+        div(class='banner-heading-position')
+            h1(class='banner-heading') Our Doctors
+
+
+    footer(class='footer')
+        div(class='footer-bg')
+            div(class='footer-content')
+                img(src='/img/footer-logo.png' class='footer-logo')
+                div(class='footer-contact')
+                    p(class='footer-text') For any questions or enquiries, please contact 0412 345 678 | utsmedical@uts.edu.au
+                div(class='footer-links')
+                    ul.nav-menu
+                        li
+                            a(href='/doctors') Doctor
+                        li
+                            a(href='/services') Services
+                        li
+                            a(href='/appointments/bookings') Bookings
+                        li
+                            a(href='/') Home
+
