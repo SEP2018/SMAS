@@ -70,18 +70,24 @@ exports.appointment_cancel_post = [
     // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     (req, res, next) => {
+        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.render('cancelAppointment', { title: 'Cancel an Appointment', errors: errors.array() });
             return;
         }
-        else {
+        else if(req.body.button === 'find') {
+            console.log('1');
             var appointmentsResults = Appointment.findAppointmentsByStudent(req.body.student_id);
-            appointmentsResults.then( async function() {
+            appointmentsResults.then(async function () {
                 appointmentsResults = await appointmentsResults;
-                res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: appointmentsResults})
             });
+            res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: appointmentsResults})
         }
-        ;
+        else if(req.body.button === 'cancel') {
+            console.log('2');
+            Appointment.cancelAppointment(req.body.row_id);
+            res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: []})
+        }
     }
 ];

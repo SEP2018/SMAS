@@ -1,33 +1,36 @@
 extends layout
 
 block content
-    div(class='header')
+    //div(class='header')
         h1= title
 
     form(method='POST' action='')
-        div(class='cancelForm')
-            span(class='formElement')
-                label(for='student_id') Student ID:
-            span(class='formElement')
-                input#student_id.form-control(type='text' placeholder='Your Student ID...' name='student_id' required='true')
-            span(class='formElement')
-                button(class='smallButton') Continue
+        label(for='student_id') Student ID:
+        input#student_id.form-control(type='text' placeholder='Your Student ID...' name='student_id' required='true')
+        button(type='submit' name='button' value='find') Continue
 
 
-    div(class='deleteTable')
+    div
         table(id='appointments')
             tr
                 th Student ID
                 th Description
-                th Time
+                th Start Time
+                th End Time
+                th Date
                 th Cancel
 
             for appointment in appointments
-                tr(id=appointment.appointmentID)
+                tr
                     td!= appointment.studentID
                     td!= appointment.description
-                    td!= appointment.time
-                    td #[input(type='button' class='smallButton' value='Cancel' onclick='CancelRow(this)')]
+                    td!= appointment.startTime
+                    td!= appointment.endTime
+                    td!= appointment.appointmentDate
+                    td
+                        form(method='POST' action='')
+                            input#row_id.form-control(type='hidden' name='row_id' value=appointment.appointmentID)
+                            button(type='submit' name='button' value='cancel') Cancel
 
     script.
         function CancelRow(button) {
