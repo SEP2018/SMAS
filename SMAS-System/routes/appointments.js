@@ -6,7 +6,7 @@ var appointment_controller = require('../controllers/appointmentController');
 // routes //
 
 //GET appointment home page
-router.get('/', appointment_controller.index)
+router.get('/', appointment_controller.index);
 
 //GET request for bookings
 router.get('/bookings', appointment_controller.bookings_get);
