@@ -3,11 +3,13 @@ var router = express.Router();
 
 var doctors_controller = require('../controllers/doctorsController');
 var services_controller = require('../controllers/servicesController');
+var index_controller = require('../controllers/indexController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Student Medical Appointment System' });
-});
+router.get('/', index_controller.index);
+
+//POST home page
+router.post('/', index_controller.home_post);
 
 //GET request for doctors
 router.get('/doctors', doctors_controller.doctors_get);
