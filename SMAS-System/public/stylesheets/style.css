@@ -372,3 +372,39 @@ h2{
 .footer-links {
     margin: 0 auto;
 }
+
+/*--------------------------------------------------------------
+# Staff View
+--------------------------------------------------------------*/
+.h1-staff {
+    font-size: 48px;
+    margin-bottom: -50px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.daily-appointments {
+    margin-top: 6em;
+    margin-left: 5em;
+    margin-right: 5em;
+    background: #F0F0F0;
+    padding: 2em;
+
+}
+
+.daily-table{
+    background: #ffffff;
+    padding: 1em;
+    border: 1px solid #808080;
+    margin-top: 6em;
+    border-spacing: 1em;
+
+}
+
+.h3-date {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+    font-weight: 700;
+    float: left;
+}
