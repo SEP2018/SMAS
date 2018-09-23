@@ -330,6 +330,7 @@ h2{
     color: black;
     margin: 0;
 }
+
 /*--------------------------------------------------------------
 # HOME - Doctor Area
 --------------------------------------------------------------*/
@@ -342,6 +343,71 @@ h2{
 .doctor-item{
     height: 200px;
     padding: 25px;
+}
+
+/*--------------------------------------------------------------
+# SERVICES/DOCTORS PAGES
+--------------------------------------------------------------*/
+.sd-heading{
+    color: #707070;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px #222222;
+
+}
+
+.sd-description{
+    color: #707070;
+}
+
+.sd-body{
+    padding: 20px 180px 20px 180px;
+}
+
+.sd-container{
+    margin: 50px 0px 50px 0px;
+}
+
+.sd-item{
+    margin-left: 200px;
+    padding: 15px 0px 15px 15px;
+    text-align: left;
+}
+
+.sd-item-container{
+    background-color: #D3D3D3;
+    width: 100%;
+    height: 200px;
+    margin: 40px 0px 40px 0px;
+    position: relative;
+}
+
+.sd-img{
+    height:200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.sd-item-heading{
+    margin: 0;
+}
+
+.sd-item-desc{
+    padding-right: 15px;
+}
+
+.sd-button{
+    width: 230px;
+    background-color: #69be00;
+    font-size: 15px;
+    color: white;
+    border: none;
+    padding: 5px;
+    margin-top: 10px;
+    float: right;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 /*--------------------------------------------------------------
 # Footer
