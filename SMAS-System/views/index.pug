@@ -46,13 +46,20 @@ block content
         div(class='booking-side')
             div(class='booking-form')
                 h2 Book an Appointment
-                form
-                    //below are all placeholders
-                    input(placeholder="Service" class="form-item")
-                    input(placeholder="Doctor" class="form-item")
-                    input(placeholder="Date" class="form-item")
-                    input(placeholder="Time" class="form-item")
-                    input(placeholder="Description" class="form-item-desc")
+                form(method='POST' action='')
+                    select#service(name='selectedService' class="form-item")
+                        for service in allService
+                            option(value=service.serviceID)=service.title
+                    select#doctor(name='selectedStaff' class="form-item")
+                        for staff in allStaff
+                            option(value=staff.staffID)=staff.lastName
+                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true')
+                    select#appointTime(class = "form-item" name='appointTime')
+                        option(value='09:30:00') 9:30am
+                        option(value='10:00:00') 10:00am
+                        option(value='10:30:00') 10:30am
+                        option(value='11:30:00') 11:30am
+                    input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p(class='form-feedback') Please allow up to ___ minutes for this appointment.
                     button.btn.btn-primary(type='submit' class='form-submit') Book an appointment
 

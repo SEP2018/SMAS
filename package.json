@@ -19,12 +19,15 @@
     "dotenv": "^6.0.0",
     "express": "~3.1.0",
     "jade": "*",
-    "jasmine": "^3.2.0",
+    "jasmine-node": "^1.16.2",
     "tedious": "^2.6.4"
   },
   "noAnalyze": true,
   "license": "Apache",
   "engines": {
     "node": "~0.10.0 || ~4.2.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.2.0"
   }
 }

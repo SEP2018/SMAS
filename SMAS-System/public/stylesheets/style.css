@@ -376,6 +376,10 @@ h2{
 /*--------------------------------------------------------------
 # Staff View
 --------------------------------------------------------------*/
+.staff-header{
+    width: 100%;
+}
+
 .h1-staff {
     font-size: 48px;
     margin-bottom: -50px;
@@ -407,4 +411,14 @@ h2{
     font-size: 30px;
     font-weight: 700;
     float: left;
+}
+
+/*--------------------------------------------------------------
+# Manage Bookings
+--------------------------------------------------------------*/
+.book-appointment-box {
+    background: #F0F0F0;
+    border: solid 1px #D3D3D3;
+    padding: 2em;
+    margin: 2em;
 }

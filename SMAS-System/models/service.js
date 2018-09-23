@@ -7,6 +7,9 @@ const Service = sequelize.define('Service', {
         primaryKey: true,
         autoIncrement: true,
     },
+    title: {
+        type: Sequelize.STRING
+    },
     description: {
         type: Sequelize.STRING
     },
