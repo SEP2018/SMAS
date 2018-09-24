@@ -13,10 +13,18 @@ exports.index = function(req, res){
         var allStaff = Staff.getAllStaff();
         allStaff.then( async function() {
             allStaff = await allStaff;
-            res.render('index', { title: 'Student Medical Appointment System', allStaff: allStaff, allService: allService });
+            res.render('index', { title: 'Student Medical Appointment System', allService: allService });
         });
     })
 };
+
+exports.service_chosen_post = function(req, res) {
+    var allStaff = Staff.getAllStaff();
+    allStaff.then( async function() {
+        allStaff = await allStaff;
+        return;
+    });
+}
 
 // Handle Appointment creation form on POST
 exports.home_post = [

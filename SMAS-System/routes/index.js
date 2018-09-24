@@ -23,4 +23,6 @@ router.get('/services', services_controller.services_get);
 //POST request for serivces
 router.post('/services', services_controller.services_post);
 
+router.post('/serviceChosen', index_controller.service_chosen_post);
+
 module.exports = router;
