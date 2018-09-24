@@ -1,5 +1,11 @@
 let appointment = require("../models/appointment.js");
 
+describe("Test", function () {
+   it("should pass", function () {
+       expect(0).toEqual(0);
+   }) ;
+});
+
 /*describe("Find Appointment that exists", function() {
     it("should return appointments for a student", function(done) {
         appointment.findAppointmentsByStudent('12876969')
