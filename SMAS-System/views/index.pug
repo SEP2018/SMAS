@@ -1,5 +1,4 @@
 extends layout
-
 block content
     header(class='header')
         div(class='top-header-bg')
@@ -51,7 +50,8 @@ block content
                         for service in allService
                             option(value=service.serviceID)=service.title
                     select#doctor(name='selectedStaff' class="form-item")
-                        for staff in allStaff
+                        option(value='')
+                        //for staff in allStaff
                             option(value=staff.staffID)=staff.lastName
                     input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true')
                     select#appointTime(class = "form-item" name='appointTime')
@@ -62,8 +62,6 @@ block content
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p(class='form-feedback') Please allow up to ___ minutes for this appointment.
                     button.btn.btn-primary(type='submit' class='form-submit') Book an appointment
-
-
 
     div(class='service-area')
         h2(class='h2-service') Our Services
@@ -148,3 +146,4 @@ block content
                             a(href='/appointments/bookings') Bookings
                         li
                             a(href='/') Home
+
