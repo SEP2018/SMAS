@@ -241,6 +241,9 @@ h2{
 
 .booking-form{
     padding: 10px;
+    bottom: 0;
+    right: 0;
+    position: relative;
 }
 
 .form-item{
@@ -405,7 +408,9 @@ h2{
     border: none;
     padding: 5px;
     margin-top: 10px;
-    float: right;
+    right:0;
+    bottom: 0;
+    position: absolute;
     text-transform: uppercase;
     font-weight: bold;
 }
