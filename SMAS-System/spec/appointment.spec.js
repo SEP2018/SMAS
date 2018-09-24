@@ -1,6 +1,6 @@
 let appointment = require("../models/appointment.js");
 
-describe("Find Appointment that exists", function() {
+/*describe("Find Appointment that exists", function() {
     it("should return appointments for a student", function(done) {
         appointment.findAppointmentsByStudent('12876969')
             .then(result => {
@@ -19,7 +19,7 @@ describe("Find Appointment that doesn't exit", function() {
                 done();
             });
     });
-});
+});*/
 
 /*describe("Make Appointment", function() {
     it("should make an appointment", async function () {
