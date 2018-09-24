@@ -5,6 +5,10 @@ before_install:
 node_js:
   - "node"
 
+branches:
+  except:
+    - development
+
 deploy:
   provider: azure_web_apps
   skip_cleanup: true

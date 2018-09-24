@@ -6,7 +6,7 @@ describe("Test", function () {
    }) ;
 });
 
-/*describe("Find Appointment that exists", function() {
+describe("Find Appointment that exists", function() {
     it("should return appointments for a student", function(done) {
         appointment.findAppointmentsByStudent('12876969')
             .then(result => {
@@ -25,21 +25,24 @@ describe("Find Appointment that doesn't exit", function() {
                 done();
             });
     });
-});*/
+});
 
 /*describe("Make Appointment", function() {
     it("should make an appointment", async function () {
         let results1 = await appointment.findAppointmentsByStudent('99999998');
+        console.log(results1);
         expect(results1.length).toEqual(0);
 
-        appointment.makeAppointment('test', '99999998', 3, new Date(), new Date(), 2);
+        await appointment.makeAppointment('test', '99999998', 3, new Date(), new Date(), 2);
 
         let results2 = await appointment.findAppointmentsByStudent('99999998');
+        console.log(results2);
         expect(results2.length).toBeGreaterThan(0);
 
-        appointment.cancelAppointment(results2.appointmentID);
+        await appointment.cancelAppointment(results2[0].dataValues.appointmentID);
 
         let results3 = await appointment.findAppointmentsByStudent('99999998');
+        console.log(results3);
         expect(results3.length).toEqual(0);
     });
 });*/
