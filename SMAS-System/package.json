@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
-    "cucumber": "^5.0.0",
+    "cucumber": "^5.0.1",
     "jasmine": "^3.2.0"
   }
 }
