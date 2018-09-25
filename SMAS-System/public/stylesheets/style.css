@@ -196,7 +196,7 @@ h1 {
 --------------------------------------------------------------*/
 
 h2{
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .about-section{
@@ -270,6 +270,7 @@ h2{
     margin: 10px;
     text-transform: uppercase;
     font-weight: bold;
+    cursor:pointer;
 }
 
 
@@ -410,6 +411,7 @@ h2{
     position: absolute;
     text-transform: uppercase;
     font-weight: bold;
+    cursor:pointer;
 }
 /*--------------------------------------------------------------
 # Footer
@@ -482,11 +484,76 @@ h2{
 }
 
 /*--------------------------------------------------------------
-# Manage Bookings
+# Manage Bookings Page
 --------------------------------------------------------------*/
-.book-appointment-box {
+.booking-bg {
     background: #F0F0F0;
-    border: solid 1px #D3D3D3;
+    border: 1px solid #808080;
+    width: 80%;
+    margin: 2em auto;
     padding: 2em;
-    margin: 2em;
+}
+
+.info-side{
+    display: block;
+    width: 40%;
+    z-index:10;
+    left: 0;
+    padding: 0.7em 1em 0.7em 1em;
+}
+
+.booking-button{
+    width: 100px;
+    background-color: #69be00;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+table{
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.appointments-td, .appointments-th {
+    text-align: left;
+    border-bottom: #707070 1px solid;
+}
+
+.appointments-td-buttons{
+    border-bottom: #707070 1px solid;
+}
+
+.appointments-tr:nth-child(even) {background: #ffffff}
+
+.appointments-th-options{
+    text-align: center;
+    border-bottom: #707070 1px solid;
+}
+
+.table-option-container{
+    margin: 0 auto;
+    padding: 5px 3px 5px 3px;
+    display: inline-block;
+    text-align: center;
+}
+
+.table-option-img{
+    height: 20px;
+}
+
+.table-options-label{
+    font-size: 10px;
+    color: #69be00;
+    display: block;
+
+}
+
+.h2-left{
+    text-align: left;
 }
