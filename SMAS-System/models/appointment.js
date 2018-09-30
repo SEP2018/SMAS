@@ -57,6 +57,12 @@ const Appointment = sequelize.define('Appointment', {
             key: 'serviceID'
         }
     }
+}, {
+    getterMethods: {
+        appointmentURL() {
+            return '/appointments/' + this.appointmentID;
+        }
+    }
 });
 
 // make a new Appointment object

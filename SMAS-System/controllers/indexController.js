@@ -18,13 +18,37 @@ exports.index = function(req, res){
     })
 };
 
+exports.doctors_chosen_get = function(req, res) {
+    var allStaff = Staff.getAllStaff();
+    allStaff.then( async function() {
+        allStaff = await allStaff;
+        return allStaff;
+    });
+}
+
+exports.doctors_chosen_post = function(req, res) {
+    var allStaff = Staff.getAllStaff();
+    allStaff.then( async function() {
+        allStaff = await allStaff;
+        return allStaff;
+    });
+}
+
+exports.service_chosen_get = function(req, res) {
+    var allStaff = Staff.getAllStaff();
+    allStaff.then( async function() {
+        allStaff = await allStaff;
+        res.send(allStaff);
+    });
+};
+
 exports.service_chosen_post = function(req, res) {
     var allStaff = Staff.getAllStaff();
     allStaff.then( async function() {
         allStaff = await allStaff;
-        return;
+        res.send(allStaff);
     });
-}
+};
 
 // Handle Appointment creation form on POST
 exports.home_post = [

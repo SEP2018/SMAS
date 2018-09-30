@@ -19,6 +19,12 @@ const Service = sequelize.define('Service', {
     duration: {
         type: Sequelize.TIME
     }
+}, {
+ getterMethods: {
+     serviceURL() {
+         return '/services/' + this.serviceID;
+     }
+ }
 });
 
 //export functions

@@ -32,6 +32,19 @@ exports.bookings_post = function(req, res) {
     res.render('bookings', {title: 'Manage Bookings'})
 }
 
+
+exports.appointment_times_get = function(req, res) {
+    res.send("To be implemented");
+};
+
+exports.appointment_times_post = function(req, res) {
+    var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.selectedService, req.body.selectedStaff, req.body.time);
+    allTimes.then( async function() {
+        allTimes = await allTimes;
+        res.send(allTimes);
+    })
+};
+
 // Handle Appointment creation form on POST
 exports.appointment_create_post = [
      //Field Validation
