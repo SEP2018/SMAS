@@ -38,7 +38,7 @@ exports.appointment_times_get = function(req, res) {
 };
 
 exports.appointment_times_post = function(req, res) {
-    var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.selectedService, req.body.selectedStaff, req.body.time);
+    var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
     allTimes.then( async function() {
         allTimes = await allTimes;
         res.send(allTimes);

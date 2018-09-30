@@ -162,9 +162,11 @@ block content
         });
         $(document).on("change", '#doctor', function (e) {
             var doctor = $(this).val();
+            var service = $('#service').val();
+            var date = $('#date').val();
             $.ajax({
                 type: "POST",
-                data: {doctor: doctor},
+                data: {doctor: doctor, service: service, date: date},
                 url: 'appointments/times/' + doctor,
                 dataType: 'json',
                 success: function (json) {
