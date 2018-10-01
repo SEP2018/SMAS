@@ -26,5 +26,9 @@ router.get('/cancel', appointment_controller.appointment_cancel_get);
 //POST request for appointment deletion
 router.post('/cancel', appointment_controller.appointment_cancel_post);
 
+router.get('/times/:id', appointment_controller.appointment_times_get);
+
+router.post('/times/:id', appointment_controller.appointment_times_post);
+
 
 module.exports = router;
