@@ -10,37 +10,10 @@ exports.index = function(req, res){
     var allService = Service.getAllServices();
     allService.then(async function() {
         allService = await allService;
-        var allStaff = Staff.getAllStaff();
-        allStaff.then( async function() {
-            allStaff = await allStaff;
-            res.render('index', { title: 'Student Medical Appointment System', allService: allService });
-        });
-    })
-};
-
-exports.doctors_chosen_get = function(req, res) {
-    var allStaff = Staff.getAllStaff();
-    allStaff.then( async function() {
-        allStaff = await allStaff;
-        return allStaff;
-    });
-}
-
-exports.doctors_chosen_post = function(req, res) {
-    var allStaff = Staff.getAllStaff();
-    allStaff.then( async function() {
-        allStaff = await allStaff;
-        return allStaff;
-    });
-}
-
-exports.service_chosen_get = function(req, res) {
-    var allStaff = Staff.getAllStaff();
-    allStaff.then( async function() {
-        allStaff = await allStaff;
-        res.send(allStaff);
+        res.render('index', { title: 'Student Medical Appointment System', allService: allService });
     });
 };
+
 
 exports.service_chosen_post = function(req, res) {
     var allStaff = Staff.getAllStaff();
@@ -72,8 +45,7 @@ exports.home_post = [
         }
         else {
             Appointment.makeAppointment(req.body.description, req.body.student_id, req.body.selectedStaff, req.body.time, req.body.appointTime, req.body.selectedService);
-            res.redirect('/');
-            //res.render('index', {title: 'Student Medical Appointment System', });
+            res.render('index', {title: 'Student Medical Appointment System', });
         }
     }
 ];
