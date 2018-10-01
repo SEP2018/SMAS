@@ -5,7 +5,11 @@ const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
 
 exports.services_get = function(req, res){
-    res.render('services', {title: 'Services'});
+    var allService = Service.getAllServices();
+    allService.then(async function() {
+        allService = await allService;
+        res.render('services', { title: 'Our Services', allService: allService });
+    });
 };
 
 exports.services_post = function(req, res){
