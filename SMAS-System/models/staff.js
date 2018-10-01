@@ -25,6 +25,12 @@ const Staff = sequelize.define('Staff', {
     specialisation: {
         type: Sequelize.STRING
     }
+}, {
+    getterMethods: {
+        staffURL() {
+            return '/doctors/' + this.staffID;
+        }
+    }
 });
 
 //export functions

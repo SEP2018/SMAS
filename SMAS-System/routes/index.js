@@ -17,12 +17,20 @@ router.get('/doctors', doctors_controller.doctors_get);
 //POST request for doctors
 router.post('/doctors', doctors_controller.doctors_post);
 
+//GET request for doctors
+router.get('/doctors/:id', index_controller.doctors_chosen_get);
+
+//POST request for doctors
+router.post('/doctors/:id', index_controller.doctors_chosen_post);
+
 //GET request for services
 router.get('/services', services_controller.services_get);
 
 //POST request for serivces
 router.post('/services', services_controller.services_post);
 
-router.post('/serviceChosen', index_controller.service_chosen_post);
+router.get('/services/:id', index_controller.service_chosen_get);
+
+router.post('/services/:id', index_controller.service_chosen_post);
 
 module.exports = router;

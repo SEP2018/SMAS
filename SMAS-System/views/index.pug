@@ -49,16 +49,9 @@ block content
                     select#service(name='selectedService' class="form-item")
                         for service in allService
                             option(value=service.serviceID)=service.title
-                    select#doctor(name='selectedStaff' class="form-item")
-                        option(value='')
-                        //for staff in allStaff
-                            option(value=staff.staffID)=staff.lastName
+                    select#doctor(name='selectedStaff' class="form-item" disabled)
                     input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true')
-                    select#appointTime(class = "form-item" name='appointTime')
-                        option(value='09:30:00') 9:30am
-                        option(value='10:00:00') 10:00am
-                        option(value='10:30:00') 10:30am
-                        option(value='11:30:00') 11:30am
+                    select#appointTime(class="form-item" name='appointTime' disabled)
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p(class='form-feedback') Please allow up to ___ minutes for this appointment.
                     button.btn.btn-primary(type='submit' class='form-submit') Book an appointment
@@ -148,3 +141,44 @@ block content
                         li
                             a(href='/') Home
 
+    script.
+        $(document).on("change", '#service', function (e) {
+            var service = $(this).val();
+            $.ajax({
+                type: "POST",
+                data: {service: service},
+                url: 'services/' + service,
+                dataType: 'json',
+                success: function (json) {
+                    var $el = $("#doctor");
+                    $el.empty();
+                    $el.removeAttr('disabled');
+                    $.each(json, function () {
+                        $el.append($("<option></option>")
+                            .attr("value", this['staffID']).text(this['lastName']));
+                    });
+                }
+            });
+
+        });
+        $(document).on("change", '#doctor', function (e) {
+            var doctor = $(this).val();
+            var service = $('#service').val();
+            var date = $('#date').val();
+            $.ajax({
+                type: "POST",
+                data: {doctor: doctor, service: service, date: date},
+                url: 'appointments/times/' + doctor,
+                dataType: 'json',
+                success: function (json) {
+                    var $el = $("#appointTime");
+                    $el.empty();
+                    $el.removeAttr('disabled');
+                    $.each(json, function () {
+                        $el.append($("<option></option>")
+                            .attr("value", this['startTime']).text(this['startTime']));
+                    });
+                }
+            });
+
+        });
