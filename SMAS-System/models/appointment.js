@@ -91,7 +91,7 @@ module.exports = {
     findAppointmentsByStudent : async function(studentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
-                attributes: ['appointmentID', 'studentID', 'description', 'startTime', 'appointmentDate'],
+                attributes: ['appointmentID', 'serviceID', 'staffID', 'appointmentDate', 'startTime'],
                 where: {
                     studentID: studentID
                 }
