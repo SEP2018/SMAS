@@ -451,6 +451,10 @@ h2{
     width: 100%;
 }
 
+.staff-table-tr:nth-child(even) {
+    background-color: rgb(240, 240, 240);
+}
+
 .h1-staff {
     font-size: 48px;
     margin-bottom: -50px;
@@ -467,11 +471,35 @@ h2{
 
 .daily-table{
     background: #ffffff;
-    padding: 1em;
-    border: 1px solid #808080;
+    border: 2px solid #808080;
     margin-top: 6em;
-    border-spacing: 1em;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+.daily-time-td {
+    width: 10%;
+    padding: 10px;
+    border: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-name-td {
+    width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-service-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-note-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
 }
 
 .h3-date {
@@ -516,6 +544,13 @@ h2{
     padding: 10px;
     border: 2px solid #808080;
     width: 12.5%;
+}
+
+.nav-arrow {
+    float: left;
+    height: 30px;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
 }
 
 /*--------------------------------------------------------------
