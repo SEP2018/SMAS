@@ -40,5 +40,23 @@ module.exports = {
         }).then(services => {
             return services;
         });
+    },
+
+    findServiceByID: async function(serviceID) {
+        return new Promise(function(resolve, reject) {
+            return Service.findAll({
+                attributes: ['title', 'description', 'daysAvailable', 'duration'],
+                where: {
+                    serviceID: serviceID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
     }
 };

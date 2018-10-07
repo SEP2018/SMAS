@@ -30,5 +30,14 @@ router.get('/times/:id', appointment_controller.appointment_times_get);
 
 router.post('/times/:id', appointment_controller.appointment_times_post);
 
+//POST request for existing appointments
+router.post('/bookings/:id', appointment_controller.existing_appointments_post);
+
+//POST request for deleting an appointment
+router.post('/delete', appointment_controller.delete_appointment_post);
+
+//POST request for editing an appointment
+router.post('/edit', appointment_controller.edit_appointment_post);
+
 
 module.exports = router;

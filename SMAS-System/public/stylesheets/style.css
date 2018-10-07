@@ -450,6 +450,10 @@ h2{
     width: 100%;
 }
 
+.staff-table-tr:nth-child(even) {
+    background-color: rgb(240, 240, 240);
+}
+
 .h1-staff {
     font-size: 48px;
     margin-bottom: -50px;
@@ -460,17 +464,41 @@ h2{
 
 .daily-appointments {
     margin: 5em 5em 2em;
-    background: #F0F0F0;
+    background: rgb(240, 240, 240);
     padding: 2em;
 }
 
 .daily-table{
     background: #ffffff;
-    padding: 1em;
     border: 2px solid #808080;
     margin-top: 6em;
-    table-border: 2px solid #808080;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+.daily-time-td {
+    width: 10%;
+    padding: 10px;
+    border: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-name-td {
+    width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-service-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-note-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
 }
 
 .h3-date {
@@ -494,14 +522,13 @@ h2{
     font-weight: 700;
 }
 
-#weeklyTableHeading {
-    padding: 1em;
-    width: 100%;
 
+#weeklyTableHeading {
+    width: 100%;
+    padding: 1em;
 }
 
 .staff-th {
-    padding: 0px;
     color: #69be00;
     width: 12.5%;
 }
@@ -510,6 +537,27 @@ h2{
     font-size: 30px;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.7);
+    width: 12.5%;
+}
+
+#weeklyTable {
+    background: #ffffff;
+    border: 2px solid #808080;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.staff-td {
+    padding: 10px;
+    border: 2px solid #808080;
+    width: 12.5%;
+}
+
+.nav-arrow {
+    float: left;
+    height: 30px;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
 }
 
 .staff-td {
