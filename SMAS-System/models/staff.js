@@ -49,5 +49,23 @@ module.exports = {
     },
     getStaffByService: async function(title) {
 
+    },
+
+    findStaffByID: async function(staffID) {
+        return new Promise(function(resolve, reject) {
+            return Staff.findAll({
+                attributes: ['firstName', 'lastName', 'DOB', 'gender', 'abstract', 'specialisation'],
+                where: {
+                    staffID: staffID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
     }
 };

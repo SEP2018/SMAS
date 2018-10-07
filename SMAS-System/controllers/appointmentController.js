@@ -1,5 +1,6 @@
 const Appointment = require('../models/appointment')
-    , Staff = require('../models/staff');
+    , Staff = require('../models/staff')
+    , Service = require('../models/service');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -43,6 +44,37 @@ exports.appointment_times_post = function(req, res) {
         allTimes = await allTimes;
         res.send(allTimes);
     })
+};
+
+exports.existing_appointments_post = function(req, res) {
+    var allAppointments = Appointment.findAppointmentsByStudent(req.body.id);
+    allAppointments.then( async function() {
+        allAppointments = await allAppointments;
+        var allServices = Service.getAllServices();
+        allServices.then( async function() {
+            allServices = await allServices;
+            var allStaff = Staff.getAllStaff();
+            allStaff.then( async function() {
+                allStaff = await allStaff;
+                for (var i = 0, len = allAppointments.length; i < len; i++) {
+                    allAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
+                    allAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
+                    allAppointments[i].dataValues.staffName = allStaff[allAppointments[i].dataValues.staffID - 1].dataValues.lastName;
+                }
+                res.send(allAppointments);
+            });
+        });
+    });
+};
+
+exports.delete_appointment_post = function(req, res) {
+    Appointment.cancelAppointment(req.body.id);
+    res.send(true);
+};
+
+exports.edit_appointment_post = function(req, res) {
+    console.log('here');
+    res.send(true);
 };
 
 // Handle Appointment creation form on POST

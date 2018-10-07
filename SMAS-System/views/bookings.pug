@@ -33,6 +33,10 @@ block content
             h2 Hi, User!
             p Book an appointment on the right, or manage your existing appointments below.
 
+    div(class='existing-appointments-box')
+        h2 Existing Appointments
+        table(id='existingAppointments')
+
     footer(class='footer')
         div(class='footer-bg')
             div(class='footer-content')
@@ -49,3 +53,151 @@ block content
                             a(href='/appointments/bookings') Bookings
                         li
                             a(href='/') Home
+
+    script.
+        function populateTable() {
+            var id = '12876797';
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'bookings/' + id,
+                dataType: 'json',
+                success: function(json) {
+                    var $el = $('#existingAppointments');
+                    $el.empty();
+                    $el.append($('<tr>').append(
+                        $('<td>').text('Service'),
+                        $('<td>').text('Doctor'),
+                        $('<td>').text('Date'),
+                        $('<td>').text('Time'),
+                        $('<td>').text('Duration')
+                    ));
+                    $.each(json, function() {
+                        $el.append($('<tr id="' + this['appointmentID'] +'">').append(
+                            $('<td id="title">').text(this['serviceTitle']),
+                            $('<td id="name">').text(this['staffName']),
+                            $('<td id="date">').text(getDateFormat(this['appointmentDate'])),
+                            $('<td id="time">').text(getTimeFormat(this['startTime'])),
+                            $('<td id="duration">').text(this['duration'] + ' minutes'),
+                            $('<td id="editButton">').append(
+                                $('<button id="edit" onclick="editAppointment(this);">').text('Edit')
+                            ),
+                            $('<td id="deleteButton">').append(
+                                $('<button id="delete" onclick="deleteAppointment(this);">').text('Delete')
+                            )
+                        ));
+                    });
+                }
+            });
+            console.log('1');
+        };
+
+        function deleteAppointment(button) {
+            var row = button.parentNode.parentNode;
+            $.ajax({
+                type: 'POST',
+                data: {id: row.id},
+                url: 'delete',
+                dataType: 'json',
+                success: function() {
+                    row.parentNode.removeChild(row);
+                }
+            });
+        };
+
+        function editAppointment(button) {
+            $.ajax({
+                type: 'POST',
+                url: 'edit',
+                success: function() {
+                    $.when(populateTable()).done(function() {
+                        button.parentNode.innerHTML = '<button id="edit" onclick="confirmAppointment(this);">Confirm</button>';
+                        console.log('2');
+                    });
+                }
+            });
+        };
+
+        function confirmAppointment(button) {
+
+        };
+
+        function getDateFormat(date) {
+            var $date = new Date(date);
+            var day = "";
+            switch($date.getDay()) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+                    break;
+            }
+            var dateNumber = $date.getDate();
+            var month = "";
+            switch ($date.getMonth()) {
+                case 0:
+                    month = "January";
+                    break;
+                case 1:
+                    month = "February";
+                    break;
+                case 2:
+                    month = "March";
+                    break;
+                case 3:
+                    month = "April";
+                    break;
+                case 4:
+                    month = "May";
+                    break;
+                case 5:
+                    month = "June";
+                    break;
+                case 6:
+                    month = "July";
+                    break;
+                case 7:
+                    month = "August";
+                    break;
+                case 8:
+                    month = "September";
+                    break;
+                case 9:
+                    month = "October";
+                    break;
+                case 10:
+                    month = "November";
+                    break;
+                case 11:
+                    month = "December";
+                    break;
+            }
+            return day + ', ' + dateNumber + ' ' + month;
+        };
+
+        function getTimeFormat(date) {
+            var $date = new Date(date);
+            var newDate = $date.toLocaleTimeString(undefined, {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return newDate;
+        };
+
+    script populateTable();
