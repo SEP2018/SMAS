@@ -460,12 +460,9 @@ h2{
 }
 
 .daily-appointments {
-    margin-top: 6em;
-    margin-left: 5em;
-    margin-right: 5em;
-    background: #F0F0F0;
+    margin: 5em 5em 2em;
+    background: rgb(240, 240, 240);
     padding: 2em;
-
 }
 
 .daily-table{
@@ -476,6 +473,48 @@ h2{
     border-spacing: 1em;
 
 }
+
+#weeklyTableHeading {
+    width: 100%;
+    padding: 1em;
+}
+
+.h2-month {
+    color: rgb(105, 190, 0);
+    font-size: 36px;
+    font-weight: 700;
+}
+
+#weeklyTableHeading {
+    width: 100%;
+    padding: 1em;
+}
+
+.staff-th {
+    color: rgb(105, 190, 0);
+    width: 12.5%;
+    padding: 0px;
+    font-size: 24px;
+}
+
+.staff-date-th {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+    width: 12.5%;
+}
+
+#weeklyTable {
+    width: 100%;
+    background: #ffffff;
+    border: 2px solid #808080;
+}
+
+.staff-td {
+    width: 12.5%;
+    color: #808080;
+    border: 2px solid #f0f0f0;
+}
+
 
 .h3-date {
     color: rgba(0, 0, 0, 0.7);
