@@ -63,9 +63,35 @@ function getAccessToken(oAuth2Client, callback) {
     });
 }
 
+function constructEvent(roomID, serviceTitle, staffLastName, start, end){
+    return {
+        'summary': ('UTS Medical Appointment - ' + serviceTitle),
+        'location': ('15 Broadway, Ultimo NSW 2007 - Room ' + roomID),
+        'description':('UTS Medical Appointment with Dr. ' + staffLastName + ' for service: ' + serviceTitle),
+        'start': {
+            //'dateTime': '2015-05-28T09:00:00-07:00',
+            'dateTime': start,
+            'timeZone': 'Australia/Sydney',
+        },
+        'end': {
+            //'dateTime': '2015-05-28T17:00:00-07:00',
+            'dateTime': end,
+            'timeZone': 'Australia/Sydney',
+        },
+        'reminders': {
+            'useDefault': false,
+            'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 2 * 60},
+            ],
+        },
+    };
+}
+
+/* -- Sample event
 let event = {
     'summary': 'TEST SMAS Appointment',
-    'location': '15 Broadway, Ultimo NSW 2007',
+    'location': '15 Broadway, Ultimo NSW 2007: - Room XXX',
     'description': 'The description I gave for... ',
     'start': {
         //'dateTime': '2015-05-28T09:00:00-07:00',
@@ -77,13 +103,13 @@ let event = {
         'dateTime': '2018-09-15T10:30:00',
         'timeZone': 'Australia/Sydney',
     },
-    /*'recurrence': [
+    'recurrence': [
         'RRULE:FREQ=DAILY;COUNT=2'
     ],
     'attendees': [
         {'email': 'lpage@example.com'},
         {'email': 'sbrin@example.com'},
-    ],*/
+    ],
     'reminders': {
         'useDefault': false,
         'overrides': [
@@ -92,16 +118,16 @@ let event = {
         ],
     },
 };
-
+*/
 
 //https://developers.google.com/calendar/create-events
 
 function insertEvent(auth) {
-    const calendar = google.calendar({version: 'v3', auth});;
+    const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
         auth: auth,
         calendarId: 'primary',
-        resource: event,
+        resource: constructEvent(roomID, serviceTitle, staffLastName, start, end),
         sendNotifications: true,
     }, function(err, event) {
         if (err) {
