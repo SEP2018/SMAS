@@ -474,16 +474,19 @@ h2{
 
 }
 
-#weeklyTableHeading {
-    width: 100%;
-    padding: 1em;
+.h3-date {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 30px;
+    font-weight: 700;
+    float: left;
 }
 
 .h2-month {
-    color: rgb(105, 190, 0);
+    color: #69be00;
     font-size: 36px;
     font-weight: 700;
 }
+
 
 #weeklyTableHeading {
     width: 100%;
@@ -491,36 +494,27 @@ h2{
 }
 
 .staff-th {
-    color: rgb(105, 190, 0);
+    color: #69be00;
     width: 12.5%;
-    padding: 0px;
-    font-size: 24px;
 }
 
 .staff-date-th {
-    color: rgba(0, 0, 0, 0.7);
     font-size: 30px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
     width: 12.5%;
 }
 
 #weeklyTable {
-    width: 100%;
     background: #ffffff;
     border: 2px solid #808080;
+    width: 100%;
 }
 
 .staff-td {
+    padding: 10px;
+    border: 2px solid #808080;
     width: 12.5%;
-    color: #808080;
-    border: 2px solid #f0f0f0;
-}
-
-
-.h3-date {
-    color: rgba(0, 0, 0, 0.7);
-    font-size: 30px;
-    font-weight: 700;
-    float: left;
 }
 
 /*--------------------------------------------------------------
