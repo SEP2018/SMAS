@@ -1,22 +1,29 @@
 const assert = require('assert');
-const { Given, When, Then } = require('cucumber');
+const { Given, When, Then, defineSupportCode } = require('cucumber');
+const seleniumWebDriver = require('selenium-webdriver')
+
 
     function checkDoctor(doctor) {
         return 'Unsworth';
     }
 
-    Given('a user is logged in to SMAS', function () {
+    defineSupportCode(function ({When, Then, Given}) {
 
-    });
+        Given('a user is logged in to SMAS', function (callback) {
+            this.driver.get("https://www.google.com")
+            callback(null, "Pending")
+        });
 
-    Given('they navigate to the Create Appointment screen', function () {
 
-    });
+        When('they select a preferred doctor', function (callback) {
+            this.actualAnswer = checkDoctor('Unsworth');
+            console.log("User logged in. thrice")
+            callback(null, "Pending")
+        });
 
-    When('they select a preferred doctor', function () {
-        this.actualAnswer = checkDoctor('Unsworth');
-    });
-
-    Then('the selected doctor is assigned to the appointment', function () {
-        assert.equal(this.actualAnswer, 'Unsworth');
+        Then('the selected doctor is assigned to the appointment', function (callback) {
+            assert.equal(this.actualAnswer, 'Unsworth');
+            console.log("User logged in fourice.")
+            callback(null, "Pending")
+        });
     });
