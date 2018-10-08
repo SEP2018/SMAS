@@ -141,8 +141,8 @@ block content
             });
 
         });
-        $(document).on("change", '#doctor', function (e) {
-            var doctor = $(this).val();
+        $(document).on("change", '#doctor, #date', function (e) {
+            var doctor = $('#doctor').val();
             var service = $('#service').val();
             var date = $('#date').val();
             $.ajax({
@@ -156,7 +156,7 @@ block content
                     $el.removeAttr('disabled');
                     $.each(json, function () {
                         $el.append($("<option></option>")
-                            .attr("value", this['startTime']).text(this['startTime']));
+                            .attr("value", this['availableSlot']).text(this['availableSlot']));
                     });
                 }
             });
