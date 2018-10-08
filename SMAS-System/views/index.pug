@@ -155,8 +155,9 @@ block content
                     $el.empty();
                     $el.removeAttr('disabled');
                     $.each(json, function () {
+                        var time = this['availableSlot'].substr(11, 8);
                         $el.append($("<option></option>")
-                            .attr("value", this['availableSlot']).text(this['availableSlot']));
+                            .attr("value", this['availableSlot']).text(time));
                     });
                 }
             });
