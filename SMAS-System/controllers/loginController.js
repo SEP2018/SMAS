@@ -14,10 +14,12 @@ const user1StaffNo = "12345678";
 const user2StudentNo = "09876543";
 
 global.currentUser = null;
+global.currentUserNumber = null;
 
 // Log out
 exports.logout = function(req, res){
     global.currentUser = null;
+    global.currentUserNumber = null;
 };
 
 exports.login_get = function(req, res){
@@ -33,12 +35,13 @@ exports.login_post = function(req, res){
     if (loginNumber === user1StaffNo){
         if (password === password1){
             global.currentUser = user1;
+            global.currentUserNumber = user1StaffNo;
         }
     }
     if (loginNumber === user2StudentNo){
         if (password === password2){
             global.currentUser = user2;
+            global.currentUserNumber = user2StudentNo;
         }
     }
-
 };
