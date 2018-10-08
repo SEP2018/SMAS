@@ -20,9 +20,26 @@ const ServiceProvider = sequelize.define('ServiceProvider', {
     }
 });
 
-//export functions
-//module.exports = {
-//};
+// export functions
+module.exports = {
+    getStaffByService: async function(serviceID) {
+        return new Promise(function(resolve, reject) {
+            return ServiceProvider.findAll({
+                attributes: ['staffID'],
+                where: {
+                    serviceID: serviceID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
+    }
+};
 
 /*
 // shows all Service Provider objects

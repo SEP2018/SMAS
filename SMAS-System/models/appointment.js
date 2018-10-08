@@ -80,6 +80,7 @@ module.exports = {
             serviceID: serviceID
         });
     },
+
     cancelAppointment : function(appointmentID){
         Appointment.destroy({
             where: {
@@ -106,6 +107,7 @@ module.exports = {
         });
 
     },
+
     getAvailabilityByStaffAndDayForService: function(serviceID, staffID, appointmentDate){
         return new Promise(function(resolve, reject) {
             sequelize.query('SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate);',
