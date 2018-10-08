@@ -10,6 +10,7 @@ exports.index = function(req, res) {
     res.send('To be implemented');
 };
 
+//week 11 test
 // Display Appointment creation form on GET
 exports.appointment_create_get = function(req, res){
     var allStaff = Staff.getAllStaff();
