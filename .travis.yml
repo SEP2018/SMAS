@@ -4,6 +4,10 @@ before_install:
   - git fetch --unshallow
 node_js:
   - "node"
+addons:
+  apt:
+    packages:
+      - google-chrome-stable
 
 script: npm run ci
 
