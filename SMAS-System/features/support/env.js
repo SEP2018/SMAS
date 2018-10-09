@@ -22,7 +22,7 @@ var World = function World() {
 
     var screenshotPath = "screenshots";
 
-    this.driver = new webDriver.Builder().withCapabilities(['--headless', '--disable-gpu']).forBrowser("chrome").build();
+    this.driver = new webDriver.Builder().withCapabilities(['--no-sandbox', '--headless', '--disable-gpu']).forBrowser("chrome").build();
 
     if(!fs.existsSync(screenshotPath)) {
         fs.mkdirSync(screenshotPath);
