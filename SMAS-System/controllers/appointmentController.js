@@ -43,7 +43,6 @@ exports.appointment_times_post = function(req, res) {
     var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
     allTimes.then( async function() {
         allTimes = await allTimes;
-        console.log(allTimes);
         res.send(allTimes);
     })
 };
@@ -75,8 +74,29 @@ exports.delete_appointment_post = function(req, res) {
 };
 
 exports.edit_appointment_post = function(req, res) {
-    console.log('here');
     res.send(true);
+};
+
+exports.update_appointment_post = function(req, res) {
+    var appointment = Appointment.findAppointmentByID(req.body.appointmentID);
+    appointment.then( async function() {
+        appointment = await appointment;
+        var service = Service.findServiceByID(appointment[0].dataValues.serviceID);
+        service.then( async function() {
+            service = await service;
+            var endTime = new Date(new Date(req.body.time).getTime() + service[0].dataValues.duration*60000);
+            Appointment.updateAppointment(req.body.appointmentID, req.body.date, req.body.time, endTime);
+            res.send(true);
+        });
+    });
+};
+
+exports.amend_appointment_format_post = function(req, res) {
+    var appointment = Appointment.findAppointmentByID(req.body.appointmentID);
+    appointment.then( async function() {
+        appointment = await appointment;
+        res.send(appointment);
+    });
 };
 
 // Handle Appointment creation form on POST
@@ -117,14 +137,12 @@ exports.appointment_cancel_post = [
     // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     (req, res, next) => {
-        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.render('cancelAppointment', { title: 'Cancel an Appointment', errors: errors.array() });
             return;
         }
         else if(req.body.button === 'find') {
-            console.log('1');
             var appointmentsResults = Appointment.findAppointmentsByStudent(req.body.student_id);
             appointmentsResults.then(async function () {
                 appointmentsResults = await appointmentsResults;
@@ -132,7 +150,6 @@ exports.appointment_cancel_post = [
             res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: appointmentsResults})
         }
         else if(req.body.button === 'cancel') {
-            console.log('2');
             Appointment.cancelAppointment(req.body.row_id);
             res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: []})
         }

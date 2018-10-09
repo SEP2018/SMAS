@@ -104,9 +104,9 @@ block content
                         label(class='table-options-label') Delete
 
 
-    div(class='existing-appointments-box')
-        h2 Existing Appointments
-        table(id='existingAppointments')
+    div(class='booking-bg')
+        h2(class='h2-left') Existing Appointments
+        table(class='existing-appointments-table' id='existingAppointments')
 
     footer(class='footer')
         div(class='footer-bg')
@@ -126,8 +126,12 @@ block content
                             a(href='/') Home
 
     script.
+        $(document).ready(function() {
+            populateTable();
+        });
+
         function populateTable() {
-            var id = '12876797';
+            var id = '11111111';
             $.ajax({
                 type: 'POST',
                 data: {id: id},
@@ -136,31 +140,31 @@ block content
                 success: function(json) {
                     var $el = $('#existingAppointments');
                     $el.empty();
-                    $el.append($('<tr>').append(
-                        $('<td>').text('Service'),
-                        $('<td>').text('Doctor'),
-                        $('<td>').text('Date'),
-                        $('<td>').text('Time'),
-                        $('<td>').text('Duration')
+                    $el.append($('<tr class="appointments-tr-heading">').append(
+                        $('<th class="appointments-th">').text('Service'),
+                        $('<th class="appointments-th">').text('Doctor'),
+                        $('<th class="appointments-th">').text('Date'),
+                        $('<th class="appointments-th">').text('Time'),
+                        $('<th class="appointments-th">').text('Duration'),
+                        $('<th class="appointments-th" colspan="2">').text('Options')
                     ));
                     $.each(json, function() {
-                        $el.append($('<tr id="' + this['appointmentID'] +'">').append(
-                            $('<td id="title">').text(this['serviceTitle']),
-                            $('<td id="name">').text(this['staffName']),
-                            $('<td id="date">').text(getDateFormat(this['appointmentDate'])),
-                            $('<td id="time">').text(getTimeFormat(this['startTime'])),
-                            $('<td id="duration">').text(this['duration'] + ' minutes'),
-                            $('<td id="editButton">').append(
-                                $('<button id="edit" onclick="editAppointment(this);">').text('Edit')
+                        $el.append($('<tr class="appointments-tr" id="' + this['appointmentID'] +'">').append(
+                            $('<td class="appointments-td" id="title">').attr('value', this['serviceID']).text(this['serviceTitle']),
+                            $('<td class="appointments-td" id="name">').attr('value', this['staffID']).text(this['staffName']),
+                            $('<td class="appointments-td" id="date">').attr('value', this['appointmentDate']).text(getDateFormat(this['appointmentDate'])),
+                            $('<td class="appointments-td" id="time">').text(getTimeFormat(this['startTime'])),
+                            $('<td class="appointments-td" id="duration">').text(this['duration'] + ' minutes'),
+                            $('<td class="appointments-td" id="editButton">').append(
+                                $('<input type="image" src="/img/edit.png" class="table-option-img" id="edit" onclick="editAppointment(this);">')
                             ),
-                            $('<td id="deleteButton">').append(
-                                $('<button id="delete" onclick="deleteAppointment(this);">').text('Delete')
+                            $('<td class="appointments-td" id="deleteButton">').append(
+                                $('<input type="image" src="/img/trash.png" class="table-option-img" id="delete" onclick="deleteAppointment(this);">')
                             )
                         ));
                     });
                 }
             });
-            console.log('1');
         };
 
         function deleteAppointment(button) {
@@ -177,20 +181,70 @@ block content
         };
 
         function editAppointment(button) {
+            var row = button.parentNode.parentNode;
+            var existing_date = row.childNodes[2].getAttribute('value').substr(0, 10);
+            button.parentNode.innerHTML = '<button id="confirm" onclick="confirmAppointment(this);">Confirm</button>';
+            row.childNodes[2].innerHTML = '<input id="date_dropdown" type="date">';
+            row.childNodes[2].firstChild.setAttribute('value', existing_date);
+            row.childNodes[3].innerHTML = '<select id="time_dropdown" disabled></select>';
+            updateTimes(row.childNodes[2].firstChild);
+        };
+
+        $(document).on('change', '#date_dropdown', function(e){
+            updateTimes(this);
+        });
+
+        function updateTimes(date_dropdown) {
+            var doctor = date_dropdown.parentNode.parentNode.childNodes[1].getAttribute('value');
+            var service = date_dropdown.parentNode.parentNode.childNodes[0].getAttribute('value');
+            var date = $(date_dropdown).val();
+            var time_dropdown = date_dropdown.parentNode.parentNode.childNodes[3].firstChild;
             $.ajax({
-                type: 'POST',
-                url: 'edit',
-                success: function() {
-                    $.when(populateTable()).done(function() {
-                        button.parentNode.innerHTML = '<button id="edit" onclick="confirmAppointment(this);">Confirm</button>';
-                        console.log('2');
+                type: "POST",
+                data: {doctor: doctor, service: service, date: date},
+                url: 'times/' + doctor,
+                dataType: 'json',
+                success: function (json) {
+                    var $el = $(time_dropdown);
+                    $el.empty();
+                    $el.removeAttr('disabled');
+                    $.each(json, function () {
+                        var time = this['availableSlot'].substr(11, 8);
+                        $el.append($("<option></option>")
+                            .attr("value", this['availableSlot']).text(time));
                     });
                 }
             });
         };
 
         function confirmAppointment(button) {
+            var row = button.parentNode.parentNode;
+            var appointmentID = row.getAttribute('id');
+            var newDate = $(row.childNodes[2].firstChild).val();
+            var newTime = row.childNodes[3].firstChild.options[row.childNodes[3].firstChild.selectedIndex].value;
+            $.ajax({
+                type: 'POST',
+                data: {appointmentID: appointmentID, date: newDate, time: newTime},
+                url: 'update',
+                dataType: 'json',
+                success: function(json) {
+                    amendAppointmentRow(row, appointmentID);
+                }
+            });
+        };
 
+        function amendAppointmentRow(row, id) {
+            $.ajax({
+                type: 'POST',
+                data: {appointmentID: id},
+                url: 'amendFormat',
+                dataType: 'json',
+                success: function(json) {
+                    row.childNodes[2].innerHTML = getDateFormat(json[0].appointmentDate);
+                    row.childNodes[3].innerHTML = getTimeFormat(json[0].startTime);
+                    row.childNodes[5].innerHTML = '<input type="image" src="/img/edit.png" class="table-option-img" id="edit" onclick="editAppointment(this);">'
+                }
+            });
         };
 
         function getDateFormat(date) {
@@ -263,12 +317,10 @@ block content
         };
 
         function getTimeFormat(date) {
-            var $date = new Date(date);
-            var newDate = $date.toLocaleTimeString(undefined, {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            return newDate;
+            var time = date.substr(11, 8);
+            var hourEnd = time.indexOf(":");
+            var H = +time.substr(0, hourEnd);
+            var h = H % 12 || 12;
+            var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+            return h + time.substr(hourEnd, 3) + ampm;
         };
-
-    script populateTable();
