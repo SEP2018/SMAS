@@ -55,6 +55,10 @@ block content
                             a(href='/') Home
 
     script.
+        $(document).ready(function() {
+            populateTable();
+        });
+
         function populateTable() {
             var id = '12876797';
             $.ajax({
@@ -66,16 +70,16 @@ block content
                     var $el = $('#existingAppointments');
                     $el.empty();
                     $el.append($('<tr>').append(
-                        $('<td>').text('Service'),
-                        $('<td>').text('Doctor'),
-                        $('<td>').text('Date'),
-                        $('<td>').text('Time'),
-                        $('<td>').text('Duration')
+                        $('<th>').text('Service'),
+                        $('<th>').text('Doctor'),
+                        $('<th>').text('Date'),
+                        $('<th>').text('Time'),
+                        $('<th>').text('Duration')
                     ));
                     $.each(json, function() {
                         $el.append($('<tr id="' + this['appointmentID'] +'">').append(
-                            $('<td id="title">').text(this['serviceTitle']),
-                            $('<td id="name">').text(this['staffName']),
+                            $('<td id="title">').attr('value', this['serviceID']).text(this['serviceTitle']),
+                            $('<td id="name">').attr('value', this['staffID']).text(this['staffName']),
                             $('<td id="date">').text(getDateFormat(this['appointmentDate'])),
                             $('<td id="time">').text(getTimeFormat(this['startTime'])),
                             $('<td id="duration">').text(this['duration'] + ' minutes'),
@@ -89,7 +93,6 @@ block content
                     });
                 }
             });
-            console.log('1');
         };
 
         function deleteAppointment(button) {
@@ -106,17 +109,34 @@ block content
         };
 
         function editAppointment(button) {
-            $.ajax({
-                type: 'POST',
-                url: 'edit',
-                success: function() {
-                    $.when(populateTable()).done(function() {
-                        button.parentNode.innerHTML = '<button id="edit" onclick="confirmAppointment(this);">Confirm</button>';
-                        console.log('2');
-                    });
-                }
-            });
+            var row = button.parentNode.parentNode;
+            button.parentNode.innerHTML = '<button id="confirm" onclick="confirmAppointment(this);">Confirm</button>';
+            row.childNodes[2].innerHTML = '<input id="date_dropdown" placeholder="Date" onfocus="(this.type=\'date\')">';
+            row.childNodes[3].innerHTML = '<select id="time_dropdown" placeholder="Time" disabled></select>';
         };
+
+        // $(document).on('change', '#date_dropdown', function(e){
+        //     var doctor = $(this.parentNode.childNodes[1]).val();
+        //     var service = $(this.parentNode.childNodes[0]).val();
+        //     var date = $(this).val();
+        //     var time_dropdown = this.parentNode.childNodes[3];
+        //     $.ajax({
+        //         type: "POST",
+        //         data: {doctor: doctor, service: service, date: date},
+        //         url: 'times/' + doctor,
+        //         dataType: 'json',
+        //         success: function (json) {
+        //             console.log('success');
+        //             var $el = $(time_dropdown);
+        //             $el.empty();
+        //             $el.removeAttr('disabled');
+        //             $.each(json, function () {
+        //                 $el.append($("<option></option>")
+        //                     .attr("value", this['startTime']).text(this['startTime']));
+        //             });
+        //         }
+        //     });
+        // });
 
         function confirmAppointment(button) {
 
@@ -199,5 +219,3 @@ block content
             });
             return newDate;
         };
-
-    script populateTable();
