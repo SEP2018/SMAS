@@ -196,7 +196,7 @@ h1 {
 --------------------------------------------------------------*/
 
 h2{
-    margin-bottom: 0;
+    margin-bottom: 20px;
 }
 
 .about-section{
@@ -241,9 +241,6 @@ h2{
 
 .booking-form{
     padding: 10px;
-    bottom: 0;
-    right: 0;
-    position: relative;
 }
 
 .form-item{
@@ -273,6 +270,7 @@ h2{
     margin: 10px;
     text-transform: uppercase;
     font-weight: bold;
+    cursor:pointer;
 }
 
 
@@ -413,6 +411,7 @@ h2{
     position: absolute;
     text-transform: uppercase;
     font-weight: bold;
+    cursor:pointer;
 }
 /*--------------------------------------------------------------
 # Footer
@@ -451,6 +450,10 @@ h2{
     width: 100%;
 }
 
+.staff-table-tr:nth-child(even) {
+    background-color: rgb(240, 240, 240);
+}
+
 .h1-staff {
     font-size: 48px;
     margin-bottom: -50px;
@@ -460,21 +463,42 @@ h2{
 }
 
 .daily-appointments {
-    margin-top: 6em;
-    margin-left: 5em;
-    margin-right: 5em;
-    background: #F0F0F0;
+    margin: 5em 5em 2em;
+    background: rgb(240, 240, 240);
     padding: 2em;
-
 }
 
 .daily-table{
     background: #ffffff;
-    padding: 1em;
-    border: 1px solid #808080;
+    border: 2px solid #808080;
     margin-top: 6em;
-    border-spacing: 1em;
+    width: 100%;
+    border-collapse: collapse;
+}
 
+.daily-time-td {
+    width: 10%;
+    padding: 10px;
+    border: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-name-td {
+    width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-service-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
+}
+
+.daily-note-td {
+    Width: 30%;
+    border-bottom: 2px solid #808080;
+    border-collapse: collapse;
 }
 
 .h3-date {
@@ -482,14 +506,142 @@ h2{
     font-size: 30px;
     font-weight: 700;
     float: left;
+    padding-top: 1em;
 }
 
+.h4-day {
+    color: #69be00;
+    font-size: 24px;
+    font-weight: 700;
+    float: left;
+}
+
+.h2-month {
+    color: #69be00;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+
+#weeklyTableHeading {
+    width: 100%;
+    padding: 1em;
+}
+
+.staff-th {
+    color: #69be00;
+    width: 12.5%;
+}
+
+.staff-date-th {
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.7);
+    width: 12.5%;
+}
+
+#weeklyTable {
+    background: #ffffff;
+    border: 2px solid #808080;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.staff-td {
+    padding: 10px;
+    border: 2px solid #808080;
+    width: 12.5%;
+}
+
+.nav-arrow {
+    float: left;
+    height: 30px;
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+}
+
+.staff-td {
+    padding: 10px;
+    border: 2px solid #808080;
+    width: 12.5%;
+}
+
+#weeklyTable {
+    background: #ffffff;
+    border: 2px solid #808080;
+    width: 100%;
+}
 /*--------------------------------------------------------------
-# Manage Bookings
+# Manage Bookings Page
 --------------------------------------------------------------*/
-.book-appointment-box {
+.booking-bg {
     background: #F0F0F0;
-    border: solid 1px #D3D3D3;
+    border: 1px solid #808080;
+    width: 80%;
+    margin: 2em auto;
     padding: 2em;
-    margin: 2em;
+}
+
+.info-side{
+    display: block;
+    width: 40%;
+    z-index:10;
+    left: 0;
+    padding: 0.7em 1em 0.7em 1em;
+}
+
+.booking-button{
+    width: 100px;
+    background-color: #69be00;
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 25px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor:pointer;
+}
+
+table{
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.appointments-td, .appointments-th {
+    text-align: left;
+    border-bottom: #707070 1px solid;
+}
+
+.appointments-td-buttons{
+    border-bottom: #707070 1px solid;
+}
+
+.appointments-tr:nth-child(even) {background: #ffffff}
+
+.appointments-th-options{
+    text-align: center;
+    border-bottom: #707070 1px solid;
+}
+
+.table-option-container{
+    margin: 0 auto;
+    padding: 5px 3px 5px 3px;
+    display: inline-block;
+    text-align: center;
+}
+
+.table-option-img{
+    height: 20px;
+}
+
+.table-options-label{
+    font-size: 10px;
+    color: #69be00;
+    display: block;
+
+}
+
+.h2-left{
+    text-align: left;
 }

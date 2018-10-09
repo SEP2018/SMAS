@@ -58,5 +58,11 @@ module.exports = {
         }).then(result => {
             return result;
         });
+    },
+
+    getEndTime: async function(serviceID, startTime){
+        let duration = findServiceByID(serviceID).duration;
+        return startTime + duration;
+        //I kinda doubt this will work sorry I was tired ahah. Might need to do it using promises
     }
 };

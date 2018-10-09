@@ -80,6 +80,7 @@ module.exports = {
             serviceID: serviceID
         });
     },
+
     cancelAppointment : function(appointmentID){
         Appointment.destroy({
             where: {
@@ -106,14 +107,18 @@ module.exports = {
         });
 
     },
+
     getAvailabilityByStaffAndDayForService: function(serviceID, staffID, appointmentDate){
         return new Promise(function(resolve, reject) {
             sequelize.query('SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate);',
-                {replacements: { serviceID: serviceID, staffID: staffID, appointmentDate: appointmentDate }})
-                .then(function(response){
-                console.log(response);
-            }).error(function(err){
-                console.log(err);
+                {
+                    replacements: {serviceID: serviceID, staffID: staffID, appointmentDate: appointmentDate},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
             });
         });
     }

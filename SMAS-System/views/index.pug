@@ -75,33 +75,34 @@ block content
         div(class='home-items')
             div(class='home-item-container')
                 a(href='/doctors')
-                    img(src='/img/check-up.jpg' class='home-item')
+                    img(src='/img/mackey.jpg' class='home-item')
+                    div(class='img-overlay')
+                        div(class='img-overlay-text')
+                            p test
+                p(class='img-text-doctor') Dr. Mackey
+            div(class='home-item-container')
+                a(href='/doctors')
+                    img(src='/img/macnaughton.jpg' class='home-item')
+                    div(class='img-overlay')
+                        div(class='img-overlay-text')
+                            p test
+                p(class='img-text-doctor') Dr. MacNaughton
+            div(class='home-item-container')
+                a(href='/doctors')
+                    img(src='/img/unsworth.jpg' class='home-item')
                     div(class='img-overlay')
                         div(class='img-overlay-text')
                             p test
                             // ALL NEED INFO FROM DATABASE
-                p(class='img-text-doctor') test
+                p(class='img-text-doctor') Dr. Unsworth
             div(class='home-item-container')
                 a(href='/doctors')
-                    img(src='/img/dentist.jpg' class='home-item')
+                    img(src='/img/walton.jpg' class='home-item')
                     div(class='img-overlay')
                         div(class='img-overlay-text')
                             p test
-                p(class='img-text-doctor') test
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/Physio.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') test
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/dietitian.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') test
+                p(class='img-text-doctor') Dr. Walton
+
 
     footer(class='footer')
         div(class='footer-bg')
@@ -140,8 +141,8 @@ block content
             });
 
         });
-        $(document).on("change", '#doctor', function (e) {
-            var doctor = $(this).val();
+        $(document).on("change", '#doctor, #date', function (e) {
+            var doctor = $('#doctor').val();
             var service = $('#service').val();
             var date = $('#date').val();
             $.ajax({
@@ -154,8 +155,9 @@ block content
                     $el.empty();
                     $el.removeAttr('disabled');
                     $.each(json, function () {
+                        var time = this['availableSlot'].substr(11, 8);
                         $el.append($("<option></option>")
-                            .attr("value", this['startTime']).text(this['startTime']));
+                            .attr("value", this['availableSlot']).text(time));
                     });
                 }
             });
