@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "concurrently 'cucumber-js' 'jasmine'"
+    "test": "concurrently 'cucumber-js' 'jasmine'",
+    "ci": "start-server-and-test start http://localhost:3000 test"
   },
   "dependencies": {
+    "chromedriver": "^2.42.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "latest",
@@ -17,6 +19,8 @@
     "jasmine-node": "^1.16.2",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
+    "sanitize-filename": "^1.6.1",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "sequelize": "^4.38.0",
     "tedious": "^2.6.4",
     "validator": "^10.7.0"
@@ -24,6 +28,7 @@
   "devDependencies": {
     "concurrently": "^4.0.1",
     "cucumber": "^5.0.1",
-    "jasmine": "^3.2.0"
+    "jasmine": "^3.2.0",
+    "start-server-and-test": "^1.7.4"
   }
 }
