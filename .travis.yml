@@ -5,8 +5,7 @@ before_install:
 node_js:
   - "node"
 
-script:
-  -npm run ci
+script: npm run ci
 
 branches:
   except:
