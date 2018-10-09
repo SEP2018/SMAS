@@ -5,9 +5,7 @@ before_install:
 node_js:
   - "node"
 addons:
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 script: npm run ci
 
