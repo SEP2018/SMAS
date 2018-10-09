@@ -39,6 +39,7 @@ exports.appointment_times_get = function(req, res) {
 };
 
 exports.appointment_times_post = function(req, res) {
+    console.log(req.body.service + ' ' + req.body.doctor + ' ' + req.body.date);
     var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
     allTimes.then( async function() {
         allTimes = await allTimes;
@@ -74,8 +75,29 @@ exports.delete_appointment_post = function(req, res) {
 };
 
 exports.edit_appointment_post = function(req, res) {
-    console.log('here');
     res.send(true);
+};
+
+exports.update_appointment_post = function(req, res) {
+    var appointment = Appointment.findAppointmentByID(req.body.appointmentID);
+    appointment.then( async function() {
+        appointment = await appointment;
+        var service = Service.findServiceByID(appointment[0].dataValues.serviceID);
+        service.then( async function() {
+            service = await service;
+            var endTime = new Date(new Date(req.body.time).getTime() + service[0].dataValues.duration*60000);
+            Appointment.updateAppointment(req.body.appointmentID, req.body.date, req.body.time, endTime);
+            res.send(true);
+        });
+    });
+};
+
+exports.amend_appointment_format_post = function(req, res) {
+    var appointment = Appointment.findAppointmentByID(req.body.appointmentID);
+    appointment.then( async function() {
+        appointment = await appointment;
+        res.send(appointment);
+    });
 };
 
 // Handle Appointment creation form on POST
