@@ -121,5 +121,44 @@ module.exports = {
                 resolve(result);
             });
         });
+    },
+
+    findAppointmentByID: function(appointmentID) {
+        return new Promise(function(resolve, reject) {
+            return Appointment.findAll({
+                attributes: ['appointmentID', 'serviceID', 'appointmentDate', 'startTime', 'endTime'],
+                where: {
+                    appointmentID: appointmentID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
+    },
+
+    updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime) {
+        return new Promise(function(resolve, reject) {
+            return Appointment.update({
+                    appointmentDate: newDate,
+                    startTime: newStartTime,
+                    endTime: newEndTime
+                },
+                {where: {
+                    appointmentID: appointmentID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
     }
 };

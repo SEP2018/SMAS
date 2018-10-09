@@ -39,5 +39,11 @@ router.post('/delete', appointment_controller.delete_appointment_post);
 //POST request for editing an appointment
 router.post('/edit', appointment_controller.edit_appointment_post);
 
+//POST request for updating an appointment
+router.post('/update', appointment_controller.update_appointment_post);
+
+//POST request to return specific appointment for formatting
+router.post('/amendFormat', appointment_controller.amend_appointment_format_post);
+
 
 module.exports = router;
