@@ -11,7 +11,7 @@ const password2 = "password1";
 const user1 = "Dr. McGraw";
 const user2 = "John Smith";
 const user1StaffNo = "12345678";
-const user2StudentNo = "09876543";
+const user2StudentNo = "12876797";
 
 global.currentUser = null;
 global.currentUserNumber = null;
@@ -42,6 +42,7 @@ exports.login_post = function(req, res){
         if (password === password2){
             global.currentUser = user2;
             global.currentUserNumber = user2StudentNo;
+            res.redirect('/');
         }
     }
 };

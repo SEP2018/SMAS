@@ -3,10 +3,6 @@ const { Given, When, Then, defineSupportCode } = require('cucumber');
 const seleniumWebDriver = require('selenium-webdriver')
 
 
-    function checkDoctor(doctor) {
-        return 'Unsworth';
-    }
-
     defineSupportCode(function ({When, Then, Given}) {
 
         Given('a user is logged in to SMAS', function (callback) {
