@@ -50,58 +50,58 @@ block content
             //enter booking-form
 
 
-    div(class='booking-bg')
-        h2(class='h2-left') Existing Appointments
-        table(class='existing-appointments-table')
-            tr(class='appointments-tr-heading')
-                th(class='appointments-th') Service
-                th(class='appointments-th') Doctor
-                th(class='appointments-th') Date
-                th(class='appointments-th') Time
-                th(class='appointments-th') Duration
-                th(class='appointments-th-options') Options
-            tr(class='appointments-tr')
-                td(class='appointments-td') General Check Up
-                td(class='appointments-td') Dr. MacNaughton
-                td(class='appointments-td') Wednesday, 12 September
-                td(class='appointments-td') 12:00pm
-                td(class='appointments-td') 30 minutes
-                td(class='appointments-td-buttons')
-                    //needs real data + make buttons work
-                    div(class='table-option-container')
-                        img(src='/img/edit.png' class='table-option-img')
-                        label(class='table-options-label') Edit
-                    div(class='table-option-container')
-                        img(src='/img/trash.png' class='table-option-img')
-                        label(class='table-options-label') Delete
-            tr(class='appointments-tr')
-                td(class='appointments-td') General Check Up
-                td(class='appointments-td') Dr. MacNaughton
-                td(class='appointments-td') Wednesday, 12 September
-                td(class='appointments-td') 12:00pm
-                td(class='appointments-td') 30 minutes
-                td(class='appointments-td-buttons')
-                    //needs real data + make buttons work
-                    div(class='table-option-container')
-                        img(src='/img/edit.png' class='table-option-img')
-                        label(class='table-options-label') Edit
-                    div(class='table-option-container')
-                        img(src='/img/trash.png' class='table-option-img')
-                        label(class='table-options-label') Delete
-            tr(class='appointments-tr')
-                td(class='appointments-td') General Check Up
-                td(class='appointments-td') Dr. MacNaughton
-                td(class='appointments-td') Wednesday, 12 September
-                td(class='appointments-td') 12:00pm
-                td(class='appointments-td') 30 minutes
-                td(class='appointments-td-buttons')
-                    //needs real data + make buttons work
-                    div(class='table-option-container')
-                        img(src='/img/edit.png' class='table-option-img')
-                        label(class='table-options-label') Edit
-                    div(class='table-option-container')
-                        img(src='/img/trash.png' class='table-option-img')
-                        label(class='table-options-label') Delete
+    //div(class='booking-bg')
+    //    h2(class='h2-left') Existing Appointments
+    //    table(class='existing-appointments-table')
+    //        tr(class='appointments-tr-heading')
+    //            th(class='appointments-th') Service
+    //            th(class='appointments-th') Doctor
+    //            th(class='appointments-th') Date
+    //            th(class='appointments-th') Time
+    //            th(class='appointments-th') Duration
+    //            th(class='appointments-th-options') Options
+    //        tr(class='appointments-tr')
+    //            td(class='appointments-td') General Check Up
+    //            td(class='appointments-td') Dr. MacNaughton
+    //            td(class='appointments-td') Wednesday, 12 September
+    //            td(class='appointments-td') 12:00pm
+    //            td(class='appointments-td') 30 minutes
+    //            td(class='appointments-td-buttons')
+    //                //needs real data + make buttons work
+    //                div(class='table-option-container')
+    //                    img(src='/img/edit.png' class='table-option-img')
+    //                    label(class='table-options-label') Edit
+    //                div(class='table-option-container')
+    //                    img(src='/img/trash.png' class='table-option-img')
+    //                    label(class='table-options-label') Delete
+    //        tr(class='appointments-tr')
+    //            td(class='appointments-td') General Check Up
+    //            td(class='appointments-td') Dr. MacNaughton
+    //            td(class='appointments-td') Wednesday, 12 September
+    //            td(class='appointments-td') 12:00pm
+    //            td(class='appointments-td') 30 minutes
+    //            td(class='appointments-td-buttons')
+    //                //needs real data + make buttons work
+    //                div(class='table-option-container')
+    //                    img(src='/img/edit.png' class='table-option-img')
+    //                    label(class='table-options-label') Edit
+    //                div(class='table-option-container')
+    //                    img(src='/img/trash.png' class='table-option-img')
+    //                    label(class='table-options-label') Delete
+    //        tr(class='appointments-tr')
+    //            td(class='appointments-td') General Check Up
+    //            td(class='appointments-td') Dr. MacNaughton
+    //            td(class='appointments-td') Wednesday, 12 September
+    //            td(class='appointments-td') 12:00pm
+    //            td(class='appointments-td') 30 minutes
+    //            td(class='appointments-td-buttons')
+    //                //needs real data + make buttons work
+    //                div(class='table-option-container')
+    //                    img(src='/img/edit.png' class='table-option-img')
+    //                    label(class='table-options-label') Edit
+    //                div(class='table-option-container')
+    //                    img(src='/img/trash.png' class='table-option-img')
+    //                    label(class='table-options-label') Delete
 
 
     div(class='booking-bg')
@@ -131,7 +131,7 @@ block content
         });
 
         function populateTable() {
-            var id = '11111111';
+            var id = '12876797';
             $.ajax({
                 type: 'POST',
                 data: {id: id},
@@ -141,25 +141,25 @@ block content
                     var $el = $('#existingAppointments');
                     $el.empty();
                     $el.append($('<tr class="appointments-tr-heading">').append(
-                        $('<th class="appointments-th">').text('Service'),
-                        $('<th class="appointments-th">').text('Doctor'),
-                        $('<th class="appointments-th">').text('Date'),
-                        $('<th class="appointments-th">').text('Time'),
-                        $('<th class="appointments-th">').text('Duration'),
-                        $('<th class="appointments-th" colspan="2">').text('Options')
+                        $('<th class="appointments-th" width="21%">').text('Service'),
+                        $('<th class="appointments-th" width="21%">').text('Doctor'),
+                        $('<th class="appointments-th" width="30%">').text('Date'),
+                        $('<th class="appointments-th" width="10%">').text('Time'),
+                        $('<th class="appointments-th" width="13%">').text('Duration'),
+                        $('<th class="appointments-th" colspan="2" width="15%">').text('Options')
                     ));
                     $.each(json, function() {
                         $el.append($('<tr class="appointments-tr" id="' + this['appointmentID'] +'">').append(
                             $('<td class="appointments-td" id="title">').attr('value', this['serviceID']).text(this['serviceTitle']),
-                            $('<td class="appointments-td" id="name">').attr('value', this['staffID']).text(this['staffName']),
+                            $('<td class="appointments-td" id="name">').attr('value', this['staffID']).text('Dr. ' + this['staffName']),
                             $('<td class="appointments-td" id="date">').attr('value', this['appointmentDate']).text(getDateFormat(this['appointmentDate'])),
                             $('<td class="appointments-td" id="time">').text(getTimeFormat(this['startTime'])),
                             $('<td class="appointments-td" id="duration">').text(this['duration'] + ' minutes'),
                             $('<td class="appointments-td" id="editButton">').append(
-                                $('<input type="image" src="/img/edit.png" class="table-option-img" id="edit" onclick="editAppointment(this);">')
+                                $('<input type="image" src="/img/edit.png" width="43" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="editAppointment(this);">')
                             ),
                             $('<td class="appointments-td" id="deleteButton">').append(
-                                $('<input type="image" src="/img/trash.png" class="table-option-img" id="delete" onclick="deleteAppointment(this);">')
+                                $('<input type="image" src="/img/trash.png" width="44" height="50" style="height: 50px;" class="table-option-img" id="delete" onclick="deleteAppointment(this);">')
                             )
                         ));
                     });
@@ -183,7 +183,7 @@ block content
         function editAppointment(button) {
             var row = button.parentNode.parentNode;
             var existing_date = row.childNodes[2].getAttribute('value').substr(0, 10);
-            button.parentNode.innerHTML = '<button id="confirm" onclick="confirmAppointment(this);">Confirm</button>';
+            button.parentNode.innerHTML = '<input type="image" src="/img/confirm.png" width="45" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="confirmAppointment(this);">';
             row.childNodes[2].innerHTML = '<input id="date_dropdown" type="date">';
             row.childNodes[2].firstChild.setAttribute('value', existing_date);
             row.childNodes[3].innerHTML = '<select id="time_dropdown" disabled></select>';
@@ -242,7 +242,7 @@ block content
                 success: function(json) {
                     row.childNodes[2].innerHTML = getDateFormat(json[0].appointmentDate);
                     row.childNodes[3].innerHTML = getTimeFormat(json[0].startTime);
-                    row.childNodes[5].innerHTML = '<input type="image" src="/img/edit.png" class="table-option-img" id="edit" onclick="editAppointment(this);">'
+                    row.childNodes[5].innerHTML = '<input type="image" src="/img/edit.png" width="43" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="editAppointment(this);">'
                 }
             });
         };
@@ -321,6 +321,6 @@ block content
             var hourEnd = time.indexOf(":");
             var H = +time.substr(0, hourEnd);
             var h = H % 12 || 12;
-            var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+            var ampm = (H < 12 || H === 24) ? "am" : "pm";
             return h + time.substr(hourEnd, 3) + ampm;
         };
