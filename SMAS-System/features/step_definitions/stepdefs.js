@@ -10,20 +10,22 @@ const seleniumWebDriver = require('selenium-webdriver')
     defineSupportCode(function ({When, Then, Given}) {
 
         Given('a user is logged in to SMAS', function (callback) {
-            this.driver.get("https://www.google.com")
-            callback(null, "Pending")
+            this.driver.get("http://localhost:3000/");
+            callback(null, "Pending");
+        });
+
+        Given('they navigate to the Create Appointment screen', function () {
+            this.driver.get("http://localhost:3000/appointments/bookings");
         });
 
 
         When('they select a preferred doctor', function (callback) {
-            this.actualAnswer = checkDoctor('Unsworth');
-            console.log("User logged in. thrice")
-            callback(null, "Pending")
+            callback(null, "Pending");
         });
 
         Then('the selected doctor is assigned to the appointment', function (callback) {
-            assert.equal(this.actualAnswer, 'Unsworth');
-            console.log("User logged in fourice.")
-            callback(null, "Pending")
+            assert.equal('Unsworth', 'Unsworth');
+            console.log("User logged in fourice.");
+            callback(null, "Pending");
         });
     });

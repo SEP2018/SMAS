@@ -4,6 +4,10 @@ before_install:
   - git fetch --unshallow
 node_js:
   - "node"
+addons:
+  chrome: stable
+
+script: npm run ci
 
 branches:
   except:
