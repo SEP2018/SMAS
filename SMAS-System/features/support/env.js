@@ -14,10 +14,6 @@ var platform = process.env.PLATFORM || "CHROME";
 };
 */
 
-var buildDriver = function() {
-            return new webDriver.Builder().withCapabilities(webDriver.Capabilities.chrome()).build();
-    }
-
 defineSupportCode(function({setDefaultTimeout}) {
     setDefaultTimeout(60 * 1000);
 });
@@ -26,7 +22,7 @@ var World = function World() {
 
     var screenshotPath = "screenshots";
 
-    this.driver = buildDriver();
+    this.driver = new webDriver.Builder().forBrowser("chrome").build();
 
     if(!fs.existsSync(screenshotPath)) {
         fs.mkdirSync(screenshotPath);
