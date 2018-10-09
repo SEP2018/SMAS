@@ -39,11 +39,9 @@ exports.appointment_times_get = function(req, res) {
 };
 
 exports.appointment_times_post = function(req, res) {
-    console.log(req.body.service + ' ' + req.body.doctor + ' ' + req.body.date);
     var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
     allTimes.then( async function() {
         allTimes = await allTimes;
-        console.log(allTimes);
         res.send(allTimes);
     })
 };
@@ -138,14 +136,12 @@ exports.appointment_cancel_post = [
     // Field sanitisation
     sanitizeBody('student_id').trim().escape(),
     (req, res, next) => {
-        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             res.render('cancelAppointment', { title: 'Cancel an Appointment', errors: errors.array() });
             return;
         }
         else if(req.body.button === 'find') {
-            console.log('1');
             var appointmentsResults = Appointment.findAppointmentsByStudent(req.body.student_id);
             appointmentsResults.then(async function () {
                 appointmentsResults = await appointmentsResults;
@@ -153,7 +149,6 @@ exports.appointment_cancel_post = [
             res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: appointmentsResults})
         }
         else if(req.body.button === 'cancel') {
-            console.log('2');
             Appointment.cancelAppointment(req.body.row_id);
             res.render('cancelAppointment', {title: 'Cancel an Appointment', appointments: []})
         }
