@@ -163,7 +163,7 @@ module.exports = {
                 where: {
                     serviceID: serviceID,
                     appointmentDate: appointmentDate,
-                    startTime: '1970-01-01T' + appointmentTime
+                    startTime: appointmentTime
                 }
             }).catch(function (err) {
                 reject(err);
