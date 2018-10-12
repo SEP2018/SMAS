@@ -155,6 +155,26 @@ module.exports = {
         });
     },
 
+    getAvailableStaffByServiceAndDayAndTime: function(serviceID, appointmentDate, appointmentTime){
+        return new Promise(function(resolve, reject) {
+            return Appointment.findAll({
+                attributes: ['staffid'],
+                where: {
+                    serviceID: serviceID,
+                    appointmentDate: appointmentDate,
+                    startTime: '1970-01-01T' + appointmentTime
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
+    },
+
     findAppointmentByID: function(appointmentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
