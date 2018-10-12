@@ -16,4 +16,7 @@ router.get('/weekly', staff_weekly_controller.staff_weekly_get);
 // POST weekly appointments
 router.post('/weekly', staff_weekly_controller.staff_weekly_post);
 
+// POST to populate the daily bookings table
+router.post('/dailyBookings/:id', staff_daily_controller.daily_bookings_post);
+
 module.exports = router;
