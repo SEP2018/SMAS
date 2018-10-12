@@ -26,7 +26,7 @@ module.exports = {
         return new Promise(function(resolve, reject) {
             sequelize.query('SELECT staffID, lastName FROM Staff WHERE staffID IN (SELECT staffID FROM serviceProvider WHERE serviceID = :serviceID);',
                 {
-                    replacements: {seminarID: serviceID},
+                    replacements: {serviceID: serviceID},
                     type: Sequelize.QueryTypes.SELECT
                 }).catch(function(err) {
                 reject(err);

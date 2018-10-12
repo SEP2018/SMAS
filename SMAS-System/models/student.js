@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const Staff = require('./staff');
 const orm = require('./orm');
 sequelize = orm.seq;
+
 const Student = sequelize.define('Student', {
     studentID: {
         type: Sequelize.STRING,
@@ -26,6 +27,9 @@ const Student = sequelize.define('Student', {
             model: Staff,
             key: 'staffID'
         }
+    },
+    password: {
+        type: Sequelize.STRING
     }
 });
 
@@ -34,5 +38,20 @@ const Student = sequelize.define('Student', {
 module.exports = {
     setPreferredDoctor: function() {
 
+    },
+
+    findStudentByID: function(studentID) {
+        return new Promise(async function (resolve, reject) {
+            Student.findOne({
+                where: {
+                    studentID: studentID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err
+            }).then(foundStudentID => {
+                resolve(foundStudentID);
+            })
+        })
     }
 };

@@ -1,48 +1,56 @@
-const Student = require('../models/student')
-    , Staff = require('../models/staff');
+const passport = require('passport')
+    , LocalStrategy = require('passport-local').Strategy;
+const Sequelize = require('sequelize');
+const Student = require('../models/student');
 
-// Validation of form data
-const {body,validationResult} = require('express-validator/check');
-const {sanitizeBody} = require('express-validator/filter');
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        Student.findStudentByID(username).then(function(user) {
+            if (!user.studentID === username) {
+                console.log('Incorrect username.');
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            if (!user.password === password) {
+                console.log('Incorrect password.');
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            console.log('Successfully authenticated.');
+            done(null, user);
+        });
+    }
+));
 
-const password1 = "password1";
-const password2 = "password1";
-
-const user1 = "Dr. McGraw";
-const user2 = "John Smith";
-const user1StaffNo = "12345678";
-const user2StudentNo = "12876797";
-
-global.currentUser = null;
-global.currentUserNumber = null;
-
-// Log out
-exports.logout = function(req, res){
-    global.currentUser = null;
-    global.currentUserNumber = null;
+//check if user is logged in
+exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/users/login');
+    }
 };
+
+passport.serializeUser(function(user, done) {
+    done(null, user.studentID);
+});
+
+passport.deserializeUser(function(studentID, done) {
+    Student.findStudentByID(studentID).then(function(user) {
+        done(null, user);
+    }).catch(function(err){
+        done(err,false);
+    });
+});
 
 exports.login_get = function(req, res){
-    res.render('login', {title: 'login'});
+    res.render('login');
 };
 
-// Log in with student or staff
-exports.login_post = function(req, res){
-    // Get test input
-    var loginNumber = req.body.loginNumber;
-    var password = req.body.password;
-    // check for users "in database"
-    if (loginNumber === user1StaffNo){
-        if (password === password1){
-            global.currentUser = user1;
-            global.currentUserNumber = user1StaffNo;
-        }
-    }
-    if (loginNumber === user2StudentNo){
-        if (password === password2){
-            global.currentUser = user2;
-            global.currentUserNumber = user2StudentNo;
-            res.redirect('/');
-        }
-    }
+//NOT USED AT THE MOMENT BECAUSE IT DOESN'T RUN UNLESS IT'S IN THE USERS.JS ROUTER
+exports.login_post = function(){
+    console.log('Login post start');
+    passport.authenticate('local', { successRedirect: '/',
+        failureRedirect: '/login',
+        failureFlash: true })
 };
+
+
