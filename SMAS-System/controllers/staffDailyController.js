@@ -1,5 +1,6 @@
 const Staff = require('../models/staff');
 const Appointment = require('../models/appointment');
+const Service = require('../models/service');
 
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
@@ -19,11 +20,26 @@ exports.staff_daily_post = function(req, res){
 
 exports.daily_bookings_post = function(req, res){
     var mockDate = new Date();
-    mockdate.setFullYear(1972);
-    var allTimes = Appointment.getAvailabilityByStaffAndDayForService('1', req.body.id, mockDate);
+    mockDate.setFullYear(1973);
+    var allTimes = Appointment.getAvailabilityByStaffAndDayForService('3', req.body.id, mockDate);
     allTimes.then( async function(){
         allTimes = await allTimes;
-        console.log(allTimes);
         res.send(allTimes);
+    });
+};
+
+exports.doctor_appointments_post = function(req, res){
+    var allAppointments = Appointment.findAppointmentsByDoctor(req.body.id);
+    allAppointments.then( async function() {
+        allAppointments = await allAppointments;
+        var allServices = Service.getAllServices();
+        allServices.then( async function() {
+            allServices = await allServices;
+            for (var i = 0, len = allAppointments.length; i < len; i++) {
+                allAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
+                allAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
+            }
+            res.send(allAppointments);
+        });
     });
 };

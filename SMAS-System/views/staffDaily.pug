@@ -58,21 +58,51 @@ block content
         });
 
         function populateTable() {
-            var id = 1;
+            var id = '1';
             $.ajax({
                 type: 'POST',
                 data: {id: id},
-                url: 'dailyBookings/' + id,
+                url: 'dailyBookings',
                 dataType: 'json',
                 success: function(json) {
                     var table = $('#dailyAppointments');
                     $.each(json, function() {
                         table.append($('<tr class="staff-table-tr">').append(
-                            $('<td class="daily-time-td">').text(getTimeFormat(this['time'])),
-                            $('<td>'),
-                            $('<td>'),
-                            $('<td>')
+                            $('<td class="daily-time-td">').text(getTimeFormat(this['availableSlot'])),
+                            $('<td class="daily-name-td">'),
+                            $('<td class="daily-service-td">'),
+                            $('<td class="daily-note-td">')
                         ));
+                    });
+                    populateRows(id);
+                }
+            });
+        };
+
+        function populateRows(id) {
+            $.ajax({
+                type:'POST',
+                data: {id: id},
+                url: 'doctorAppointments/' + id,
+                dataType: 'json',
+                success: function(json) {
+                    var table = $('#dailyAppointments');
+                    $.each(json, function() {
+                        for(var i = 0; i < table.children().length; i++){
+                            if(table.children()[i].childNodes[0].innerText === getTimeFormat(this['startTime'])){
+                                table.children()[i].childNodes[1].innerText = this['studentID'];
+                                table.children()[i].childNodes[1].setAttribute('id', 'daily-td-highlighted');
+                                table.children()[i].childNodes[2].innerText = this['serviceTitle'];
+                                table.children()[i].childNodes[2].setAttribute('id', 'daily-td-highlighted');
+                                table.children()[i].childNodes[3].innerText = this['description'];
+                                table.children()[i].childNodes[3].setAttribute('id', 'daily-td-highlighted');
+                                for(var j = i; j < i + parseInt(this['duration'], 10)/15; ++j){
+                                    table.children()[j].childNodes[1].setAttribute('id', 'daily-td-highlighted');
+                                    table.children()[j].childNodes[2].setAttribute('id', 'daily-td-highlighted');
+                                    table.children()[j].childNodes[3].setAttribute('id', 'daily-td-highlighted');
+                                };
+                            };
+                        };
                     });
                 }
             });

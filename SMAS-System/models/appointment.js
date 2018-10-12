@@ -105,7 +105,24 @@ module.exports = {
         }).then(result => {
             return result;
         });
+    },
 
+    findAppointmentsByDoctor : async function(staffID) {
+        return new Promise(function(resolve, reject) {
+            return Appointment.findAll({
+                attributes: ['appointmentID', 'serviceID', 'studentID', 'appointmentDate', 'startTime', 'description'],
+                where: {
+                    staffID: staffID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        }).then(result => {
+            return result;
+        });
     },
 
     getAvailabilityByStaffAndDayForService: function(serviceID, staffID, appointmentDate){

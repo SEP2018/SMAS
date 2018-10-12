@@ -496,10 +496,6 @@ h2{
     width: 100%;
 }
 
-.staff-table-tr:nth-child(even) {
-    background-color: rgb(240, 240, 240);
-}
-
 .h1-staff {
     font-size: 48px;
     margin-bottom: -50px;
@@ -526,25 +522,39 @@ h2{
     width: 10%;
     padding: 10px;
     border: 2px solid #808080;
+    border-bottom: 0px;
+    border-top: 0px;
     border-collapse: collapse;
 }
 
 .daily-name-td {
     width: 30%;
     border-bottom: 2px solid #808080;
+    border-top: 2px solid #808080;
     border-collapse: collapse;
 }
 
 .daily-service-td {
     Width: 30%;
     border-bottom: 2px solid #808080;
+    border-top: 2px solid #808080;
     border-collapse: collapse;
 }
 
 .daily-note-td {
     Width: 30%;
     border-bottom: 2px solid #808080;
+    border-top: 2px solid #808080;
     border-collapse: collapse;
+    font-style: italic;
+}
+
+#daily-td-highlighted {
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 0px;
+    border-top: 0px;
+    border-collapse: collapse;
+    color: #fff;
 }
 
 .h3-date {
@@ -553,6 +563,7 @@ h2{
     font-weight: 700;
     float: left;
     padding-top: 1em;
+    margin: 0px;
 }
 
 .h4-day {
@@ -560,6 +571,7 @@ h2{
     font-size: 24px;
     font-weight: 700;
     float: left;
+    margin: 0px;
 }
 
 .h2-month {
