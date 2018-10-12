@@ -24,22 +24,20 @@ const ServiceProvider = sequelize.define('ServiceProvider', {
 module.exports = {
     getStaffByService: async function(serviceID) {
         return new Promise(function(resolve, reject) {
-            return ServiceProvider.findAll({
-                attributes: ['staffID'],
-                where: {
-                    serviceID: serviceID
-                }
-            }).catch(function (err) {
+            sequelize.query('SELECT staffID, lastName FROM Staff WHERE staffID IN (SELECT staffID FROM serviceProvider WHERE serviceID = :serviceID);',
+                {
+                    replacements: {seminarID: serviceID},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
                 reject(err);
                 throw err;
             }).then(result => {
                 resolve(result);
             });
-        }).then(result => {
-            return result;
         });
     }
 };
+
 
 /*
 // shows all Service Provider objects

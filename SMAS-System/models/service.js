@@ -61,8 +61,17 @@ module.exports = {
     },
 
     getEndTime: async function(serviceID, startTime){
-        let duration = findServiceByID(serviceID).duration;
-        return startTime + duration;
-        //I kinda doubt this will work sorry I was tired ahah. Might need to do it using promises
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT dateadd(minute, (SELECT duration FROM Service WHERE ServiceID = :serviceID), :startTime);',
+                {
+                    replacements: {serviceID: serviceID, startTime: startTime},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        });
     }
 };
