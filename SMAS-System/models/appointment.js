@@ -140,6 +140,21 @@ module.exports = {
         });
     },
 
+    getAvailabilityByDayForService: function(serviceID, appointmentDate){
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT * FROM availableTimeSlotsByService(:serviceID, :appointmentDate);',
+                {
+                    replacements: {serviceID: serviceID, appointmentDate: appointmentDate},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        });
+    },
+
     findAppointmentByID: function(appointmentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
