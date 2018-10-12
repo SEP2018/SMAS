@@ -1,6 +1,6 @@
 const Appointment = require('../models/appointment')
-    , Staff = require('../models/staff')
-    , Service = require('../models/service');
+    , Service = require('../models/service')
+    , ServiceProvider = require('../models/serviceProvider');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -20,7 +20,7 @@ exports.index = function(req, res){
 
 
 exports.service_chosen_post = function(req, res) {
-    var allStaff = Staff.getAllStaff();
+    var allStaff = ServiceProvider.getStaffByService(req.body.service);
     allStaff.then( async function() {
         allStaff = await allStaff;
         res.send(allStaff);
@@ -37,7 +37,6 @@ exports.home_post = [
     body('selectedService').trim(),
 
     // Field sanitisation
-    sanitizeBody('student_id').trim().escape(),
     sanitizeBody('description').trim().escape(),
 
     (req, res, next) => {
@@ -51,11 +50,16 @@ exports.home_post = [
         }
         else {
             var successful = true;
-            Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, req.body.time, req.body.selectedService);
-            var allService = Service.getAllServices();
-            allService.then(async function() {
-                allService = await allService;
-                res.render('index', { title: 'Student Medical Appointment System', allService: allService, successful: successful });
+            var endTime = Service.getEndTime(req.body.selectedService, req.body.appointTime);
+            endTime.then(async function () {
+                endTime = await endTime;
+                console.log(endTime['0'].endTime);
+                Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                var allService = Service.getAllServices();
+                allService.then(async function() {
+                    allService = await allService;
+                    res.render('index', { title: 'Student Medical Appointment System', allService: allService, successful: successful });
+                });
             });
         }
     }

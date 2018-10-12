@@ -47,14 +47,17 @@ block content
                 h2 Book an Appointment
                 form(method='POST' action='')
                     select#service(name='selectedService' class="form-item")
+                        option(value='' hidden) Service
                         for service in allService
                             option(value=service.serviceID)=service.title
                     select#doctor(name='selectedStaff' class="form-item" disabled)
-                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true')
+                        option(value='' hidden) Doctor
+                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
                     select#appointTime(class="form-item" name='appointTime' disabled)
+                        option(value='' hidden) Time
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p(class='form-feedback') Please allow up to ___ minutes for this appointment.
-                    button.btn.btn-primary(type='submit' class='form-submit') Book an appointment
+                    button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
 
     div(class='service-area')
         h2(class='h2-service') Our Services
@@ -130,45 +133,85 @@ block content
     script.
         $(document).on("change", '#service', function (e) {
             var service = $(this).val();
-            $.ajax({
-                type: "POST",
-                data: {service: service},
-                url: 'services/' + service,
-                dataType: 'json',
-                success: function (json) {
-                    var $el = $("#doctor");
-                    $el.empty();
-                    $el.removeAttr('disabled');
-                    $.each(json, function () {
-                        $el.append($("<option></option>")
-                            .attr("value", this['staffID']).text(this['lastName']));
-                    });
-                }
-            });
-
+            if(service != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {service: service},
+                    url: 'services/' + service,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#doctor");
+                        $el.empty();
+                        $el.removeAttr('disabled');
+                        $.each(json, function () {
+                            $el.append($("<option></option>")
+                                .attr("value", this['staffID']).text(this['lastName']));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#doctor').attr('disabled', 'disabled');
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
         });
-        $(document).on("change", '#doctor, #date', function (e) {
+
+        $(document).on("change", '#doctor', function (e) {
+            var doctor = $('#doctor').val();
+            if(doctor != '') {
+                var today = new Date().toISOString().split('T')[0];
+                $('#date').attr('min', today);
+                $('#date').removeAttr('disabled');
+            }
+            else {
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
+        $(document).on("change", '#date', function (e) {
             var doctor = $('#doctor').val();
             var service = $('#service').val();
             var date = $('#date').val();
-            $.ajax({
-                type: "POST",
-                data: {doctor: doctor, service: service, date: date},
-                url: 'appointments/times/' + doctor,
-                dataType: 'json',
-                success: function (json) {
-                    var $el = $("#appointTime");
-                    $el.empty();
-                    $el.removeAttr('disabled');
-                    $.each(json, function () {
-                        var time = this['availableSlot'].substr(11, 8);
+            if (date != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'appointments/times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
+                        $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr("value", this['availableSlot']).text(time));
-                    });
-                }
-            });
-
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            var time = this['availableSlot'].substr(11, 8);
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(time));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
         });
+
+        $(document).on("change", '#appointTime', function (e) {
+            var appointTime = $('#appointTime').val();
+            if (appointTime != '') {
+                $('#submitAppoint').removeAttr('disabled');
+            }
+            else {
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
         $(document).on("click", '#closePopup', function() {
             $('#popup').hide();
         });

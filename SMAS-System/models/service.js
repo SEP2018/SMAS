@@ -62,16 +62,18 @@ module.exports = {
 
     getEndTime: async function(serviceID, startTime){
         return new Promise(function(resolve, reject) {
-            sequelize.query('SELECT dateadd(minute, (SELECT duration FROM Service WHERE ServiceID = :serviceID), :startTime);',
+            sequelize.query('SELECT dateadd(minute, (SELECT duration FROM Service WHERE ServiceID = :serviceID), :startTime) AS endTime;',
                 {
                     replacements: {serviceID: serviceID, startTime: startTime},
                     type: Sequelize.QueryTypes.SELECT
-                }).catch(function(err) {
+                }).catch(function (err) {
                 reject(err);
                 throw err;
             }).then(result => {
                 resolve(result);
             });
+        }).then(result => {
+           return result;
         });
     }
 };

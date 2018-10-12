@@ -67,7 +67,7 @@ const Appointment = sequelize.define('Appointment', {
 
 // make a new Appointment object
 module.exports = {
-    makeAppointment : function(description, studentID, staffID, startTime, appointmentDate, serviceID){
+    makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
         Appointment.create({
             description: description,
             notes: null,
@@ -76,6 +76,7 @@ module.exports = {
             staffID: staffID,
             roomID: null,
             startTime: startTime,
+            endTime: endTime,
             appointmentDate: appointmentDate,
             serviceID: serviceID
         });
