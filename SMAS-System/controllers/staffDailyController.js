@@ -18,7 +18,9 @@ exports.staff_daily_post = function(req, res){
 };
 
 exports.daily_bookings_post = function(req, res){
-    var allTimes = Appointment.getAvailabilityByStaffAndDayForService('1', req.body.id, (new Date()).setFullYear(1970));
+    var mockDate = new Date();
+    mockdate.setFullYear(1972);
+    var allTimes = Appointment.getAvailabilityByStaffAndDayForService('1', req.body.id, mockDate);
     allTimes.then( async function(){
         allTimes = await allTimes;
         console.log(allTimes);

@@ -62,7 +62,7 @@ block content
             $.ajax({
                 type: 'POST',
                 data: {id: id},
-                url: '/dailyBookings/' + id,
+                url: 'dailyBookings/' + id,
                 dataType: 'json',
                 success: function(json) {
                     var table = $('#dailyAppointments');
