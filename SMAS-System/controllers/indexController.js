@@ -50,12 +50,12 @@ exports.home_post = [
             });
         }
         else {
-            console.log(req.body.description, '12876797', req.body.selectedStaff, req.body.time, req.body.appointTime, req.body.selectedService);
+            var successful = true;
             Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, req.body.time, req.body.selectedService);
             var allService = Service.getAllServices();
             allService.then(async function() {
                 allService = await allService;
-                res.render('index', { title: 'Student Medical Appointment System', allService: allService });
+                res.render('index', { title: 'Student Medical Appointment System', allService: allService, successful: successful });
             });
         }
     }

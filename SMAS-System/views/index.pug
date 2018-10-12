@@ -102,13 +102,13 @@ block content
                         div(class='img-overlay-text')
                             p test
                 p(class='img-text-doctor') Dr. Walton
-
-    div#popup(class='popup')
-        div(class='popup-container')
-            div(class='popup-content')
-                img(src='/img/footer-logo.png')
-                h2 Appointment Successfully Booked.
-            button#closePopup(class='popup-button') Okay
+    if successful
+        div#popup(class='popup')
+            div(class='popup-container')
+                div(class='popup-content')
+                    img(src='/img/footer-logo.png')
+                    h2 Appointment Successfully Booked.
+                button#closePopup(class='popup-button') Okay
 
     footer(class='footer')
         div(class='footer-bg')
