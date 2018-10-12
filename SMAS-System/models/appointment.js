@@ -158,21 +158,16 @@ module.exports = {
 
     getAvailableStaffByServiceAndDayAndTime: function(serviceID, appointmentDate, appointmentTime){
         return new Promise(function(resolve, reject) {
-            return Appointment.findAll({
-                attributes: ['staffid'],
-                where: {
-                    serviceID: serviceID,
-                    appointmentDate: appointmentDate,
-                    startTime: appointmentTime
-                }
-            }).catch(function (err) {
+            sequelize.query('SELECT staffid FROM serviceProvider WHERE serviceid = :serviceID AND staffid NOT IN (SELECT staffid FROM Appointment WHERE serviceid = :serviceID AND starttime = :appointmentTime AND appointmentDate = :appointmentDate);',
+                {
+                    replacements: {serviceID: serviceID, appointmentDate: appointmentDate, appointmentTime: appointmentTime},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
                 reject(err);
                 throw err;
             }).then(result => {
                 resolve(result);
             });
-        }).then(result => {
-            return result;
         });
     },
 
