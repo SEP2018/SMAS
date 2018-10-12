@@ -103,6 +103,10 @@ block content
                             p test
                 p(class='img-text-doctor') Dr. Walton
 
+    div#popup(class='popup')
+        div(class='popup-content')
+            p test
+            button#closePopup(class='popup-button') Okay
 
     footer(class='footer')
         div(class='footer-bg')
@@ -162,4 +166,7 @@ block content
                 }
             });
 
+        });
+        $(document).on("click", '#closePopup', function() {
+            $('#popup').hide();
         });

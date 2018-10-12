@@ -7,15 +7,15 @@ const {sanitizeBody} = require('express-validator/filter');
 
 // Display home page
 exports.index = function(req, res){
-    if(currentUser == null)
-        res.redirect('/users/login');
-    else {
+    //if(currentUser == null)
+    //    res.redirect('/users/login');
+    //else {
         var allService = Service.getAllServices();
         allService.then(async function () {
             allService = await allService;
             res.render('index', {title: 'Student Medical Appointment System', allService: allService});
         });
-    }
+    //}
 };
 
 
