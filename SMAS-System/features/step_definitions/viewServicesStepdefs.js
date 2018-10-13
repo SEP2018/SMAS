@@ -11,7 +11,7 @@ const expect = chai.expect;
 
     defineSupportCode(function ({When, Then, Given}) {
 
-        Given('a user has logged in to SMAS', function () {
+        Given('a user has opened SMAS', function () {
             return this.driver.get("http://localhost:3000/users/login")
                 .then(() => this.driver.findElement(By.name('username')).sendKeys('12876049'))
                 .then(() => this.driver.findElement(By.name('password')).sendKeys('password1'))
@@ -20,19 +20,13 @@ const expect = chai.expect;
                 .then(() => console.log('Login successful'));
         });
 
-        Given('the user has booked at least one appointment', function (callback) {
-            callback();
+        When("the user selects 'View Services'", function () {
+            return this.driver.findElement(By.name('servicesLink')).click()
+                .then(() => console.log('Services page loaded'));
         });
 
-
-        When("they select the 'Bookings' button", function () {
-            return this.driver.findElement(By.name('bookingsLink')).click()
-                .then(() => this.driver.wait(Until.elementLocated(By.name('selectedService'))))
-                .then(() => console.log('Bookings page loaded'));
-        });
-
-        Then('a list of existing appointments is displayed on the screen', function (callback) {
-            return expect(this.driver.wait(Until.elementLocated(By.id('existingAppointments'))).then(() => console.log('Page loaded successfully'))
+        Then('a list of available medical services is visible on the screen', function (callback) {
+            return expect(this.driver.wait(Until.elementLocated(By.name('itemDiv'))).then(() => console.log('Page loaded successfully'))
                 .then(() => callback()));
         });
     });

@@ -3,7 +3,7 @@
       I should be able to view my existing appointments
 
   Scenario: View Appointments is selected
-    Given a user has logged in to SMAS
+    Given a user has opened SMAS
     And the user has booked at least one appointment
     When they select the 'Bookings' button
     Then a list of existing appointments is displayed on the screen
