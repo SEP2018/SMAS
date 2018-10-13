@@ -8,7 +8,7 @@
     "ci": "start-server-and-test start http://localhost:3000 test"
   },
   "dependencies": {
-    "chromedriver": "^2.42.0",
+    "chromedriver": "^2.37.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "latest",
