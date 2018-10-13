@@ -75,35 +75,13 @@ block content
     div(class='doctor-area')
         h2 Our Doctors
         div(class='home-items')
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/mackey.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Mackey
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/macnaughton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. MacNaughton
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/unsworth.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                            // ALL NEED INFO FROM DATABASE
-                p(class='img-text-doctor') Dr. Unsworth
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/walton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Walton
+            for staff in allStaff
+                div(class='home-item-container')
+                    a(href='/doctors')
+                        img(src=('/img/' + staff.staffID + '.jpg') class='home-item')
+                        div(class='img-overlay')
+                    p(class='img-text-doctor')='Dr. ' + staff.lastName
+
     if successful
         div#popup(class='popup')
             div(class='popup-container')

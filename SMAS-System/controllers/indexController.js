@@ -1,6 +1,7 @@
 const Appointment = require('../models/appointment')
     , Service = require('../models/service')
-    , ServiceProvider = require('../models/serviceProvider');
+    , ServiceProvider = require('../models/serviceProvider')
+    , Staff = require('../models/staff');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -13,7 +14,11 @@ exports.index = function(req, res){
         var allService = Service.getAllServices();
         allService.then(async function () {
             allService = await allService;
-            res.render('index', {title: 'Student Medical Appointment System', allService: allService});
+            var allStaff = Staff.getAllStaff();
+            allStaff.then(async function () {
+                allStaff = await allStaff;
+                res.render('index', {title: 'Student Medical Appointment System', allService: allService, allStaff: allStaff});
+            });
         });
     //}
 };
