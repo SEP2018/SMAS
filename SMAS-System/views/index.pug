@@ -18,7 +18,7 @@ block content
                     li
                         a(href='/services') Services
                     li
-                        a(href='/appointments/bookings') Bookings
+                        a(name='bookingsLink' href='/appointments/bookings') Bookings
                     li
                         a(href='/') Home
 
@@ -49,7 +49,7 @@ block content
                     select#service(name='selectedService' class="form-item")
                         option(value='' hidden) Service
                         for service in allService
-                            option(value=service.serviceID)=service.title
+                            option(id=service.serviceID value=service.serviceID)=service.title
                     select#doctor(name='selectedStaff' class="form-item" disabled)
                         option(value='' hidden) Doctor
                     input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
@@ -127,7 +127,7 @@ block content
                             .attr("value", '0').text('Any doctor'));
                         $.each(json.allStaff, function () {
                             $el.append($("<option></option>")
-                                .attr("value", this['staffID']).text(this['lastName']));
+                                .attr({value: this['staffID'], id: this['staffID']}).text(this['lastName']));
                         });
                     }
                 });
