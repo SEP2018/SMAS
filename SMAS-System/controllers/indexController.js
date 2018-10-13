@@ -66,7 +66,7 @@ exports.home_post = [
                     var doctors = Appointment.getAvailableStaffByServiceAndDayAndTime(req.body.selectedService, req.body.time, req.body.appointTime);
                     doctors.then(async function () {
                         doctors = await doctors;
-                        var make = Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                        var make = Appointment.makeAppointment(req.body.description, req.user[0].username, doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
                         make.then(async function() {
                             var allService = Service.getAllServices();
                             allService.then(async function () {
@@ -78,6 +78,7 @@ exports.home_post = [
                                         title: 'Student Medical Appointment System',
                                         allService: allService,
                                         successful: successful,
+                                        username: req.user[0].username,
                                         allStaff: allStaff
                                     });
                                 });
@@ -86,7 +87,7 @@ exports.home_post = [
                     });
                 }
                 else {
-                    var make = Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                    var make = Appointment.makeAppointment(req.body.description, req.user[0].username, req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
                     make.then(async function() {
                         var allService = Service.getAllServices();
                         allService.then(async function () {
@@ -97,6 +98,7 @@ exports.home_post = [
                                 res.render('index', {
                                     title: 'Student Medical Appointment System',
                                     allService: allService,
+                                    username: req.user[0].username,
                                     successful: successful,
                                     allStaff: allStaff
                                 });
