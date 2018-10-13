@@ -1,45 +1,97 @@
 const Appointment = require('../models/appointment')
     , Staff = require('../models/staff')
-    , Service = require('../models/service');
+    , Service = require('../models/service')
+    , ServiceProvider = require('../models/serviceProvider');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
-
-// Display home page
-exports.index = function(req, res) {
-    res.send('To be implemented');
-};
-
-// Display Appointment creation form on GET
-exports.appointment_create_get = function(req, res){
-    var allStaff = Staff.getAllStaff();
-    allStaff.then( async function() {
-        allStaff = await allStaff;
-        for (var i = 0; i < allStaff.length; i++) {
-            console.log("Staff:");
-            console.log(allStaff[i].lastName);
-            res.render('createAppointment', { title: 'Create an Appointment', allStaff: allStaff });
-        }
-    });
-};
 
 //Loads bookings page
 exports.bookings_get = function(req, res) {
     //if(currentUser == null)
     //    res.redirect('/../users/login');
     //else {
-        res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username});
+    var allService = Service.getAllServices();
+    allService.then(async function () {
+        allService = await allService;
+        res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, username: req.user[0].username, type: req.user[0].type});
+    });
     //}
 };
 
 //POST request for bookings page
-exports.bookings_post = function(req, res) {
-    res.render('bookings', {title: 'Manage Bookings'})
-};
+exports.bookings_post = [
+    //Field Validation
+    body('description').isLength({ max: 200 }).trim().withMessage('Description must be specified'),
+    body('time').optional().isISO8601(),
+    body('appointTime').trim(),
+    body('selectedStaff').trim(),
+    body('selectedService').trim(),
+
+    // Field sanitisation
+    sanitizeBody('description').trim().escape(),
+
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            var allService = Service.getAllServices();
+            allService.then(async function() {
+                allService = await allService;
+                res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, successful: successful, username: req.user[0].username, type: req.user[0].type, errors: errors.array() });
+            });
+        }
+        else {
+            //popups
+            var successful = true;
+
+            //get end time of appointment
+            var endTime = Service.getEndTime(req.body.selectedService, req.body.appointTime);
+            endTime.then(async function () {
+                endTime = await endTime;
+
+                // get doctor if any doctor selected
+                if(req.body.selectedStaff == '0') {
+                    var doctors = Appointment.getAvailableStaffByServiceAndDayAndTime(req.body.selectedService, req.body.time, req.body.appointTime);
+                    doctors.then(async function () {
+                        doctors = await doctors;
+                        Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+
+                    });
+                }
+                else {
+                    Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                }
+                var allService = Service.getAllServices();
+                allService.then(async function () {
+                    allService = await allService;
+                    res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, successful: successful, username: req.user[0].username, type: req.user[0].type});
+                    res.render('index', {
+                        title: 'Student Medical Appointment System',
+                        allService: allService,
+                        successful: successful
+                    });
+
+                });
+            });
+        }
+    }
+];
 
 
 exports.appointment_times_get = function(req, res) {
     res.send("To be implemented");
+};
+
+exports.service_chosen_post = function(req, res) {
+    var allStaff = ServiceProvider.getStaffByService(req.body.service);
+    allStaff.then( async function() {
+        allStaff = await allStaff;
+        var duration = Service.getDuration(req.body.service);
+        duration.then( async function() {
+            duration = await duration;
+            res.send({allStaff: allStaff, duration: duration});
+        });
+    });
 };
 
 exports.appointment_times_post = function(req, res) {
@@ -118,31 +170,6 @@ exports.amend_appointment_format_post = function(req, res) {
     });
 };
 
-// Handle Appointment creation form on POST
-exports.appointment_create_post = [
-     //Field Validation
-    body('student_id').isLength({ min: 8, max: 8 }).trim().withMessage('Enter valid Student ID'),
-    body('description').isLength({ max: 200 }).trim().withMessage('Description must be specified'),
-    body('time').optional().isISO8601(),
-    body('appointTime').trim(),
-    body('selectedStaff').trim(),
-
-        // Field sanitisation
-    sanitizeBody('student_id').trim().escape(),
-    sanitizeBody('description').trim().escape(),
-
-        (req, res, next) => {
-            const errors = validationResult(req);
-            if(!errors.isEmpty()) {
-                res.render('createAppointment', { title: 'Create an Appointment', errors: errors.array() });
-                return;
-            }
-            else {
-                Appointment.makeAppointment(req.body.description, req.body.student_id, req.body.selectedStaff, req.body.time, req.body.appointTime);
-                res.render('createAppointmentSuccess', {title: 'Success!', studentid: req.body.student_id, date: req.body.time});
-            }
-        }
-];
 
 // Display Appointment deletion form on GET
 exports.appointment_cancel_get = function(req, res){

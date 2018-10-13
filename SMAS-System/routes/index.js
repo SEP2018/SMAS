@@ -24,6 +24,4 @@ router.get('/services', login_controller.ensureAuthenticated, services_controlle
 //POST request for serivces
 router.post('/services', login_controller.ensureAuthenticated, services_controller.services_post);
 
-router.post('/services/:id', login_controller.ensureAuthenticated, index_controller.service_chosen_post);
-
 module.exports = router;
