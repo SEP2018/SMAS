@@ -4,6 +4,8 @@ before_install:
   - git fetch --unshallow
 node_js:
   - "node"
+
+sudo: required
 addons:
   chrome: stable
 
