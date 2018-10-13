@@ -103,6 +103,21 @@ block content
     //                    img(src='/img/trash.png' class='table-option-img')
     //                    label(class='table-options-label') Delete
 
+    if successful
+        div#popup(class='popup')
+            div(class='popup-container')
+                div(class='popup-content')
+                    img(src='/img/footer-logo.png')
+                    h2 Appointment Successfully Booked.
+                button#closePopup(class='popup-button') Okay
+
+
+    div#popupEditDelete(class='popup' hidden)
+        div(class='popup-container')
+            div#popupContent(class='popup-content')
+                img(src='/img/footer-logo.png')
+                h2#popupMessage
+            button#closePopup(class='popup-button') Okay
 
     div(class='booking-bg')
         h2(class='h2-left') Existing Appointments
@@ -176,6 +191,8 @@ block content
                 dataType: 'json',
                 success: function() {
                     row.parentNode.removeChild(row);
+                    $("#popupEditDelete").removeAttr('hidden');
+                    $("#popupMessage").text("Appointment successfully deleted");
                 }
             });
         };
@@ -243,6 +260,8 @@ block content
                     row.childNodes[2].innerHTML = getDateFormat(json[0].appointmentDate);
                     row.childNodes[3].innerHTML = getTimeFormat(json[0].startTime);
                     row.childNodes[5].innerHTML = '<input type="image" src="/img/edit.png" width="43" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="editAppointment(this);">'
+                    $("#popupEditDelete").removeAttr('hidden');
+                    $("#popupMessage").text("Appointment successfully edited");
                 }
             });
         };
@@ -324,3 +343,8 @@ block content
             var ampm = (H < 12 || H === 24) ? "am" : "pm";
             return h + time.substr(hourEnd, 3) + ampm;
         };
+
+        $(document).on("click", '#closePopup', function () {
+            $('#popup').attr("hidden", "hidden");
+            $('#popupEditDelete').attr("hidden", "hidden");
+        });

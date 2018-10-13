@@ -11,6 +11,7 @@ const seleniumWebDriver = require('selenium-webdriver')
 
         Given('they navigate to the Create Appointment screen', function () {
             return this.driver.get("http://localhost:3000/appointments/bookings");
+            console.log("Bookings screen found");
         });
 
 
