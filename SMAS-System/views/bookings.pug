@@ -6,8 +6,8 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
-                div(class='username')
-                    p= username
+                div(class='username' id='username')
+                    p()=username
                 a(href="users/logout")
                     img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
@@ -45,6 +45,7 @@ block content
                     button.btn.btn-primary(class='booking-button') View Services
                 a(href='/doctors')
                     button.btn.btn-primary(class='booking-button') View Doctors
+
         div(class='booking-side')
             div(class='booking-form')
                 h2 Book an Appointment
@@ -61,7 +62,6 @@ block content
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p#serviceTimeTaken(class='form-feedback') Please allow up to ___ minutes for this appointment.
                     button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
-
 
     if successful
         div#popup(class='popup')
@@ -211,7 +211,7 @@ block content
         });
 
         function populateTable() {
-            var id = '12876797';
+            var id = document.getElementById('username').firstChild.textContent;
             $.ajax({
                 type: 'POST',
                 data: {id: id},

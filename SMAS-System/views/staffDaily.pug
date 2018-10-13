@@ -5,7 +5,7 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
-                div(class='username')
+                div(class='username' id='username')
                     p= username
                 a(href="../users/logout")
                     img(src='/img/logoutbtn.png' class='logout-btn')
@@ -55,7 +55,7 @@ block content
         });
 
         function populateTable() {
-            var id = '22345678';
+            var id = document.getElementById('username').firstChild.textContent;
             var date = document.getElementById('dailyAppointments').getAttribute('value');
             $.ajax({
                 type: 'POST',
