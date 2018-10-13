@@ -88,6 +88,25 @@ function constructEvent(roomID, serviceTitle, staffLastName, start, end){
     };
 }
 
+//https://developers.google.com/calendar/create-events
+
+exports.insertEvent = function(auth, roomID, serviceTitle, staffLastName, start, end) {
+    const calendar = google.calendar({version: 'v3', auth});
+    calendar.events.insert({
+        auth: auth,
+        calendarId: 'primary',
+        resource: constructEvent(roomID, serviceTitle, staffLastName, start, end),
+        sendNotifications: true,
+    }, function(err, event) {
+        if (err) {
+            console.log('There was an error contacting the Calendar service: ' + err);
+            return;
+        }
+        console.log('Event created: %s', event.htmlLink);
+    });
+};
+
+
 /* -- Sample event
 let event = {
     'summary': 'TEST SMAS Appointment',
@@ -120,23 +139,6 @@ let event = {
 };
 */
 
-//https://developers.google.com/calendar/create-events
-
-function insertEvent(auth) {
-    const calendar = google.calendar({version: 'v3', auth});
-    calendar.events.insert({
-        auth: auth,
-        calendarId: 'primary',
-        resource: constructEvent(roomID, serviceTitle, staffLastName, start, end),
-        sendNotifications: true,
-    }, function(err, event) {
-        if (err) {
-            console.log('There was an error contacting the Calendar service: ' + err);
-            return;
-        }
-        console.log('Event created: %s', event.htmlLink);
-    });
-}
 
 /*
 /**

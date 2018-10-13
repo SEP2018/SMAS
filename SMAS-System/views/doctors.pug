@@ -7,10 +7,9 @@ block content
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
                 div(class='username')
-                    p Chloe Dizon
-                    // above is placeholder
-                img(src='/img/logoutbtn.png' class='logout-btn')
-                // above needs link + logout
+                    p= username
+                a(href="../users/logout")
+                    img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
             div(class='nav-menu-container')
                 ul.nav-menu
@@ -30,11 +29,11 @@ block content
 
     div(class='sd-body')
         h2(class='sd-heading') Our Doctors
-        p(class='sd-description') Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        p(class='sd-description') Our team of doctors are here for all of your medical requirements. Each staff member is skilled and medically licensed, certified by medical institutes and with many years experience, and the team can provide many services. We promise to provide you with a comfortable and professional health-care experience.
         div(class='sd-container')
             for doctor in allDoctors
-                div(class='sd-item-container')
-                    img(src='/img/mackey.jpg' class='sd-img')
+                div(name='itemDiv' class='sd-item-container')
+                    img(src='/img/' + doctor.staffID + '.jpg' class='sd-img')
                     div(class='sd-item')
                         h3(class='sd-item-heading')='Dr. ' + doctor.lastName
                         p(class='sd-item-desc')=doctor.abstract

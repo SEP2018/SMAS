@@ -10,7 +10,7 @@ require("chromedriver");
 */
 
 defineSupportCode(function({setDefaultTimeout}) {
-    setDefaultTimeout(60 * 1000);
+    setDefaultTimeout(30 * 1000);
 });
 
 function CustomWorld() {

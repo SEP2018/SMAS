@@ -97,7 +97,8 @@ body {
 .popup-container {
     position: fixed;
     width: 50%;
-    height: 50%;
+    height: auto;
+    padding: 20px;
     top: 25%;
     left: 25%;
     background: white;
@@ -493,7 +494,7 @@ h2{
 }
 
 .footer-content{
-    width: 390px;
+    width: 490px;
     margin: 0 auto;
 }
 
@@ -508,6 +509,40 @@ h2{
 
 .footer-links {
     margin: 0 auto;
+    position: absolute;
+}
+
+.nav-menu-footer, .nav-menu-footer * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-menu-footer ul {
+    position: absolute;
+    display: none;
+}
+
+.nav-menu-footer li {
+    position: relative;
+    float:right;
+    margin-left: 10px;
+}
+
+/* Nav Meu Styling */
+.nav-menu-footer a {
+    padding: 10px 15px 10px 15px;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-menu-footer li:hover > a {
+    color: #69be00;
 }
 
 /*--------------------------------------------------------------

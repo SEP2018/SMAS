@@ -24,6 +24,9 @@ const Staff = sequelize.define('Staff', {
     },
     specialisation: {
         type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING
     }
 }, {
     getterMethods: {
@@ -47,9 +50,6 @@ module.exports = {
             return staff;
         });
     },
-    getStaffByService: async function(title) {
-
-    },
 
     findStaffByID: async function(staffID) {
         return new Promise(function(resolve, reject) {
@@ -67,5 +67,9 @@ module.exports = {
         }).then(result => {
             return result;
         });
+    },
+
+    checkIfUserIsStaff: async function(username){
+        
     }
 };

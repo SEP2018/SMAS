@@ -69,28 +69,46 @@ const Appointment = sequelize.define('Appointment', {
 // make a new Appointment object
 module.exports = {
     makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
-        if (new Date(appointmentDate+"T"+startTime+".000z") > Moment().tz("Australia/Sydney").format()){
-            Appointment.create({
-                description: description,
-                notes: null,
-                cancellationFlag: null,
-                studentID: studentID,
-                staffID: staffID,
-                roomID: null,
-                startTime: startTime,
-                endTime: endTime,
-                appointmentDate: appointmentDate,
-                serviceID: serviceID
-            }).then(function(){
-                console.log("Appointment created.");
-            }).catch(function (err) {
-                throw err;
-            });
-        }
-        else{
-            console.log("Appointment must be booked in the future.");
-            return "Appointments must be booked in the future.";
-        }
+        return new Promise(function(resolve, reject) {
+            let staffAvailability;
+            if (Moment(appointmentDate + " " + startTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
+                staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID);
+                staffAvailability.then(async function () {
+                    if (await staffAvailability) {
+                        Appointment.create({
+                            description: description,
+                            notes: null,
+                            cancellationFlag: null,
+                            studentID: studentID,
+                            staffID: staffID,
+                            roomID: null,
+                            startTime: startTime,
+                            endTime: endTime,
+                            appointmentDate: appointmentDate,
+                            serviceID: serviceID
+                        }).catch(function (err) {
+                            reject(err);
+                            throw err;
+                        }).then(result => {
+                            console.log("Appointment created.");
+                            resolve(result);
+                        });
+                    }
+                    else {
+                        console.log("Create Appointment Failed: Staff member is not available at this time.");
+                        reject("Staff member is not available at this time.");
+                        return "Staff member is not available at this time.";
+                    }
+                });
+            }
+            else {
+                console.log("Create Appointment Failed: Appointment must be booked in the future.");
+                reject("Appointments must be booked in the future.");
+                return "Appointments must be booked in the future.";
+            }
+        }).then(result => {
+            return result;
+        });
     },
 
     cancelAppointment : function(appointmentID){
@@ -169,11 +187,11 @@ module.exports = {
 
     getAvailableStaffByServiceAndDayAndTime: function(serviceID, appointmentDate, appointmentTime){
         return new Promise(function(resolve, reject) {
-            sequelize.query('SELECT staffid FROM serviceProvider WHERE serviceid = :serviceID AND staffid NOT IN (SELECT staffid FROM Appointment WHERE serviceid = :serviceID AND starttime = :appointmentTime AND appointmentDate = :appointmentDate);',
+            sequelize.query('SELECT staffid FROM serviceProvider WHERE serviceid = :serviceID AND staffid NOT IN (SELECT staffid FROM Appointment WHERE starttime = :appointmentTime AND appointmentDate = :appointmentDate);',
                 {
                     replacements: {serviceID: serviceID, appointmentDate: appointmentDate, appointmentTime: appointmentTime},
                     type: Sequelize.QueryTypes.SELECT
-                }).catch(function(err) {
+                }).catch(function(err){
                 reject(err);
                 throw err;
             }).then(result => {
@@ -185,7 +203,7 @@ module.exports = {
     findAppointmentByID: function(appointmentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
-                attributes: ['appointmentID', 'serviceID', 'appointmentDate', 'startTime', 'endTime'],
+                attributes: ['appointmentID', 'serviceID', 'staffID','appointmentDate', 'startTime', 'endTime'],
                 where: {
                     appointmentID: appointmentID
                 }
@@ -200,24 +218,56 @@ module.exports = {
         });
     },
 
-    updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime) {
-        return new Promise(function(resolve, reject) {
-            return Appointment.update({
-                    appointmentDate: newDate,
-                    startTime: newStartTime,
-                    endTime: newEndTime
-                },
-                {where: {
-                    appointmentID: appointmentID
-                }
-            }).catch(function (err) {
-                reject(err);
-                throw err;
-            }).then(result => {
-                resolve(result);
-            });
+    updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime, staffID, serviceID) {
+        return new Promise(function (resolve, reject) {
+            let staffAvailability;
+            if (Moment(newDate + " " + newStartTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
+                staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, newDate, newStartTime, serviceID);
+                staffAvailability.then(async function () {
+                    if (await staffAvailability) {
+                        return Appointment.update({
+                                appointmentDate: newDate,
+                                startTime: newStartTime,
+                                endTime: newEndTime
+                            },
+                            {
+                                where: {
+                                    appointmentID: appointmentID
+                                }
+                            }).catch(function (err) {
+                            reject(err);
+                            throw err;
+                        }).then(result => {
+                            resolve(result);
+                        });
+                    }
+                    else {
+                        console.log("Update Appointment Failed: Staff member is not available at this time.");
+                        return "Staff member is not available at this time.";
+                    }
+                });
+            }
+            else {
+                console.log("Update Appointment Failed: Appointment must be booked in the future.");
+                return "Appointments must be booked in the future.";
+            }
         }).then(result => {
             return result;
         });
-    }
+    },
 };
+
+async function isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID){
+    return new Promise(function(resolve, reject) {
+        sequelize.query('SELECT CASE WHEN :startTime IN (SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate)) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END',
+            {
+                replacements: {staffID: staffID, appointmentDate: appointmentDate, startTime: startTime, serviceID: serviceID},
+                type: Sequelize.QueryTypes.SELECT
+            }).catch(function(err) {
+            reject(err);
+            throw err;
+        }).then(result => {
+            resolve(result[0]['']);
+        });
+    });
+}
