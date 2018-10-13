@@ -47,9 +47,6 @@ module.exports = {
             return staff;
         });
     },
-    getStaffByService: async function(title) {
-
-    },
 
     findStaffByID: async function(staffID) {
         return new Promise(function(resolve, reject) {
