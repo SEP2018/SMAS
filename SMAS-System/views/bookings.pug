@@ -6,8 +6,8 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
-                div(class='username')
-                    p= username
+                div(class='username' id='username')
+                    p()=username
                 a(href="users/logout")
                     img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
@@ -45,62 +45,6 @@ block content
                     button.btn.btn-primary(class='booking-button') View Services
                 a(href='/doctors')
                     button.btn.btn-primary(class='booking-button') View Doctors
-        //div(class='booking-form')
-            //enter booking-form
-
-
-    //div(class='booking-bg')
-    //    h2(class='h2-left') Existing Appointments
-    //    table(class='existing-appointments-table')
-    //        tr(class='appointments-tr-heading')
-    //            th(class='appointments-th') Service
-    //            th(class='appointments-th') Doctor
-    //            th(class='appointments-th') Date
-    //            th(class='appointments-th') Time
-    //            th(class='appointments-th') Duration
-    //            th(class='appointments-th-options') Options
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
 
     if successful
         div#popup(class='popup')
@@ -145,7 +89,7 @@ block content
         });
 
         function populateTable() {
-            var id = '12876797';
+            var id = document.getElementById('username').firstChild.textContent;
             $.ajax({
                 type: 'POST',
                 data: {id: id},
