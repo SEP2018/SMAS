@@ -4,6 +4,7 @@ const Student = require('./student');
 const Staff = require('./staff');
 const Room = require('./room');
 const Service = require('./service');
+const Moment = require('moment-timezone');
 sequelize = orm.seq;
 const Appointment = sequelize.define('Appointment', {
     appointmentID: {
@@ -68,18 +69,28 @@ const Appointment = sequelize.define('Appointment', {
 // make a new Appointment object
 module.exports = {
     makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
-        Appointment.create({
-            description: description,
-            notes: null,
-            cancellationFlag: null,
-            studentID: studentID,
-            staffID: staffID,
-            roomID: null,
-            startTime: startTime,
-            endTime: endTime,
-            appointmentDate: appointmentDate,
-            serviceID: serviceID
-        });
+        if (new Date(appointmentDate+"T"+startTime+".000z") > Moment().tz("Australia/Sydney").format()){
+            Appointment.create({
+                description: description,
+                notes: null,
+                cancellationFlag: null,
+                studentID: studentID,
+                staffID: staffID,
+                roomID: null,
+                startTime: startTime,
+                endTime: endTime,
+                appointmentDate: appointmentDate,
+                serviceID: serviceID
+            }).then(function(){
+                console.log("Appointment created.");
+            }).catch(function (err) {
+                throw err;
+            });
+        }
+        else{
+            console.log("Appointment must be booked in the future.");
+            return "Appointments must be booked in the future.";
+        }
     },
 
     cancelAppointment : function(appointmentID){
