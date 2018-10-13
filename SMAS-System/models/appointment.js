@@ -69,38 +69,44 @@ const Appointment = sequelize.define('Appointment', {
 // make a new Appointment object
 module.exports = {
     makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
-        let staffAvailability;
-        if (Moment(appointmentDate + " " + startTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
-            staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID);
-            staffAvailability.then(async function () {
-                if (await staffAvailability) {
-                    Appointment.create({
-                        description: description,
-                        notes: null,
-                        cancellationFlag: null,
-                        studentID: studentID,
-                        staffID: staffID,
-                        roomID: null,
-                        startTime: startTime,
-                        endTime: endTime,
-                        appointmentDate: appointmentDate,
-                        serviceID: serviceID
-                    }).then(function () {
-                        console.log("Appointment created.");
-                    }).catch(function (err) {
-                        throw err;
-                    });
-                }
-                else {
-                    console.log("Create Appointment Failed: Staff member is not available at this time.");
-                    return "Staff member is not available at this time.";
-                }
-            });
-        }
-        else {
-            console.log("Create Appointment Failed: Appointment must be booked in the future.");
-            return "Appointments must be booked in the future.";
-        }
+        return new Promise(function(resolve, reject) {
+            let staffAvailability;
+            if (Moment(appointmentDate + " " + startTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
+                staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID);
+                staffAvailability.then(async function () {
+                    if (await staffAvailability) {
+                        Appointment.create({
+                            description: description,
+                            notes: null,
+                            cancellationFlag: null,
+                            studentID: studentID,
+                            staffID: staffID,
+                            roomID: null,
+                            startTime: startTime,
+                            endTime: endTime,
+                            appointmentDate: appointmentDate,
+                            serviceID: serviceID
+                        }).catch(function (err) {
+                            reject(err);
+                            throw err;
+                        }).then(result => {
+                            console.log("Appointment created.");
+                            resolve(result);
+                        });
+                    }
+                    else {
+                        console.log("Create Appointment Failed: Staff member is not available at this time.");
+                        return "Staff member is not available at this time.";
+                    }
+                });
+            }
+            else {
+                console.log("Create Appointment Failed: Appointment must be booked in the future.");
+                return "Appointments must be booked in the future.";
+            }
+        }).then(result => {
+            return result;
+        });
     },
 
     cancelAppointment : function(appointmentID){

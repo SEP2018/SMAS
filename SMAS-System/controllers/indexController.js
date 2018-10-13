@@ -23,14 +23,6 @@ exports.index = function(req, res){
     //}
 };
 
-exports.service_chosen_post = function(req, res) {
-    var allStaff = ServiceProvider.getStaffByService(req.body.service);
-    allStaff.then( async function() {
-        allStaff = await allStaff;
-        res.send(allStaff);
-    });
-};
-
 // Handle Appointment creation form on POST
 exports.home_post = [
     //Field Validation
@@ -76,10 +68,15 @@ exports.home_post = [
                 var allService = Service.getAllServices();
                 allService.then(async function () {
                     allService = await allService;
-                    res.render('index', {
-                        title: 'Student Medical Appointment System',
-                        allService: allService,
-                        successful: successful
+                    var allStaff = Staff.getAllStaff();
+                    allStaff.then(async function () {
+                        allStaff = await allStaff;
+                        res.render('index', {
+                            title: 'Student Medical Appointment System',
+                            allService: allService,
+                            successful: successful,
+                            allStaff: allStaff
+                        });
                     });
                 });
             });
