@@ -5,13 +5,12 @@ const seleniumWebDriver = require('selenium-webdriver')
 
     defineSupportCode(function ({When, Then, Given}) {
 
-        Given('a user is logged in to SMAS', function (callback) {
-            this.driver.get("http://localhost:3000/");
-            callback(null, "Pending");
+        Given('a user is logged in to SMAS', function () {
+            return this.driver.get("http://localhost:3000/");
         });
 
         Given('they navigate to the Create Appointment screen', function () {
-            this.driver.get("http://localhost:3000/appointments/bookings");
+            return this.driver.get("http://localhost:3000/appointments/bookings");
         });
 
 

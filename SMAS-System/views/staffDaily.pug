@@ -26,173 +26,13 @@ block content
         h1(class='h1-staff') Appointments
 
     div(class='daily-appointments')
-            h4(class='h4-day') Friday
-                //above is placeholder day
-            h3(class='h3-date') 14 September
-                // above is placeholder date//
+        h4(class='h4-day' id='dayHeader') Friday
+        h3(class='h3-date' id='dateHeader') 13
+        div(class='arrow-buttons-container')
+            input(type="image" src="/img/arrow-backward.png" class='nav-arrow' id="arrowBackward" width="50" height="50" onclick="dateBackward();")
+            input(type="image" src="/img/arrow-forward.png" class='nav-arrow' id="arrowForward" width="50" height="50" onclick="dateForward();")
+        table(class='daily-table' id='dailyAppointments' value=new Date())
 
-            div
-                table(class='daily-table')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 9:00
-                        td(class='daily-name-td') John Smith
-                        td(class='daily-service-td') General Check-Up
-                        td(class='daily-note-td') Sore leg
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 9:15
-                        td(class='daily-name-td') John Smith
-                        td(class='daily-service-td') General Check-Up
-                        td(class='daily-note-td') Sore leg
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 9:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 9:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 10:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 10:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 10:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 10:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 11:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 11:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 11:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 11:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 12:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 12:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 12:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 12:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 13:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 13:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 13:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 13:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 14:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 14:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 14:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 14:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 15:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 15:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 15:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 15:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 16:00
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 16:15
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 16:30
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
-                    tr(class='staff-table-tr')
-                        td(class='daily-time-td') 16:45
-                        td(class='daily-name-td')
-                        td(class='daily-service-td')
-                        td(class='daily-note-td')
     footer(class='footer')
         div(class='footer-bg')
             div(class='footer-content')
@@ -209,3 +49,163 @@ block content
                             a(href='/appointments/bookings') Bookings
                         li
                             a(href='/') Home
+
+    script.
+        $(document).ready(function() {
+            populateTable();
+        });
+
+        function populateTable() {
+            var id = '2';
+            var date = document.getElementById('dailyAppointments').getAttribute('value');
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'dailyBookings',
+                dataType: 'json',
+                success: function(json) {
+                    var table = $('#dailyAppointments');
+                    table.empty();
+                    document.getElementById('dayHeader').innerText = getDayFormat(date);
+                    document.getElementById('dateHeader').innerText = getDateFormat(date);
+                    $.each(json, function() {
+                        table.append($('<tr class="staff-table-tr">').append(
+                            $('<td class="daily-time-td">').text(getTimeFormat(this['availableSlot'])),
+                            $('<td class="daily-name-td">'),
+                            $('<td class="daily-service-td">'),
+                            $('<td class="daily-note-td">')
+                        ));
+                    });
+                    date = date.substr(0, 10);
+                    populateRows(id, date);
+                }
+            });
+        };
+
+        function populateRows(id, date) {
+            $.ajax({
+                type:'POST',
+                data: {id: id, date: date},
+                url: 'doctorAppointments/' + id,
+                dataType: 'json',
+                success: function(json) {
+                    var table = $('#dailyAppointments');
+                    $.each(json, function() {
+                        for(var i = 0; i < table.children().length; i++){
+                            if(table.children()[i].childNodes[0].innerText === getTimeFormat(this['startTime'])){
+                                table.children()[i].childNodes[1].innerText = this['studentID'];
+                                table.children()[i].childNodes[1].setAttribute('id', 'daily-td-highlighted');
+                                table.children()[i].childNodes[2].innerText = this['serviceTitle'];
+                                table.children()[i].childNodes[2].setAttribute('id', 'daily-td-highlighted');
+                                table.children()[i].childNodes[3].innerText = this['description'];
+                                table.children()[i].childNodes[3].setAttribute('id', 'daily-td-highlighted');
+                                for(var j = i; j < i + parseInt(this['duration'], 10)/15; ++j){
+                                    table.children()[j].childNodes[1].setAttribute('id', 'daily-td-highlighted');
+                                    table.children()[j].childNodes[2].setAttribute('id', 'daily-td-highlighted');
+                                    table.children()[j].childNodes[3].setAttribute('id', 'daily-td-highlighted');
+                                };
+                            };
+                        };
+                    });
+                }
+            });
+        };
+
+        function dateBackward() {
+            var table = document.getElementById('dailyAppointments');
+            var date = new Date(table.getAttribute('value'));
+            date.setDate(date.getDate() - 1);
+            table.setAttribute('value', date.toISOString());
+            populateTable();
+        };
+
+        function dateForward() {
+            var table = document.getElementById('dailyAppointments');
+            var date = new Date(table.getAttribute('value'));
+            date.setDate(date.getDate() + 1);
+            table.setAttribute('value', date.toISOString());
+            populateTable();
+        };
+
+        function getTimeFormat(date) {
+            var time = date.substr(11, 8);
+            var hourEnd = time.indexOf(":");
+            var H = +time.substr(0, hourEnd);
+            var h = H % 12 || 12;
+            var ampm = (H < 12 || H === 24) ? "am" : "pm";
+            return h + time.substr(hourEnd, 3) + ampm;
+        };
+
+        function getDayFormat(date) {
+            var $date = new Date(date);
+            var day = "";
+            switch ($date.getDay()) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+                    break;
+            }
+            return day;
+        };
+
+        function getDateFormat(date) {
+            var $date = new Date(date);
+            var dateNumber = $date.getDate();
+            var month = "";
+            switch ($date.getMonth()) {
+                case 0:
+                    month = "January";
+                    break;
+                case 1:
+                    month = "February";
+                    break;
+                case 2:
+                    month = "March";
+                    break;
+                case 3:
+                    month = "April";
+                    break;
+                case 4:
+                    month = "May";
+                    break;
+                case 5:
+                    month = "June";
+                    break;
+                case 6:
+                    month = "July";
+                    break;
+                case 7:
+                    month = "August";
+                    break;
+                case 8:
+                    month = "September";
+                    break;
+                case 9:
+                    month = "October";
+                    break;
+                case 10:
+                    month = "November";
+                    break;
+                case 11:
+                    month = "December";
+                    break;
+            }
+            return dateNumber + ' ' + month;
+        };
