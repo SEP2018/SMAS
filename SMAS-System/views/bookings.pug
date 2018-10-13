@@ -7,10 +7,9 @@ block content
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
                 div(class='username')
-                    p Chloe Dizon
-                    // above is placeholder
-                img(src='/img/logoutbtn.png' class='logout-btn')
-                // above needs link + logout
+                    p= username
+                a(href="users/logout")
+                    img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
             div(class='nav-menu-container')
                 ul.nav-menu

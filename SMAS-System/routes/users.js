@@ -9,8 +9,17 @@ const passport = require('passport')
 router.get('/login', login_controller.login_get);
 
 // POST request for login
-router.post('/login', passport.authenticate('local', { successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true }));
+router.post('/login',
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/",
+        failureFlash: false
+    })
+);
+
+router.get('/logout',(req,res,next) => {
+    req.logOut();
+    res.redirect('/');
+});
 
 module.exports = router;

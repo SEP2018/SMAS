@@ -13,7 +13,7 @@ exports.index = function(req, res){
         var allService = Service.getAllServices();
         allService.then(async function () {
             allService = await allService;
-            res.render('index', {title: 'Student Medical Appointment System', allService: allService});
+            res.render('index', {title: 'Student Medical Appointment System', allService: allService, username: req.user[0].username});
         });
     //}
 };

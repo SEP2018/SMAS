@@ -9,7 +9,7 @@ exports.staff_daily_get = function(req, res){
     //if(currentUser == null)
     //    res.redirect('/login');
     //else {
-        res.render('staffDaily', {title: 'Appointments'});
+        res.render('staffDaily', {title: 'Appointments', username: req.user[0].username});
     //}
 };
 

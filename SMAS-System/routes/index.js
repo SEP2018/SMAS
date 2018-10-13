@@ -13,17 +13,17 @@ router.get('/', login_controller.ensureAuthenticated, index_controller.index);
 router.post('/', login_controller.ensureAuthenticated, index_controller.home_post);
 
 //GET request for doctors
-router.get('/doctors', doctors_controller.doctors_get);
+router.get('/doctors', login_controller.ensureAuthenticated, doctors_controller.doctors_get);
 
 //POST request for doctors
-router.post('/doctors', doctors_controller.doctors_post);
+router.post('/doctors', login_controller.ensureAuthenticated, doctors_controller.doctors_post);
 
 //GET request for services
-router.get('/services', services_controller.services_get);
+router.get('/services', login_controller.ensureAuthenticated, services_controller.services_get);
 
 //POST request for serivces
-router.post('/services', services_controller.services_post);
+router.post('/services', login_controller.ensureAuthenticated, services_controller.services_post);
 
-router.post('/services/:id', index_controller.service_chosen_post);
+router.post('/services/:id', login_controller.ensureAuthenticated, index_controller.service_chosen_post);
 
 module.exports = router;
