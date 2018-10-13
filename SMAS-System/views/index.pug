@@ -5,14 +5,17 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
+
                 div(class='username')
-                    p Chloe Dizon
-                    // above is placeholder
-                img(src='/img/logoutbtn.png' class='logout-btn')
-                // above needs link + logout
+                    p= username
+                a(href="users/logout")
+                    img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
             div(class='nav-menu-container')
                 ul.nav-menu
+                    if type == 'staff'
+                        li
+                            a(href='/staff/daily') Staff
                     li
                         a(href='/staff/daily') Staff
                     li
@@ -67,46 +70,21 @@ block content
             for service in allService
                 div(class='home-item-container')
                     a(href='/services')
-                        img(src='/img/check-up.jpg' class='home-item')
+                        img(src=('/img/' + service.title + '.jpg') class='home-item')
                         div(class='img-overlay')
-                            div(class='img-overlay-text')
-                                p=service.description
-                            // ALL NEED INFO FROM DATABASE
                     p(class='img-text-service')=service.title
 
 
     div(class='doctor-area')
         h2 Our Doctors
         div(class='home-items')
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/mackey.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Mackey
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/macnaughton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. MacNaughton
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/unsworth.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                            // ALL NEED INFO FROM DATABASE
-                p(class='img-text-doctor') Dr. Unsworth
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/walton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Walton
+            for staff in allStaff
+                div(class='home-item-container')
+                    a(href='/doctors')
+                        img(src=('/img/' + staff.staffID + '.jpg') class='home-item')
+                        div(class='img-overlay')
+                    p(class='img-text-doctor')='Dr. ' + staff.lastName
+
     if successful
         div#popup(class='popup')
             div(class='popup-container')

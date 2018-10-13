@@ -28,7 +28,7 @@ exports.bookings_get = function(req, res) {
     //if(currentUser == null)
     //    res.redirect('/../users/login');
     //else {
-        res.render('bookings', {title: 'Manage Bookings'});
+        res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username});
     //}
 };
 
