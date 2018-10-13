@@ -67,7 +67,7 @@ const Appointment = sequelize.define('Appointment', {
 
 // make a new Appointment object
 module.exports = {
-    makeAppointment : function(description, studentID, staffID, startTime, appointmentDate, serviceID){
+    makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
         Appointment.create({
             description: description,
             notes: null,
@@ -76,6 +76,7 @@ module.exports = {
             staffID: staffID,
             roomID: null,
             startTime: startTime,
+            endTime: endTime,
             appointmentDate: appointmentDate,
             serviceID: serviceID
         });
@@ -130,6 +131,36 @@ module.exports = {
             sequelize.query('SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate);',
                 {
                     replacements: {serviceID: serviceID, staffID: staffID, appointmentDate: appointmentDate},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        });
+    },
+
+    getAvailabilityByDayForService: function(serviceID, appointmentDate){
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT * FROM availableTimeSlotsByService(:serviceID, :appointmentDate);',
+                {
+                    replacements: {serviceID: serviceID, appointmentDate: appointmentDate},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        });
+    },
+
+    getAvailableStaffByServiceAndDayAndTime: function(serviceID, appointmentDate, appointmentTime){
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT staffid FROM serviceProvider WHERE serviceid = :serviceID AND staffid NOT IN (SELECT staffid FROM Appointment WHERE serviceid = :serviceID AND starttime = :appointmentTime AND appointmentDate = :appointmentDate);',
+                {
+                    replacements: {serviceID: serviceID, appointmentDate: appointmentDate, appointmentTime: appointmentTime},
                     type: Sequelize.QueryTypes.SELECT
                 }).catch(function(err) {
                 reject(err);

@@ -43,11 +43,21 @@ exports.appointment_times_get = function(req, res) {
 };
 
 exports.appointment_times_post = function(req, res) {
-    var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
-    allTimes.then( async function() {
-        allTimes = await allTimes;
-        res.send(allTimes);
-    })
+    if(req.body.doctor != '0') {
+        var allTimes = Appointment.getAvailabilityByStaffAndDayForService(req.body.service, req.body.doctor, req.body.date);
+        allTimes.then(async function () {
+            allTimes = await allTimes;
+            res.send(allTimes);
+        })
+    }
+    else
+    {
+        var allTimes = Appointment.getAvailabilityByDayForService(req.body.service, req.body.date);
+        allTimes.then( async function () {
+            allTimes = await allTimes;
+            res.send(allTimes);
+        })
+    }
 };
 
 exports.existing_appointments_post = function(req, res) {
