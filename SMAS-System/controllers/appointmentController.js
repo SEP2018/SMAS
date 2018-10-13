@@ -6,17 +6,12 @@ const Appointment = require('../models/appointment')
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
 
-//Loads bookings page
 exports.bookings_get = function(req, res) {
-    //if(currentUser == null)
-    //    res.redirect('/../users/login');
-    //else {
     var allService = Service.getAllServices();
     allService.then(async function () {
         allService = await allService;
         res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, username: req.user[0].username, type: req.user[0].type});
     });
-    //}
 };
 
 //POST request for bookings page
@@ -54,7 +49,7 @@ exports.bookings_post = [
                     var doctors = Appointment.getAvailableStaffByServiceAndDayAndTime(req.body.selectedService, req.body.time, req.body.appointTime);
                     doctors.then(async function () {
                         doctors = await doctors;
-                        var make = Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                        var make = Appointment.makeAppointment(req.body.description, req.user[0].username, doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
                         make.then(async function() {
                             var allService = Service.getAllServices();
                             allService.then(async function () {
@@ -65,7 +60,7 @@ exports.bookings_post = [
                     });
                 }
                 else {
-                    var make = Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                    var make = Appointment.makeAppointment(req.body.description, req.user[0].username, req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
                     make.then(async function() {
                         var allService = Service.getAllServices();
                         allService.then(async function () {
