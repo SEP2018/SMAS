@@ -70,5 +70,9 @@ module.exports = {
         }).then(result => {
             return result;
         });
+    },
+
+    checkIfUserIsStaff: async function(username){
+        
     }
 };

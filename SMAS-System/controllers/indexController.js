@@ -13,11 +13,10 @@ exports.index = function(req, res){
         var allService = Service.getAllServices();
         allService.then(async function () {
             allService = await allService;
-            res.render('index', {title: 'Student Medical Appointment System', allService: allService, username: req.user[0].username});
+            res.render('index', {title: 'Student Medical Appointment System', allService: allService, username: req.user[0].username, type: req.user[0].type});
         });
     //}
 };
-
 
 exports.service_chosen_post = function(req, res) {
     var allStaff = Staff.getAllStaff();
