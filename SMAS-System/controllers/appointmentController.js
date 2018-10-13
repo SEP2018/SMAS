@@ -73,7 +73,7 @@ exports.existing_appointments_post = function(req, res) {
                 for (var i = 0, len = allAppointments.length; i < len; i++) {
                     allAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
                     allAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
-                    allAppointments[i].dataValues.staffName = allStaff[allAppointments[i].dataValues.staffID - 1].dataValues.lastName;
+                    allAppointments[i].dataValues.staffName = allStaff[parseInt(allAppointments[i].dataValues.staffID.toString().substr(0, 1)) - 1].dataValues.lastName;
                 }
                 res.send(allAppointments);
             });
