@@ -96,12 +96,14 @@ module.exports = {
                     }
                     else {
                         console.log("Create Appointment Failed: Staff member is not available at this time.");
+                        reject("Staff member is not available at this time.");
                         return "Staff member is not available at this time.";
                     }
                 });
             }
             else {
                 console.log("Create Appointment Failed: Appointment must be booked in the future.");
+                reject("Appointments must be booked in the future.");
                 return "Appointments must be booked in the future.";
             }
         }).then(result => {
