@@ -245,18 +245,6 @@ block content
                 url: 'update',
                 dataType: 'json',
                 success: function(json) {
-                    amendAppointmentRow(row, appointmentID);
-                }
-            });
-        };
-
-        function amendAppointmentRow(row, id) {
-            $.ajax({
-                type: 'POST',
-                data: {appointmentID: id},
-                url: 'amendFormat',
-                dataType: 'json',
-                success: function(json) {
                     row.childNodes[2].innerHTML = getDateFormat(json[0].appointmentDate);
                     row.childNodes[3].innerHTML = getTimeFormat(json[0].startTime);
                     row.childNodes[5].innerHTML = '<input type="image" src="/img/edit.png" width="43" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="editAppointment(this);">'

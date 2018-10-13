@@ -195,7 +195,7 @@ module.exports = {
     findAppointmentByID: function(appointmentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
-                attributes: ['appointmentID', 'serviceID', 'appointmentDate', 'startTime', 'endTime'],
+                attributes: ['appointmentID', 'serviceID', 'staffID','appointmentDate', 'startTime', 'endTime'],
                 where: {
                     appointmentID: appointmentID
                 }
