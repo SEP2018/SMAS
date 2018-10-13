@@ -71,7 +71,7 @@ module.exports = {
     makeAppointment : function(description, studentID, staffID, startTime, endTime, appointmentDate, serviceID){
         let staffAvailability;
         if (Moment(appointmentDate + " " + startTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
-            staffAvailability = isStaffAvailableForDayAndTime(staffID, appointmentDate, startTime);
+            staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID);
             staffAvailability.then(async function () {
                 if (await staffAvailability) {
                     Appointment.create({
@@ -210,10 +210,10 @@ module.exports = {
         });
     },
 
-    updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime, staffID) {
+    updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime, staffID, serviceID) {
         let staffAvailability;
         if (Moment(newDate + " " + newStartTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
-            staffAvailability = isStaffAvailableForDayAndTime(staffID, newDate, newStartTime);
+            staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, newDate, newStartTime, serviceID);
             staffAvailability.then(async function () {
                 if (await staffAvailability) {
                     return new Promise(function (resolve, reject) {
@@ -249,11 +249,11 @@ module.exports = {
     },
 };
 
-async function isStaffAvailableForDayAndTime(staffID, appointmentDate, startTime){
+async function isStaffAvailableForDayAndTimeOfService(staffID, appointmentDate, startTime, serviceID){
     return new Promise(function(resolve, reject) {
-        sequelize.query('SELECT CASE WHEN NOT EXISTS (SELECT staffID FROM Appointment WHERE staffID = :staffID AND appointmentDate = :appointmentDate AND startTime = :startTime) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END',
+        sequelize.query('SELECT CASE WHEN :startTime IN (SELECT * FROM availableTimeSlots(:serviceID, :staffID, :appointmentDate)) THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT) END',
             {
-                replacements: {staffID: staffID, appointmentDate: appointmentDate, startTime: startTime},
+                replacements: {staffID: staffID, appointmentDate: appointmentDate, startTime: startTime, serviceID: serviceID},
                 type: Sequelize.QueryTypes.SELECT
             }).catch(function(err) {
             reject(err);
