@@ -25,12 +25,12 @@ block content
     div(class='page-title')
         h1(class='h1-staff') Appointments
 
-    div(class='daily-appointments')
+    div(class='daily-appointments' id=new Date())
         h4(class='h4-day' id='dayHeader') Friday
         h3(class='h3-date' id='dateHeader') 14 September
         div(class='arrow-buttons-container')
-            img(src='/img/arrow-backward.png' class='nav-arrow')
-            img(src='/img/arrow-forward.png' class='nav-arrow')
+            input(type="image" src="/img/arrow-backward.png" class='nav-arrow' id="arrowBackward" width="50" height="50" onclick="dateBackward();")
+            input(type="image" src="/img/arrow-forward.png" class='nav-arrow' id="arrowForward" width="50" height="50" onclick="dateForward();")
         table(class='daily-table' id='dailyAppointments')
                     //tr(class='staff-table-tr')
                     //    td(class='daily-time-td') 9:00
@@ -111,6 +111,10 @@ block content
             });
         };
 
+        function dateBackward() {
+
+        };
+
         function getTimeFormat(date) {
             var time = date.substr(11, 8);
             var hourEnd = time.indexOf(":");
@@ -120,25 +124,76 @@ block content
             return h + time.substr(hourEnd, 3) + ampm;
         };
 
+        function getDayFormat(date) {
+            var $date = new Date(date);
+            var day = "";
+            switch ($date.getDay()) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+                    break;
+            }
+            return day;
+        };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        function getDateFormat(date) {
+            var $date = new Date(date);
+            var dateNumber = $date.getDate();
+            var month = "";
+            switch ($date.getMonth()) {
+                case 0:
+                    month = "January";
+                    break;
+                case 1:
+                    month = "February";
+                    break;
+                case 2:
+                    month = "March";
+                    break;
+                case 3:
+                    month = "April";
+                    break;
+                case 4:
+                    month = "May";
+                    break;
+                case 5:
+                    month = "June";
+                    break;
+                case 6:
+                    month = "July";
+                    break;
+                case 7:
+                    month = "August";
+                    break;
+                case 8:
+                    month = "September";
+                    break;
+                case 9:
+                    month = "October";
+                    break;
+                case 10:
+                    month = "November";
+                    break;
+                case 11:
+                    month = "December";
+                    break;
+            }
+            return dateNumber + ' ' + month;
+        };
