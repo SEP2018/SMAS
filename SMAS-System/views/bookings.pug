@@ -6,9 +6,9 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
-                div(class='username')
-                    p= username
-                a(href="../users/logout")
+                div(class='username' id='username')
+                    p()=username
+                a(href="users/logout")
                     img(src='/img/logoutbtn.png' class='logout-btn')
         div(class='nav-menu-bg')
             div(class='nav-menu-container')
@@ -45,62 +45,23 @@ block content
                     button.btn.btn-primary(class='booking-button') View Services
                 a(href='/doctors')
                     button.btn.btn-primary(class='booking-button') View Doctors
-        //div(class='booking-form')
-            //enter booking-form
 
-
-    //div(class='booking-bg')
-    //    h2(class='h2-left') Existing Appointments
-    //    table(class='existing-appointments-table')
-    //        tr(class='appointments-tr-heading')
-    //            th(class='appointments-th') Service
-    //            th(class='appointments-th') Doctor
-    //            th(class='appointments-th') Date
-    //            th(class='appointments-th') Time
-    //            th(class='appointments-th') Duration
-    //            th(class='appointments-th-options') Options
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
-    //        tr(class='appointments-tr')
-    //            td(class='appointments-td') General Check Up
-    //            td(class='appointments-td') Dr. MacNaughton
-    //            td(class='appointments-td') Wednesday, 12 September
-    //            td(class='appointments-td') 12:00pm
-    //            td(class='appointments-td') 30 minutes
-    //            td(class='appointments-td-buttons')
-    //                //needs real data + make buttons work
-    //                div(class='table-option-container')
-    //                    img(src='/img/edit.png' class='table-option-img')
-    //                    label(class='table-options-label') Edit
-    //                div(class='table-option-container')
-    //                    img(src='/img/trash.png' class='table-option-img')
-    //                    label(class='table-options-label') Delete
+        div(class='booking-side')
+            div(class='booking-form')
+                h2 Book an Appointment
+                form(method='POST' action='')
+                    select#service(name='selectedService' class="form-item")
+                        option(value='' hidden) Service
+                        for service in allService
+                            option(value=service.serviceID)=service.title
+                    select#doctor(name='selectedStaff' class="form-item" disabled)
+                        option(value='' hidden) Doctor
+                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
+                    select#appointTime(class="form-item" name='appointTime' disabled)
+                        option(value='' hidden) Time
+                    input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
+                    p#serviceTimeTaken(class='form-feedback') Please allow up to ___ minutes for this appointment.
+                    button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
 
     if successful
         div#popup(class='popup')
@@ -144,8 +105,113 @@ block content
             populateTable();
         });
 
+        $(document).on("change", '#service', function (e) {
+            var service = $(this).val()
+            if (service != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {service: service},
+                    url: 'services/' + service,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#doctor");
+                        console.log(json);
+                        $el.empty();
+                        $el.removeAttr('disabled');
+                        $el.append($("<option></option>")
+                            .attr({value: '', hidden: 'hidden'}).text('Doctors'));
+                        $("#serviceTimeTaken").text("Please allow up to " + json.duration + " minutes for this appointment.");
+                        $el.append($("<option></option>")
+                            .attr("value", '0').text('Any doctor'));
+                        $.each(json.allStaff, function () {
+                            $el.append($("<option></option>")
+                                .attr("value", this['staffID']).text(this['lastName']));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#doctor').attr('disabled', 'disabled');
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
+        $(document).on("change", '#doctor', function (e) {
+            var doctor = $('#doctor').val();
+            var service = $('#service').val();
+            var date = $('#date').val();
+            if (doctor != '') {
+                var today = new Date().toISOString().split('T')[0];
+                $('#date').attr('min', today);
+                $('#date').removeAttr('disabled');
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
+                        $el.append($("<option></option>")
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            var time = this['availableSlot'].substr(11, 8);
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(time));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
+        $(document).on("change", '#date', function (e) {
+            var doctor = $('#doctor').val();
+            var service = $('#service').val();
+            var date = $('#date').val();
+            if (date != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
+                        $el.removeAttr('disabled');
+                        $el.append($("<option></option>")
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
+        $(document).on("change", '#appointTime', function (e) {
+            var appointTime = $('#appointTime').val();
+            if (appointTime != '') {
+                $('#submitAppoint').removeAttr('disabled');
+            }
+            else {
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
         function populateTable() {
-            var id = '12876797';
+            var id = document.getElementById('username').firstChild.textContent;
             $.ajax({
                 type: 'POST',
                 data: {id: id},

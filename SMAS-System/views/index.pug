@@ -115,7 +115,7 @@ block content
                 $.ajax({
                     type: "POST",
                     data: {service: service},
-                    url: 'services/' + service,
+                    url: 'appointments/services/' + service,
                     dataType: 'json',
                     success: function (json) {
                         var $el = $("#doctor");
