@@ -11,7 +11,7 @@ exports.services_get = function(req, res){
         var allService = Service.getAllServices();
         allService.then(async function () {
             allService = await allService;
-            res.render('services', {title: 'Our Services', allService: allService});
+            res.render('services', {title: 'Our Services', allService: allService, username: req.user[0].username});
         });
     //}
 };

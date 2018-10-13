@@ -11,7 +11,7 @@ exports.doctors_get = function(req, res){
         var allDoctors = Staff.getAllStaff();
         allDoctors.then(async function () {
             allDoctors = await allDoctors;
-            res.render('doctors', {title: 'Doctors', allDoctors: allDoctors});
+            res.render('doctors', {title: 'Doctors', allDoctors: allDoctors, username: req.user[0].username});
         });
     //}
 };
