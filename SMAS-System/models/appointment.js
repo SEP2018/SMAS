@@ -195,7 +195,7 @@ module.exports = {
     findAppointmentByID: function(appointmentID) {
         return new Promise(function(resolve, reject) {
             return Appointment.findAll({
-                attributes: ['appointmentID', 'serviceID', 'appointmentDate', 'startTime', 'endTime'],
+                attributes: ['appointmentID', 'serviceID', 'staffID','appointmentDate', 'startTime', 'endTime'],
                 where: {
                     appointmentID: appointmentID
                 }
@@ -211,12 +211,12 @@ module.exports = {
     },
 
     updateAppointment: function(appointmentID, newDate, newStartTime, newEndTime, staffID, serviceID) {
-        let staffAvailability;
-        if (Moment(newDate + " " + newStartTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
-            staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, newDate, newStartTime, serviceID);
-            staffAvailability.then(async function () {
-                if (await staffAvailability) {
-                    return new Promise(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
+            let staffAvailability;
+            if (Moment(newDate + " " + newStartTime, "YYYY-MM-DD HH:mm:ii Z").tz("Australia/Sydney").format() > Moment().tz("Australia/Sydney").format()) {
+                staffAvailability = isStaffAvailableForDayAndTimeOfService(staffID, newDate, newStartTime, serviceID);
+                staffAvailability.then(async function () {
+                    if (await staffAvailability) {
                         return Appointment.update({
                                 appointmentDate: newDate,
                                 startTime: newStartTime,
@@ -232,20 +232,20 @@ module.exports = {
                         }).then(result => {
                             resolve(result);
                         });
-                    }).then(result => {
-                        return result;
-                    });
-                }
-                else {
-                    console.log("Update Appointment Failed: Staff member is not available at this time.");
-                    return "Staff member is not available at this time.";
-                }
-            });
-        }
-        else {
-            console.log("Update Appointment Failed: Appointment must be booked in the future.");
-            return "Appointments must be booked in the future.";
-        }
+                    }
+                    else {
+                        console.log("Update Appointment Failed: Staff member is not available at this time.");
+                        return "Staff member is not available at this time.";
+                    }
+                });
+            }
+            else {
+                console.log("Update Appointment Failed: Appointment must be booked in the future.");
+                return "Appointments must be booked in the future.";
+            }
+        }).then(result => {
+            return result;
+        });
     },
 };
 

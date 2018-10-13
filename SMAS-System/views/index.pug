@@ -218,9 +218,8 @@ block content
                         $el.append($("<option></option>")
                             .attr({value: '', hidden: 'hidden'}).text('Times'));
                         $.each(json, function () {
-                            var time = this['availableSlot'].substr(11, 8);
                             $el.append($("<option></option>")
-                                .attr("value", this['availableSlot']).text(time));
+                                .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
                         });
                     }
                 });
@@ -244,3 +243,12 @@ block content
         $(document).on("click", '#closePopup', function() {
             $('#popup').attr('hidden', 'hidden');
         });
+
+        function getTimeFormat(date) {
+            var time = date.substr(11, 8);
+            var hourEnd = time.indexOf(":");
+            var H = +time.substr(0, hourEnd);
+            var h = H % 12 || 12;
+            var ampm = (H < 12 || H === 24) ? "am" : "pm";
+            return h + time.substr(hourEnd, 3) + ampm;
+        };

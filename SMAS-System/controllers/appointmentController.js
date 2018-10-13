@@ -98,8 +98,14 @@ exports.update_appointment_post = function(req, res) {
         service.then( async function() {
             service = await service;
             var endTime = new Date(new Date(req.body.time).getTime() + service[0].dataValues.duration*60000);
-            Appointment.updateAppointment(req.body.appointmentID, req.body.date, req.body.time, endTime, appointment.staffID, appointment.serviceID);
-            res.send(true);
+            var update = Appointment.updateAppointment(req.body.appointmentID, req.body.date, req.body.time, endTime, appointment[0].dataValues.staffID, appointment[0].dataValues.serviceID);
+            update.then( async function() {
+                var newAppointment = Appointment.findAppointmentByID(req.body.appointmentID);
+                newAppointment.then( async function() {
+                    newAppointment = await newAppointment;
+                    res.send(newAppointment);
+                });
+            });
         });
     });
 };

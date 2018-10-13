@@ -200,9 +200,11 @@ block content
         function editAppointment(button) {
             var row = button.parentNode.parentNode;
             var existing_date = row.childNodes[2].getAttribute('value').substr(0, 10);
+            var today = new Date().toISOString().split('T')[0];
             button.parentNode.innerHTML = '<input type="image" src="/img/confirm.png" width="45" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="confirmAppointment(this);">';
-            row.childNodes[2].innerHTML = '<input id="date_dropdown" type="date">';
+            row.childNodes[2].innerHTML = '<input id="date_dropdown" type="date" onkeydown="return false">';
             row.childNodes[2].firstChild.setAttribute('value', existing_date);
+            row.childNodes[2].firstChild.setAttribute('min', today);
             row.childNodes[3].innerHTML = '<select id="time_dropdown" disabled></select>';
             updateTimes(row.childNodes[2].firstChild);
         };
@@ -226,9 +228,8 @@ block content
                     $el.empty();
                     $el.removeAttr('disabled');
                     $.each(json, function () {
-                        var time = this['availableSlot'].substr(11, 8);
                         $el.append($("<option></option>")
-                            .attr("value", this['availableSlot']).text(time));
+                            .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
                     });
                 }
             });
@@ -243,18 +244,6 @@ block content
                 type: 'POST',
                 data: {appointmentID: appointmentID, date: newDate, time: newTime},
                 url: 'update',
-                dataType: 'json',
-                success: function(json) {
-                    amendAppointmentRow(row, appointmentID);
-                }
-            });
-        };
-
-        function amendAppointmentRow(row, id) {
-            $.ajax({
-                type: 'POST',
-                data: {appointmentID: id},
-                url: 'amendFormat',
                 dataType: 'json',
                 success: function(json) {
                     row.childNodes[2].innerHTML = getDateFormat(json[0].appointmentDate);
