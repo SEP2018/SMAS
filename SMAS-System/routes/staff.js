@@ -10,6 +10,12 @@ router.get('/daily', staff_daily_controller.staff_daily_get);
 // POST daily appointments
 router.post('/daily', staff_daily_controller.staff_daily_post);
 
+// POST to populate the daily bookings table
+router.post('/dailyBookings', staff_daily_controller.daily_bookings_post);
+
+// POST to get appointments for a doctor for the daily bookings table
+router.post('/doctorAppointments/:id', staff_daily_controller.doctor_appointments_post);
+
 // GET weekly appointments
 router.get('/weekly', staff_weekly_controller.staff_weekly_get);
 
