@@ -27,7 +27,7 @@ const expect = chai.expect;
         });
 
         Then('they can view the landing page', function (callback) {
-            return expect(this.driver.wait(Until.elementLocated(By.name('seectedService'))).then(() => console.log('Page loaded successfully'))
+            return expect(this.driver.wait(Until.elementLocated(By.name('selectedService'))).then(() => console.log('Page loaded successfully'))
                 .then(() => callback()));
         });
     });
