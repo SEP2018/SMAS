@@ -67,11 +67,8 @@ block content
             for service in allService
                 div(class='home-item-container')
                     a(href='/services')
-                        img(src='/img/check-up.jpg' class='home-item')
+                        img(src=('/img/' + service.title + '.jpg') class='home-item')
                         div(class='img-overlay')
-                            div(class='img-overlay-text')
-                                p=service.description
-                            // ALL NEED INFO FROM DATABASE
                     p(class='img-text-service')=service.title
 
 
