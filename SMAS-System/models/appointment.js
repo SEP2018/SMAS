@@ -162,7 +162,7 @@ module.exports = {
                 {
                     replacements: {serviceID: serviceID, appointmentDate: appointmentDate, appointmentTime: appointmentTime},
                     type: Sequelize.QueryTypes.SELECT
-                }).catch(function(err) {
+                }).catch(function(err){
                 reject(err);
                 throw err;
             }).then(result => {
