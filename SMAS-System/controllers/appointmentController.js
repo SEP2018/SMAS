@@ -54,24 +54,26 @@ exports.bookings_post = [
                     var doctors = Appointment.getAvailableStaffByServiceAndDayAndTime(req.body.selectedService, req.body.time, req.body.appointTime);
                     doctors.then(async function () {
                         doctors = await doctors;
-                        Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
-
+                        var make = Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                        make.then(async function() {
+                            var allService = Service.getAllServices();
+                            allService.then(async function () {
+                                allService = await allService;
+                                res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, successful: successful, username: req.user[0].username, type: req.user[0].type});
+                            });
+                        });
                     });
                 }
                 else {
-                    Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
-                }
-                var allService = Service.getAllServices();
-                allService.then(async function () {
-                    allService = await allService;
-                    res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, successful: successful, username: req.user[0].username, type: req.user[0].type});
-                    res.render('index', {
-                        title: 'Student Medical Appointment System',
-                        allService: allService,
-                        successful: successful
+                    var make = Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                    make.then(async function() {
+                        var allService = Service.getAllServices();
+                        allService.then(async function () {
+                            allService = await allService;
+                            res.render('bookings', {title: 'Manage Bookings', username: req.user[0].username, allService: allService, successful: successful, username: req.user[0].username, type: req.user[0].type});
+                        });
                     });
-
-                });
+                }
             });
         }
     }
