@@ -71,8 +71,4 @@ module.exports = {
             return result;
         });
     },
-
-    checkIfUserIsStaff: async function(username){
-        
-    }
 };

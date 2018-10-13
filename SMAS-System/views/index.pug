@@ -13,9 +13,6 @@ block content
         div(class='nav-menu-bg')
             div(class='nav-menu-container')
                 ul.nav-menu
-                    if type == 'staff'
-                        li
-                            a(href='/staff/daily') Staff
                     li
                         a(href='/doctors') Doctors
                     li
@@ -41,23 +38,30 @@ block content
                     table(class='service-hours')
                         tr
                             th(class='form-th') Monday - Friday
-                            td(class='form-td') 9:00 am - 5:00pm
+                            td(class='form-td') 9:00am - 5:00pm
                         tr
                             th(class='form-th') Saturday - Sunday
-                            td(class='form-td') 9:00 am - 5:00 pm
+                            td(class='form-td') 9:00am - 5:00pm
         div(class='booking-side')
             div(class='booking-form')
                 h2 Book an Appointment
                 form(method='POST' action='')
                     select#service(name='selectedService' class="form-item")
+                        option(value='' hidden) Service
                         for service in allService
                             option(value=service.serviceID)=service.title
                     select#doctor(name='selectedStaff' class="form-item" disabled)
-                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true')
+                        option(value='' hidden) Doctor
+                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
                     select#appointTime(class="form-item" name='appointTime' disabled)
+                        option(value='' hidden) Time
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
-                    p(class='form-feedback') Please allow up to ___ minutes for this appointment.
-                    button.btn.btn-primary(type='submit' class='form-submit') Book an appointment
+                    p#serviceTimeTaken(class='form-feedback') Please allow up to ___ minutes for this appointment.
+                    span
+                        input#event(type='checkbox' name='event')
+                        label(class='form-feedback') Create an event in my Google Calendar
+                        br
+                    button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
 
     div(class='service-area')
         h2(class='h2-service') Our Services
@@ -65,46 +69,21 @@ block content
             for service in allService
                 div(class='home-item-container')
                     a(href='/services')
-                        img(src='/img/check-up.jpg' class='home-item')
+                        img(src=('/img/' + service.title + '.jpg') class='home-item')
                         div(class='img-overlay')
-                            div(class='img-overlay-text')
-                                p=service.description
-                            // ALL NEED INFO FROM DATABASE
                     p(class='img-text-service')=service.title
 
 
     div(class='doctor-area')
         h2 Our Doctors
         div(class='home-items')
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/mackey.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Mackey
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/macnaughton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. MacNaughton
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/unsworth.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                            // ALL NEED INFO FROM DATABASE
-                p(class='img-text-doctor') Dr. Unsworth
-            div(class='home-item-container')
-                a(href='/doctors')
-                    img(src='/img/walton.jpg' class='home-item')
-                    div(class='img-overlay')
-                        div(class='img-overlay-text')
-                            p test
-                p(class='img-text-doctor') Dr. Walton
+            for staff in allStaff
+                div(class='home-item-container')
+                    a(href='/doctors')
+                        img(src=('/img/' + staff.staffID + '.jpg') class='home-item')
+                        div(class='img-overlay')
+                    p(class='img-text-doctor')='Dr. ' + staff.lastName
+
     if successful
         div#popup(class='popup')
             div(class='popup-container')
@@ -118,9 +97,10 @@ block content
             div(class='footer-content')
                 img(src='/img/footer-logo.png' class='footer-logo')
                 div(class='footer-contact')
-                    p(class='footer-text') For any questions or enquiries, please contact 0412 345 678 | utsmedical@uts.edu.au
+                    p(class='footer-text') For any questions or enquiries, please contact
+                    p(class='footer-text') 0412 345 678 | utsmedical@uts.edu.au
                 div(class='footer-links')
-                    ul.nav-menu
+                    ul.nav-menu-footer
                         li
                             a(href='/doctors') Doctors
                         li
@@ -132,46 +112,119 @@ block content
 
     script.
         $(document).on("change", '#service', function (e) {
-            var service = $(this).val();
-            $.ajax({
-                type: "POST",
-                data: {service: service},
-                url: 'services/' + service,
-                dataType: 'json',
-                success: function (json) {
-                    var $el = $("#doctor");
-                    $el.empty();
-                    $el.removeAttr('disabled');
-                    $.each(json, function () {
+            var service = $(this).val()
+            if(service != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {service: service},
+                    url: 'appointments/services/' + service,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#doctor");
+                        console.log(json);
+                        $el.empty();
+                        $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr("value", this['staffID']).text(this['lastName']));
-                    });
-                }
-            });
-
+                            .attr({value: '', hidden: 'hidden'}).text('Doctors'));
+                        $("#serviceTimeTaken").text("Please allow up to " + json.duration + " minutes for this appointment.");
+                        $el.append($("<option></option>")
+                            .attr("value", '0').text('Any doctor'));
+                        $.each(json.allStaff, function () {
+                            $el.append($("<option></option>")
+                                .attr("value", this['staffID']).text(this['lastName']));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#doctor').attr('disabled', 'disabled');
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
         });
-        $(document).on("change", '#doctor, #date', function (e) {
+
+        $(document).on("change", '#doctor', function (e) {
             var doctor = $('#doctor').val();
             var service = $('#service').val();
             var date = $('#date').val();
-            $.ajax({
-                type: "POST",
-                data: {doctor: doctor, service: service, date: date},
-                url: 'appointments/times/' + doctor,
-                dataType: 'json',
-                success: function (json) {
-                    var $el = $("#appointTime");
-                    $el.empty();
-                    $el.removeAttr('disabled');
-                    $.each(json, function () {
-                        var time = this['availableSlot'].substr(11, 8);
+            if(doctor != '') {
+                var today = new Date().toISOString().split('T')[0];
+                $('#date').attr('min', today);
+                $('#date').removeAttr('disabled');
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'appointments/times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
                         $el.append($("<option></option>")
-                            .attr("value", this['availableSlot']).text(time));
-                    });
-                }
-            });
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            var time = this['availableSlot'].substr(11, 8);
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(time));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#date').attr('disabled', 'disabled');
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
 
+        $(document).on("change", '#date', function (e) {
+            var doctor = $('#doctor').val();
+            var service = $('#service').val();
+            var date = $('#date').val();
+            if (date != '') {
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'appointments/times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
+                        $el.removeAttr('disabled');
+                        $el.append($("<option></option>")
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
+                        });
+                    }
+                });
+            }
+            else {
+                $('#appointTime').attr('disabled', 'disabled');
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
         });
+
+        $(document).on("change", '#appointTime', function (e) {
+            var appointTime = $('#appointTime').val();
+            if (appointTime != '') {
+                $('#submitAppoint').removeAttr('disabled');
+            }
+            else {
+                $('#submitAppoint').attr('disabled', 'disabled');
+            }
+        });
+
         $(document).on("click", '#closePopup', function() {
-            $('#popup').hide();
+            $('#popup').attr('hidden', 'hidden');
         });
+
+        function getTimeFormat(date) {
+            var time = date.substr(11, 8);
+            var hourEnd = time.indexOf(":");
+            var H = +time.substr(0, hourEnd);
+            var h = H % 12 || 12;
+            var ampm = (H < 12 || H === 24) ? "am" : "pm";
+            return h + time.substr(hourEnd, 3) + ampm;
+        };
