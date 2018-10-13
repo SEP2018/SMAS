@@ -612,6 +612,11 @@ h2{
     width: 12.5%;
 }
 
+.arrow-buttons-container{
+    position: relative;
+    float: right;
+}
+
 .nav-arrow {
     float: left;
     height: 30px;
