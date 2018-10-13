@@ -4,9 +4,18 @@ before_install:
   - git fetch --unshallow
 node_js:
   - "node"
-addons:
-  chrome: stable
 
+sudo: required
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
 script: npm run ci
 
 branches:
