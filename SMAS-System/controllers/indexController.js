@@ -23,7 +23,11 @@ exports.service_chosen_post = function(req, res) {
     var allStaff = ServiceProvider.getStaffByService(req.body.service);
     allStaff.then( async function() {
         allStaff = await allStaff;
-        res.send(allStaff);
+        var duration = Service.getDuration(req.body.service);
+        duration.then( async function() {
+            duration = await duration;
+            res.send({allStaff: allStaff, duration: duration});
+        });
     });
 };
 

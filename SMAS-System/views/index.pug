@@ -138,7 +138,6 @@ block content
     script.
         $(document).on("change", '#service', function (e) {
             var service = $(this).val()
-            $("#serviceTimeTaken").text("Please allow up to " + allService[service - 1].duration + " minutes for this appointment.");
             if(service != '') {
                 $.ajax({
                     type: "POST",
@@ -147,13 +146,15 @@ block content
                     dataType: 'json',
                     success: function (json) {
                         var $el = $("#doctor");
+                        console.log(json);
                         $el.empty();
                         $el.removeAttr('disabled');
                         $el.append($("<option></option>")
                             .attr({value: '', hidden: 'hidden'}).text('Doctors'));
+                        $("#serviceTimeTaken").text("Please allow up to " + json.duration + " minutes for this appointment.");
                         $el.append($("<option></option>")
                             .attr("value", '0').text('Any doctor'));
-                        $.each(json, function () {
+                        $.each(json.allStaff, function () {
                             $el.append($("<option></option>")
                                 .attr("value", this['staffID']).text(this['lastName']));
                         });
@@ -203,7 +204,7 @@ block content
 
         $(document).on("change", '#date', function (e) {
             var doctor = $('#doctor').val();
-            var service = $('#service').val().serviceID;
+            var service = $('#service').val();
             var date = $('#date').val();
             if (date != '') {
                 $.ajax({
