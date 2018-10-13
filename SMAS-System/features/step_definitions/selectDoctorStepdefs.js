@@ -33,7 +33,8 @@ const expect = chai.expect;
                 .then(() => this.driver.findElement(By.id('3')).click())
                     .then(() => console.log('Service 3 selected'))
                     .then(() => this.driver.findElement(By.name('selectedStaff')).click())
-                        .then(() => this.driver.findElement(By.id('12345678')).click())
+                        .then(() => this.driver.wait(Until.elementLocated(By.id('12345678'))))
+                .then(() => this.driver.findElement(By.id('12345678')).click())
                             .then(() => console.log('Doctor selected'));
         });
 
