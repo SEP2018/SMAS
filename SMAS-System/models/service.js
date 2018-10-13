@@ -29,6 +29,24 @@ const Service = sequelize.define('Service', {
 
 //export functions
 module.exports = {
+    getDuration: async function(serviceID){
+        return new Promise(function(resolve, reject) {
+            return Service.findAll({
+                attributes: ['duration'],
+                where: {
+                    serviceID: serviceID
+                }
+            }).catch(function (err) {
+                reject(err);
+                throw err;
+            }).then(services => {
+                resolve(services);
+            });
+        }).then(services => {
+            return services[0]['dataValues']['duration'];
+        });
+    },
+
     getAllServices: async function() {
         return new Promise(function(resolve, reject) {
             return Service.findAll().catch(function (err) {
