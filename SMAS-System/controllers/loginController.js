@@ -5,7 +5,13 @@ const Student = require('../models/student');
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-        Student.findStudentByID(username).then(function(user) {
+        Student.findUsernameByID(username).then(function(user) {
+            console.log('User is: ' + user);
+            console.log('User is: ' + user.valueOf());
+            console.log('User.username is: ' + user.username);
+            console.log('User.username is: ' + user.studentID);
+            console.log('username is: ' + username);
+            console.log('password is: ' + password);
             if (!user.studentID === username) {
                 console.log('Incorrect username.');
                 return done(null, false, { message: 'Incorrect username.' });
@@ -14,7 +20,7 @@ passport.use(new LocalStrategy(
                 console.log('Incorrect password.');
                 return done(null, false, { message: 'Incorrect password.' });
             }
-            console.log('Successfully authenticated.');
+            console.log('Successfully authenticated with user: ' + user.studentID + ' and password: ' + user.password);
             done(null, user);
         });
     }
@@ -30,11 +36,16 @@ exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
 };
 
 passport.serializeUser(function(user, done) {
-    done(null, user.studentID);
+    console.log('User is: ' + user);
+    console.log('User is: ' + Object.values(user));
+    console.log('User.username is: ' + user.username);
+    console.log('User.username is: ' + user.studentID);
+
+    done(null, user.username);
 });
 
-passport.deserializeUser(function(studentID, done) {
-    Student.findStudentByID(studentID).then(function(user) {
+passport.deserializeUser(function(username, done) {
+    Student.findUsernameByID(username).then(function(user) {
         done(null, user);
     }).catch(function(err){
         done(err,false);

@@ -53,5 +53,20 @@ module.exports = {
                 resolve(foundStudentID);
             })
         })
+    },
+
+    findUsernameByID: function(username) {
+        return new Promise(function(resolve, reject) {
+            sequelize.query('SELECT username AS username, password as password FROM (SELECT studentID AS username, password FROM Student UNION ALL SELECT staffID AS username, password FROM Staff) AS credentials WHERE username = :username;',
+                {
+                    replacements: {username: username},
+                    type: Sequelize.QueryTypes.SELECT
+                }).catch(function(err) {
+                reject(err);
+                throw err;
+            }).then(result => {
+                resolve(result);
+            });
+        });
     }
 };

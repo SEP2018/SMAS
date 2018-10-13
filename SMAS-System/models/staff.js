@@ -24,6 +24,9 @@ const Staff = sequelize.define('Staff', {
     },
     specialisation: {
         type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING
     }
 }, {
     getterMethods: {
