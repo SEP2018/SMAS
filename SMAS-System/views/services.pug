@@ -33,7 +33,7 @@ block content
         div(class='sd-container')
             for service in allService
                 div(class='sd-item-container')
-                    img(src='/img/check-up.jpg' class='sd-img')
+                    img(src='/img/' + service.title + '.jpg' class='sd-img')
                     div(class='sd-item')
                         h3(class='sd-item-heading')=service.title
                         p(class='sd-item-desc')=service.description

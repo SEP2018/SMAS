@@ -33,7 +33,7 @@ block content
         div(class='sd-container')
             for doctor in allDoctors
                 div(class='sd-item-container')
-                    img(src='/img/mackey.jpg' class='sd-img')
+                    img(src='/img/' + doctor.staffID + '.jpg' class='sd-img')
                     div(class='sd-item')
                         h3(class='sd-item-heading')='Dr. ' + doctor.lastName
                         p(class='sd-item-desc')=doctor.abstract
