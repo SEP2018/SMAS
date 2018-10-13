@@ -7,21 +7,21 @@ var index_controller = require('../controllers/indexController');
 var login_controller = require('../controllers/loginController');
 
 /* GET home page. */
-router.get('/', login_controller.ensureAuthenticated, index_controller.index);
+router.get('/', login_controller.ensureAuthenticatedStudent, index_controller.index);
 
 //POST home page
-router.post('/', login_controller.ensureAuthenticated, index_controller.home_post);
+router.post('/', login_controller.ensureAuthenticatedStudent, index_controller.home_post);
 
 //GET request for doctors
-router.get('/doctors', login_controller.ensureAuthenticated, doctors_controller.doctors_get);
+router.get('/doctors', login_controller.ensureAuthenticatedStudent, doctors_controller.doctors_get);
 
 //POST request for doctors
-router.post('/doctors', login_controller.ensureAuthenticated, doctors_controller.doctors_post);
+router.post('/doctors', login_controller.ensureAuthenticatedStudent, doctors_controller.doctors_post);
 
 //GET request for services
-router.get('/services', login_controller.ensureAuthenticated, services_controller.services_get);
+router.get('/services', login_controller.ensureAuthenticatedStudent, services_controller.services_get);
 
 //POST request for serivces
-router.post('/services', login_controller.ensureAuthenticated, services_controller.services_post);
+router.post('/services', login_controller.ensureAuthenticatedStudent, services_controller.services_post);
 
 module.exports = router;

@@ -24,7 +24,23 @@ passport.use(new LocalStrategy(
 ));
 
 //check if user is logged in
-exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
+exports.ensureAuthenticatedStudent = function(req, res, next) {
+    if (typeof req.user !== "undefined"){
+        if (req.user[0].type == 'staff')
+            res.redirect('/staff/daily');
+    }
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        //Use first line for development (always goes to next page regardless of authentication status) and second line for production (actually requires authentication)
+        //return next();
+        res.redirect('/users/login');
+    }
+};
+
+exports.ensureAuthenticatedStaff = function(req, res, next) {
+    if (req.user[0].type == 'student')
+        res.redirect('/');
     if (req.isAuthenticated()) {
         return next();
     } else {

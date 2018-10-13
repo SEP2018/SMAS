@@ -7,11 +7,7 @@ const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
 
 exports.staff_daily_get = function(req, res){
-    //if(currentUser == null)
-    //    res.redirect('/login');
-    //else {
-        res.render('staffDaily', {title: 'Appointments', username: req.user[0].username});
-    //}
+    res.render('staffDaily', {title: 'Appointments', username: req.user[0].username});
 };
 
 exports.staff_daily_post = function(req, res){
@@ -38,7 +34,6 @@ exports.doctor_appointments_post = function(req, res){
                 tempAppointments.push(allAppointments[i]);
             }
         }
-        console.log(tempAppointments);
         var allServices = Service.getAllServices();
         allServices.then( async function() {
             allServices = await allServices;

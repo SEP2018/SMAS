@@ -86,7 +86,7 @@ exports.home_post = [
                     });
                 }
                 else {
-                    var make = Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                    var make = Appointment.makeAppointment(req.body.description, req.user[0].username, req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
                     make.then(async function() {
                         var allService = Service.getAllServices();
                         allService.then(async function () {

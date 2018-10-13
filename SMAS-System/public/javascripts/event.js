@@ -90,7 +90,7 @@ function constructEvent(roomID, serviceTitle, staffLastName, start, end){
 
 //https://developers.google.com/calendar/create-events
 
-exports.insertEvent = function(auth) {
+exports.insertEvent = function(auth, roomID, serviceTitle, staffLastName, start, end) {
     const calendar = google.calendar({version: 'v3', auth});
     calendar.events.insert({
         auth: auth,
