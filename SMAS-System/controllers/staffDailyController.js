@@ -32,14 +32,21 @@ exports.doctor_appointments_post = function(req, res){
     var allAppointments = Appointment.findAppointmentsByDoctor(req.body.id);
     allAppointments.then( async function() {
         allAppointments = await allAppointments;
+        var tempAppointments = [];
+        for (var i = 0; i < allAppointments.length; i++) {
+            if (allAppointments[i].dataValues.appointmentDate.toISOString().substr(0, 10) === req.body.date) {
+                tempAppointments.push(allAppointments[i]);
+            }
+        }
+        console.log(tempAppointments);
         var allServices = Service.getAllServices();
         allServices.then( async function() {
             allServices = await allServices;
-            for (var i = 0, len = allAppointments.length; i < len; i++) {
-                allAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
-                allAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
+            for (var i = 0, len = tempAppointments.length; i < len; i++) {
+                tempAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
+                tempAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
             }
-            res.send(allAppointments);
+            res.send(tempAppointments);
         });
     });
 };
