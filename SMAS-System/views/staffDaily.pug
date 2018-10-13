@@ -5,22 +5,10 @@ block content
             a(href='/')
                 img(src='/img/logo.png' class='logo')
             div(class='header-user')
-                div(class='username')
-                    p Chloe Dizon
-                    // above is placeholder
-                img(src='/img/logoutbtn.png' class='logout-btn')
-                // above needs link + logout
-        div(class='nav-menu-bg')
-            div(class='nav-menu-container')
-                ul.nav-menu
-                    li
-                        a(href='/doctors') Doctors
-                    li
-                        a(href='/services') Services
-                    li
-                        a(href='/appointments/bookings') Bookings
-                    li
-                        a(href='/') Home
+                div(class='username' id='username')
+                    p= username
+                a(href="../users/logout")
+                    img(src='/img/logoutbtn.png' class='logout-btn')
 
     div(class='page-title')
         h1(class='h1-staff') Appointments
@@ -39,16 +27,6 @@ block content
                 img(src='/img/footer-logo.png' class='footer-logo')
                 div(class='footer-contact')
                     p(class='footer-text') For any questions or enquiries, please contact 0412 345 678 | utsmedical@uts.edu.au
-                div(class='footer-links')
-                    ul.nav-menu
-                        li
-                            a(href='/doctors') Doctors
-                        li
-                            a(href='/services') Services
-                        li
-                            a(href='/appointments/bookings') Bookings
-                        li
-                            a(href='/') Home
 
     script.
         $(document).ready(function() {
@@ -56,7 +34,7 @@ block content
         });
 
         function populateTable() {
-            var id = '2';
+            var id = document.getElementById('username').firstChild.textContent;
             var date = document.getElementById('dailyAppointments').getAttribute('value');
             $.ajax({
                 type: 'POST',
