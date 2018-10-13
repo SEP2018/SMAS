@@ -58,7 +58,7 @@ block content
                     select#appointTime(class="form-item" name='appointTime' disabled)
                         option(value='' hidden) Time
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
-                    p(class='form-feedback') Please allow up to ___ minutes for this appointment.
+                    p#serviceTimeTaken(class='form-feedback') Please allow up to ___ minutes for this appointment.
                     button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
 
     div(class='service-area')
@@ -137,7 +137,8 @@ block content
 
     script.
         $(document).on("change", '#service', function (e) {
-            var service = $(this).val();
+            var service = $(this).val()
+            $("#serviceTimeTaken").text("Please allow up to " + allService[service - 1].duration + " minutes for this appointment.");
             if(service != '') {
                 $.ajax({
                     type: "POST",
@@ -169,10 +170,29 @@ block content
 
         $(document).on("change", '#doctor', function (e) {
             var doctor = $('#doctor').val();
+            var service = $('#service').val();
+            var date = $('#date').val();
             if(doctor != '') {
                 var today = new Date().toISOString().split('T')[0];
                 $('#date').attr('min', today);
                 $('#date').removeAttr('disabled');
+                $.ajax({
+                    type: "POST",
+                    data: {doctor: doctor, service: service, date: date},
+                    url: 'appointments/times/' + doctor,
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#appointTime");
+                        $el.empty();
+                        $el.append($("<option></option>")
+                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                        $.each(json, function () {
+                            var time = this['availableSlot'].substr(11, 8);
+                            $el.append($("<option></option>")
+                                .attr("value", this['availableSlot']).text(time));
+                        });
+                    }
+                });
             }
             else {
                 $('#date').attr('disabled', 'disabled');
@@ -183,7 +203,7 @@ block content
 
         $(document).on("change", '#date', function (e) {
             var doctor = $('#doctor').val();
-            var service = $('#service').val();
+            var service = $('#service').val().serviceID;
             var date = $('#date').val();
             if (date != '') {
                 $.ajax({
@@ -222,5 +242,5 @@ block content
         });
 
         $(document).on("click", '#closePopup', function() {
-            $('#popup').hide();
+            $('#popup').attr('hidden', 'hidden');
         });
