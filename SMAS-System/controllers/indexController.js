@@ -17,7 +17,15 @@ exports.index = function(req, res){
             var allStaff = Staff.getAllStaff();
             allStaff.then(async function () {
                 allStaff = await allStaff;
-                res.render('index', {title: 'Student Medical Appointment System', allService: allService, allStaff: allStaff, username: req.user[0].username, type: req.user[0].type});
+                if (req.user[0].type == 'student') {
+                    res.render('index', {title: 'Student Medical Appointment System', allService: allService, allStaff: allStaff, username: req.user[0].username, type: req.user[0].type});
+                }
+                else if (req.user[0].type == 'staff'){
+                    res.redirect('/staff/daily');
+                }
+                else{
+                    console.log('Error: User not staff or student.');
+                }
             });
         });
     //}
@@ -58,27 +66,44 @@ exports.home_post = [
                     var doctors = Appointment.getAvailableStaffByServiceAndDayAndTime(req.body.selectedService, req.body.time, req.body.appointTime);
                     doctors.then(async function () {
                         doctors = await doctors;
-                        Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
-
+                        var make = Appointment.makeAppointment(req.body.description, '12876797', doctors['0'].dataValues.staffid, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                        make.then(async function() {
+                            var allService = Service.getAllServices();
+                            allService.then(async function () {
+                                allService = await allService;
+                                var allStaff = Staff.getAllStaff();
+                                allStaff.then(async function () {
+                                    allStaff = await allStaff;
+                                    res.render('index', {
+                                        title: 'Student Medical Appointment System',
+                                        allService: allService,
+                                        successful: successful,
+                                        allStaff: allStaff
+                                    });
+                                });
+                            });
+                        });
                     });
                 }
                 else {
-                    Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
-                }
-                var allService = Service.getAllServices();
-                allService.then(async function () {
-                    allService = await allService;
-                    var allStaff = Staff.getAllStaff();
-                    allStaff.then(async function () {
-                        allStaff = await allStaff;
-                        res.render('index', {
-                            title: 'Student Medical Appointment System',
-                            allService: allService,
-                            successful: successful,
-                            allStaff: allStaff
+                    var make = Appointment.makeAppointment(req.body.description, '12876797', req.body.selectedStaff, req.body.appointTime, endTime['0'].endTime, req.body.time, req.body.selectedService);
+                    make.then(async function() {
+                        var allService = Service.getAllServices();
+                        allService.then(async function () {
+                            allService = await allService;
+                            var allStaff = Staff.getAllStaff();
+                            allStaff.then(async function () {
+                                allStaff = await allStaff;
+                                res.render('index', {
+                                    title: 'Student Medical Appointment System',
+                                    allService: allService,
+                                    successful: successful,
+                                    allStaff: allStaff
+                                });
+                            });
                         });
                     });
-                });
+                }
             });
         }
     }

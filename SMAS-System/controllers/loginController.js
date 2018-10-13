@@ -6,6 +6,9 @@ const Student = require('../models/student');
 passport.use(new LocalStrategy(
     function(username, password, done) {
         Student.findUsernameByID(username).then(function(user) {
+            if(user[0] === undefined ){
+                return done(null, false, { message: 'User does not exist.' })
+            }
             if (!(user[0].username == username)) {
                 console.log('Incorrect username console.');
                 return done(null, false, { message: 'Incorrect username.' });
@@ -45,18 +48,4 @@ passport.deserializeUser(function(username, done) {
 
 exports.login_get = function(req, res){
     res.render('login');
-};
-
-//NOT USED AT THE MOMENT BECAUSE IT DOESN'T RUN UNLESS IT'S IN THE USERS.JS ROUTER
-exports.login_post = function(){
-    console.log('Login post start');
-    passport.authenticate('local', { successRedirect: '/',
-        failureRedirect: '/login' + req.user.username,
-        failureFlash: true })
-};
-
-//NOT USED AT THE MOMENT BECAUSE IT DOESN'T RUN UNLESS IT'S IN THE USERS.JS ROUTER
-exports.logout_get = function(res, req){
-    req.logOut();
-    res.redirect('/');
 };
