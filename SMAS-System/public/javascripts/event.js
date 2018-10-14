@@ -3,7 +3,7 @@ const readline = require('readline');
 const {google} = require('googleapis');
 
 // serviceTitle, staffLastName, start, end
-exports.createEvent = function() {
+exports.createEvent = function(serviceTitle, staffLastName, start, end) {
 
     console.log('Beginning event creation');
     // If modifying these scopes, delete token.json.
@@ -11,7 +11,7 @@ exports.createEvent = function() {
     const TOKEN_PATH = 'token.json';
 
     // Load client secrets from a local file.
-    fs.readFile('./public/javascripts/credentials.json', (err, content) => {
+    fs.readFile('./SMAS-System/public/javascripts/credentials.json', (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Google Calendar API.
         authorize(JSON.parse(content), insertEvent);
@@ -56,7 +56,7 @@ exports.createEvent = function() {
             output: process.stdout,
         });
         rl.question('Enter the code from that page here: ', (code) => {
-            rl.close();
+            r1.close();
             oAuth2Client.getToken(code, (err, token) => {
                 if (err) return console.error('Error retrieving access token', err);
                 oAuth2Client.setCredentials(token);
@@ -70,51 +70,17 @@ exports.createEvent = function() {
         });
     }
 
-    /* -- Sample event */
-    let event = {
-        'summary': 'TEST SMAS Appointment',
-        'location': '15 Broadway, Ultimo NSW 2007: - Room XXX',
-        'description': 'The description I gave for... ',
-        'start': {
-            //'dateTime': '2015-05-28T09:00:00-07:00',
-            'dateTime': '2018-10-26T13:00:00',
-            'timeZone': 'Australia/Sydney',
-        },
-        'end': {
-            //'dateTime': '2015-05-28T17:00:00-07:00',
-            'dateTime': '2018-10-26T15:30:00',
-            'timeZone': 'Australia/Sydney',
-        },
-        /*
-        'recurrence': [
-            'RRULE:FREQ=DAILY;COUNT=2'
-        ],
-        'attendees': [
-            {'email': 'lpage@example.com'},
-            {'email': 'sbrin@example.com'},
-        ],
-        */
-        'reminders': {
-            'useDefault': false,
-            'overrides': [
-                {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 2 * 60},
-            ],
-        },
-    };
-
     function constructEvent(serviceTitle, staffLastName, start, end) {
-        return {
+        console.log('Constructing event.');
+        event = {
             'summary': ('UTS Medical Appointment - ' + serviceTitle),
             'location': ('15 Broadway, Ultimo NSW 2007'),
             'description': ('UTS Medical Appointment with Dr. ' + staffLastName + ' for service: ' + serviceTitle),
             'start': {
-                //'dateTime': '2015-05-28T09:00:00-07:00',
                 'dateTime': start,
                 'timeZone': 'Australia/Sydney',
             },
             'end': {
-                //'dateTime': '2015-05-28T17:00:00-07:00',
                 'dateTime': end,
                 'timeZone': 'Australia/Sydney',
             },
@@ -126,23 +92,31 @@ exports.createEvent = function() {
                 ],
             },
         };
+        console.log(event);
+        return event;
     }
 
     //https://developers.google.com/calendar/create-events
 
     function insertEvent(auth) {
+        console.log('Inserting event into calendar');
+        console.log(serviceTitle);
+        console.log(staffLastName);
+        console.log(start);
+        console.log(end);
+        //console.log(constructEvent(serviceTitle, staffLastName, start, end));
         const calendar = google.calendar({version: 'v3', auth});
         calendar.events.insert({
             auth: auth,
             calendarId: 'primary',
-            resource: event, //constructEvent(serviceTitle, staffLastName, start, end),
+            resource: constructEvent(serviceTitle, staffLastName, start, end),
             sendNotifications: true,
-        }, function (err, event) {
+        }, function (err) {
             if (err) {
                 console.log('There was an error contacting the Calendar service: ' + err);
                 return;
             }
-            console.log('Event created: %s', event.htmlLink);
+            console.log('Event created');
         });
     }
 };

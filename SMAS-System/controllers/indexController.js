@@ -2,7 +2,8 @@ const Appointment = require('../models/appointment')
     , Service = require('../models/service')
     , ServiceProvider = require('../models/serviceProvider')
     , Staff = require('../models/staff')
-    , Event = require('../public/javascripts/event');
+    , Event = require('../public/javascripts/event')
+    , Moment = require('moment-timezone');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -73,7 +74,7 @@ exports.home_post = [
 
                             //Calendar event creation code if any doctors selected
                             if(req.body.event){
-                                console.log('Beginning event creation.');
+                                console.log('Creating calendar event for appointment with any doctor.');
                                 let service = await Service.findServiceByID(req.body.selectedService);
                                 let serviceName = service.title;
                                 let staff = await Staff.findStaffByID(doctors['0'].dataValues.staffid);
@@ -108,23 +109,35 @@ exports.home_post = [
 
                         //Calendar event creation code if specific doctor selected
                         if(req.body.event){
-                            console.log('creating default event');
-                            Event.createEvent(); //testing create event with the dummy event
-                            /*
-                            console.log('Beginning event creation.');
-                            let service = await Service.findServiceByID(req.body.selectedService);
-                            console.log('Service: ' + service);
-                            let serviceName = service[0].title;
-                            console.log('Service Name: ' + serviceName);
-                            let staff = await Staff.findStaffByID(req.body.selectedStaff);
-                            console.log('Staff: ' + staff);
-                            let staffLastName = staff[0].lastName;
-                            console.log('Staff last name: ' + staffLastName);
-                            console.log('End time: ' + endTime['0'].endTime);
-                            console.log('Start time: ' + req.body.appointTime);
-                            let createdEvent = await Event.createEvent(serviceName, staffLastName, req.body.appointTime, endTime['0'].endTime);
-                            console.log('Created Google Calendar Event: ' + createdEvent);
-                            */
+                            console.log('Creating calendar event for standard appointment');
+                            var staff = Staff.findStaffByID(req.body.selectedStaff);
+                            staff.then(async function () {
+                                staff = await staff;
+                                let staffLastName = staff[0].lastName;
+                                console.log('Staff last name: ' + staffLastName);
+                                var service = Service.findServiceByID(req.body.selectedService);
+                                service.then(async function(){
+                                    service = await service;
+                                    let serviceName = service[0].title;
+                                    console.log('Service Name: ' + serviceName);
+
+                                    let date = req.body.time;
+                                    console.log("date: " + date);
+                                    let startTime = req.body.appointTime;
+                                    let newStartTime = Moment(startTime).tz("Australia/Sydney").format("HH:mm:ss");
+                                    console.log("startTime: " + newStartTime);
+                                    let finishTime = endTime[0].endTime;
+                                    let newEndTime = Moment(finishTime).tz("Australia/Sydney").format("HH:mm:ss");
+                                    console.log("endTime: " + newEndTime);
+                                    let startDateTime = date + 'T' + newStartTime;
+                                    let endDateTime = date + 'T' + newEndTime;
+                                    console.log('Start datetime: ' + startDateTime);
+                                    console.log('End datetime: ' + endDateTime);
+
+                                    Event.createEvent(serviceName, staffLastName, startDateTime, endDateTime);
+                                    console.log('Created Google Calendar Event');
+                                });
+                            });
                         }
 
 
