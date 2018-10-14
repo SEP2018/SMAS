@@ -30,12 +30,13 @@ const expect = chai.expect;
         When("the user selects 'Edit'", function () {
             return this.driver.wait(Until.elementLocated(By.id('editButton')))
                 .then(() => this.driver.findElement(By.id('editButton')).click())
-                    .then(() => console.log('Edit button selected'));
+                    .then(() => console.log('Edit button selected'))
+                .then(() => this.driver.wait(Until.elementLocated(By.id('time_dropdown'))))
+                .then(() => this.driver.findElement(By.id('time_dropdown')).click());
         });
 
         When("the user selects a new time", function() {
-            return this.driver.findElement(By.id('time_dropdown')).click()
-                .then(this.driver.wait(Until.elementLocated(By.name("9:15am"))))
+            return this.driver.wait(Until.elementLocated(By.name("9:15am")))
                 .then(() => this.driver.findElement(By.name("9:15am")).click())
                 .then(() => console.log('Time selected'));
         });
