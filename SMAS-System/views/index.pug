@@ -57,6 +57,10 @@ block content
                         option(value='' hidden) Time
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
                     p#serviceTimeTaken(class='form-feedback') Please allow up to ___ minutes for this appointment.
+                    span
+                        input#event(type='checkbox' name='event')
+                        label(class='form-feedback') Create an event in my Google Calendar
+                        br
                     button.btn.btn-primary#submitAppoint(type='submit' class='form-submit' disabled) Book an appointment
 
     div(class='service-area')
