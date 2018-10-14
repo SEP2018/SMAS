@@ -73,6 +73,7 @@ exports.home_post = [
 
 
                             //Calendar event creation code if any doctors selected
+                            /*
                             if(req.body.event){
                                 console.log('Creating calendar event for appointment with any doctor.');
                                 let service = await Service.findServiceByID(req.body.selectedService);
@@ -82,6 +83,7 @@ exports.home_post = [
                                 let createdEvent = await Event.createEvent(serviceName, staffLastName, req.body.appointTime, endTime['0'].endTime);
                                 console.log('Created Google Calendar Event: ' + createdEvent);
                             }
+                            */
 
 
                             var allService = Service.getAllServices();
@@ -106,8 +108,8 @@ exports.home_post = [
                     var make = Appointment.makeAppointment(req.body.description, req.user[0].username, req.body.selectedStaff, req.body.appointTime, endTime[0].endTime, req.body.time, req.body.selectedService);
                     make.then(async function() {
 
-
                         //Calendar event creation code if specific doctor selected
+                        /*
                         if(req.body.event){
                             console.log('Creating calendar event for standard appointment');
                             var staff = Staff.findStaffByID(req.body.selectedStaff);
@@ -139,6 +141,7 @@ exports.home_post = [
                                 });
                             });
                         }
+                        */
 
 
                         var allService = Service.getAllServices();
