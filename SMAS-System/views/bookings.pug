@@ -114,7 +114,7 @@ block content
                         $el.empty();
                         $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Doctors'));
+                            .attr({value: '', hidden: 'hidden'}).text('Doctor'));
                         $("#serviceTimeTaken").text("Please allow up to " + json.duration + " minutes for this appointment.");
                         $el.append($("<option></option>")
                             .attr("value", '0').text('Any doctor'));
@@ -150,7 +150,7 @@ block content
                         var $el = $("#appointTime");
                         $el.empty();
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                            .attr({value: '', hidden: 'hidden'}).text('Time'));
                         $.each(json, function () {
                             var time = this['availableSlot'].substr(11, 8);
                             $el.append($("<option></option>")
@@ -181,7 +181,7 @@ block content
                         $el.empty();
                         $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                            .attr({value: '', hidden: 'hidden'}).text('Time'));
                         $.each(json, function () {
                             $el.append($("<option></option>")
                                 .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
