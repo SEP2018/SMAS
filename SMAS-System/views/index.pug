@@ -29,7 +29,7 @@ block content
 
 
     div(class='about-section')
-        div(class='about-side')
+        div(class='info-side-v2')
             h2 About Us
             div(class='about-description')
                 p UTS Medical provide a range of health services to current students. Students may schedule medical appointments online using the SMAS system. Our highly qualified team is always ready to help. Unfortunately, walk-in appointments are not available at present.
@@ -42,7 +42,7 @@ block content
                         tr
                             th(class='form-th') Saturday - Sunday
                             td(class='form-td') 9:00am - 5:00pm
-        div(class='booking-side')
+        div(class='booking-side-v2')
             div(class='booking-form')
                 h2 Book an Appointment
                 form(method='POST' action='')
@@ -52,7 +52,7 @@ block content
                             option(id=service.serviceID value=service.serviceID)=service.title
                     select#doctor(name='selectedStaff' class="form-item" disabled)
                         option(value='' hidden) Doctor
-                    input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
+                    input#date(placeholder="Date" class="form-item-date" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
                     select#appointTime(class="form-item" name='appointTime' disabled)
                         option(value='' hidden) Time
                     input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
@@ -95,16 +95,11 @@ block content
                 div(class='footer-contact')
                     p(class='footer-text') For any questions or enquiries, please contact
                     p(class='footer-text') 0412 345 678 | utsmedical@uts.edu.au
-                div(class='footer-links')
-                    ul.nav-menu-footer
-                        li
-                            a(href='/doctors') Doctors
-                        li
-                            a(href='/services') Services
-                        li
-                            a(href='/appointments/bookings') Bookings
-                        li
-                            a(href='/') Home
+                    div(class='footer-links')
+                        a(href='/') Home
+                        a(href='/appointments/bookings') Bookings
+                        a(href='/services') Services
+                        a(href='/doctors') Doctors
 
     script.
         $(document).on("change", '#service', function (e) {
@@ -121,7 +116,7 @@ block content
                         $el.empty();
                         $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Doctors'));
+                            .attr({value: '', hidden: 'hidden'}).text('Doctor'));
                         $("#serviceTimeTaken").text("Please allow up to " + json.duration + " minutes for this appointment.");
                         $el.append($("<option></option>")
                             .attr("value", '0').text('Any doctor'));
@@ -157,7 +152,7 @@ block content
                         var $el = $("#appointTime");
                         $el.empty();
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                            .attr({value: '', hidden: 'hidden'}).text('Time'));
                         $.each(json, function () {
                             var time = this['availableSlot'].substr(11, 8);
                             $el.append($("<option></option>")
@@ -188,7 +183,7 @@ block content
                         $el.empty();
                         $el.removeAttr('disabled');
                         $el.append($("<option></option>")
-                            .attr({value: '', hidden: 'hidden'}).text('Times'));
+                            .attr({value: '', hidden: 'hidden'}).text('Time'));
                         $.each(json, function () {
                             $el.append($("<option></option>")
                                 .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
