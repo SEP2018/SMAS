@@ -56,6 +56,12 @@ block content
                             $('<td class="daily-note-td">')
                         ));
                     });
+                    table.append($('<tr class="staff-table-tr">').append(
+                        $('<td class="daily-time-td">').text('5:00pm'),
+                        $('<td class="daily-name-td">'),
+                        $('<td class="daily-service-td">'),
+                        $('<td class="daily-note-td">')
+                    ));
                     date = date.substr(0, 10);
                     populateRows(id, date);
                 }
