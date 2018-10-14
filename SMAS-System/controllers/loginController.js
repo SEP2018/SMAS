@@ -34,7 +34,7 @@ exports.ensureAuthenticatedStudent = function(req, res, next) {
     } else {
         //Use first line for development (always goes to next page regardless of authentication status) and second line for production (actually requires authentication)
         //return next();
-        res.redirect('/users/login');
+        res.redirect('/users/login/');
     }
 };
 
@@ -46,7 +46,7 @@ exports.ensureAuthenticatedStaff = function(req, res, next) {
     } else {
         //Use first line for development (always goes to next page regardless of authentication status) and second line for production (actually requires authentication)
         //return next();
-        res.redirect('/users/login');
+        res.redirect('/users/login/');
     }
 };
 
@@ -63,5 +63,5 @@ passport.deserializeUser(function(username, done) {
 });
 
 exports.login_get = function(req, res){
-    res.render('login');
+    res.render('login', {failure: req.query.error});
 };
