@@ -34,12 +34,12 @@ block content
             div(class='about-hours')
                 h2 Service Hours
                 table(class='service-hours')
-                    tr
-                        th(class='form-th') Monday - Friday
+                  tr
+                     th(class='form-th') Monday - Friday
                         td(class='form-td') 9:00am - 5:00pm
-                    tr
-                        th(class='form-th') Saturday - Sunday
-                        td(class='form-td') 9:00am - 5:00pm
+                  tr
+                     th(class='form-th') Saturday - Sunday
+                     td(class='form-td') 9:00am - 5:00pm
             div(class="bookings-buttons-section")
                 a(href='/services')
                     button.btn.btn-primary(class='booking-button') View Services
@@ -55,7 +55,7 @@ block content
                         option(id=service.serviceID value=service.serviceID)=service.title
                 select#doctor(name='selectedStaff' class="form-item" disabled)
                     option(value='' hidden) Doctor
-                input#date(placeholder="Date" class="form-item" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
+                input#date(placeholder="Date" class="form-item-date" onfocus="(this.type='date')" name='time' required='true' onkeydown='return false' disabled)
                 select#appointTime(class="form-item" name='appointTime' disabled)
                     option(value='' hidden) Time
                 input#description(placeholder="Description" class="form-item-desc" name='description' required='true')
