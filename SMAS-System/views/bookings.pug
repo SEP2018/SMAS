@@ -294,7 +294,7 @@ block content
                     $el.removeAttr('disabled');
                     $.each(json, function () {
                         $el.append($("<option></option>")
-                            .attr("value", this['availableSlot']).text(getTimeFormat(this['availableSlot'])));
+                            .attr({value: this['availableSlot'], name: getTimeFormat(this['availableSlot'])}).text(getTimeFormat(this['availableSlot'])));
                     });
                 }
             });

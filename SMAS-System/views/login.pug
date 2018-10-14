@@ -12,4 +12,15 @@ block content
                     input(name='username' placeholder="Login Number" class="form-item")
                     input(name='password' type='password' placeholder="Password" class="form-item")
                     button.btn.btn-primary(name='submitLogin' type='submit' class='form-submit') Login
+    if authError == 'Incorrect username or password.'
+        div#popup(class='popup')
+            div(class='popup-container')
+                div(class='popup-content')
+                    img(src='/img/footer-logo.png')
+                    h2 Incorrect username/password
+                button#closePopup(class='popup-button') Okay
 
+    script.
+        $(document).on("click", '#closePopup', function () {
+            $('#popup').attr('hidden', 'hidden');
+        });
