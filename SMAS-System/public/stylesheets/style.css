@@ -286,7 +286,7 @@ h2{
     width: 35%;
     background-color: #ffffff;
     box-shadow: 3px 3px 10px black;
-    top: 380px;
+    top: 70%;
     left: 55%;
     z-index: 99;
 }
@@ -313,13 +313,13 @@ h2{
 }
 
 .form-item{
-    width: 330px;
+    width: 80%;
     padding: 5px;
     margin: 7px;
 }
 
 .form-item-desc{
-    width: 330px;
+    width: 80%;
     height: 70px;
     padding: 5px;
     margin: 10px;
@@ -330,7 +330,7 @@ h2{
 }
 
 .form-submit{
-    width: 340px;
+    width: 80%;
     background-color: #69be00;
     font-size: 15px;
     color: white;
