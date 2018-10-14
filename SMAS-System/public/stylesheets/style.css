@@ -7,6 +7,11 @@ body {
 	background-color: #ffffff;
 }
 
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
 /*--------------------------------------------------------------
 # Login Page
 --------------------------------------------------------------*/
