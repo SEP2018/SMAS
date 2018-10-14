@@ -32,7 +32,7 @@ const expect = chai.expect;
         });
 
         Then('a list of existing appointments is displayed on the screen', function (callback) {
-            return expect(this.driver.wait(Until.elementLocated(By.id('existingAppointments'))).then(() => console.log('Page loaded successfully'))
+            return expect(this.driver.wait(Until.elementLocated(By.id('editButton'))).then(() => console.log('Page loaded successfully'))
                 .then(() => callback()));
         });
     });

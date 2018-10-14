@@ -38,8 +38,8 @@ exports.doctor_appointments_post = function(req, res){
         allServices.then( async function() {
             allServices = await allServices;
             for (var i = 0, len = tempAppointments.length; i < len; i++) {
-                tempAppointments[i].dataValues.serviceTitle = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.title;
-                tempAppointments[i].dataValues.duration = allServices[allAppointments[i].dataValues.serviceID - 1].dataValues.duration;
+                tempAppointments[i].dataValues.serviceTitle = allServices[tempAppointments[i].dataValues.serviceID - 1].dataValues.title;
+                tempAppointments[i].dataValues.duration = allServices[tempAppointments[i].dataValues.serviceID - 1].dataValues.duration;
             }
             res.send(tempAppointments);
         });
