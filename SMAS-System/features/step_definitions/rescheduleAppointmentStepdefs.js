@@ -11,7 +11,7 @@ const expect = chai.expect;
 
     defineSupportCode(function ({When, Then, Given}) {
 
-        Given('a user is logged in to SMAS', function () {
+        Given('a user logged in to SMAS', function () {
             return this.driver.get("http://localhost:3000/users/login")
                 .then(() => this.driver.findElement(By.name('username')).sendKeys('12876049'))
                 .then(() => this.driver.findElement(By.name('password')).sendKeys('password1'))
@@ -20,34 +20,36 @@ const expect = chai.expect;
                         .then(() => console.log('Login successful'));
         });
 
-        Given('they navigate to the Create Appointment screen', function () {
+        Given('the user has at least one appointment', function () {
             return this.driver.findElement(By.name('bookingsLink')).click()
-                .then(() => this.driver.wait(Until.elementLocated(By.name('selectedService'))))
                 .then(() => this.driver.wait(Until.elementLocated(By.name('selectedService'))))
                     .then(() => console.log('Bookings page loaded'));
         });
 
 
-        When('they select a preferred doctor', function () {
-            return this.driver.findElement(By.name('selectedService')).click()
-                .then(() => this.driver.findElement(By.id('3')).click())
-                    .then(() => console.log('Service 3 selected'))
-                    .then(() => this.driver.findElement(By.name('selectedStaff')).click())
-                        .then(() => this.driver.wait(Until.elementLocated(By.id('12345678'))))
-                .then(() => this.driver.findElement(By.id('12345678')).click())
-                            .then(() => console.log('Doctor selected'));
+        When("the user selects 'Reschedule Appointment'", function () {
+            return this.driver.wait(Until.elementLocated(By.id('editButton')))
+                .then(() => this.driver.findElement(By.id('editButton')).click())
+                    .then(() => console.log('Edit button selected'));
         });
 
-        Then('the selected doctor is assigned to the appointment', function (callback) {
-            const staff = this.driver.findElement(By.name('selectedStaff'));
-            staff.getAttribute('value').then(function(selected)
+        When("the user selects a new time", function() {
+            return this.driver.findElement(By.id('time_dropdown')).click()
+                .then(() => this.driver.findElement(By.id('9:15am')).click())
+                .then(() => console.log('Time selected'));
+        });
+
+        Then('the appointment time is updated', function (callback) {
+            const time = this.driver.findElement(By.id('time_dropdown'));
+            time.getAttribute('value').then(function(selected)
             {
-                if (selected === '12345678') {
-                    console.log('Correct doctor assigned');
+                if (selected === '1970-01-01T09:15:00.000Z') {
+                    console.log(selected);
+                    console.log('Correct date changed');
                     callback();
                 }
                 else
-                    callback('failure');
+                    callback('Wrong date value');
             });
         });
     });
