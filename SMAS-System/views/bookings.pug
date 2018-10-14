@@ -143,8 +143,12 @@ block content
             var service = $('#service').val();
             var date = $('#date').val();
             if (doctor != '') {
-                var today = new Date().toISOString().split('T')[0];
-                $('#date').attr('min', today);
+                var today = new Date();
+                var offset = (today).getTimezoneOffset() * 60000;
+                var newToday = (new Date(today - offset));
+                newToday.setDate(newToday.getDate() + 1);
+                var tomorrow = newToday.toISOString().split('T')[0];
+                $('#date').attr('min', tomorrow);
                 $('#date').removeAttr('disabled');
                 $.ajax({
                     type: "POST",
@@ -265,11 +269,15 @@ block content
         function editAppointment(button) {
             var row = button.parentNode.parentNode;
             var existing_date = row.childNodes[2].getAttribute('value').substr(0, 10);
-            var today = new Date().toISOString().split('T')[0];
+            var today = new Date();
+            var offset = (today).getTimezoneOffset() * 60000;
+            var newToday = (new Date(today - offset));
+            newToday.setDate(newToday.getDate()+1);
+            var tomorrow = newToday.toISOString().split('T')[0];
             button.parentNode.innerHTML = '<input type="image" src="/img/confirm.png" width="45" height="50" style="height: 50px;" class="table-option-img" id="edit" onclick="confirmAppointment(this);">';
             row.childNodes[2].innerHTML = '<input id="date_dropdown" type="date" onkeydown="return false">';
             row.childNodes[2].firstChild.setAttribute('value', existing_date);
-            row.childNodes[2].firstChild.setAttribute('min', today);
+            row.childNodes[2].firstChild.setAttribute('min', tomorrow);
             row.childNodes[3].innerHTML = '<select id="time_dropdown" disabled></select>';
             updateTimes(row.childNodes[2].firstChild);
         };
