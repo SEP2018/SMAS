@@ -37,7 +37,8 @@ block content
                     div(class='sd-item')
                         h3(class='sd-item-heading')='Dr. ' + doctor.lastName
                         p(class='sd-item-desc')=doctor.abstract
-                        button.btn.btn-primary(class='sd-button') Make an appointment
+                        a(href='/appointments/bookings')
+                            button.btn.btn-primary(class='sd-button') Make an appointment
 
 
     footer(class='footer')
@@ -45,15 +46,11 @@ block content
             div(class='footer-content')
                 img(src='/img/footer-logo.png' class='footer-logo')
                 div(class='footer-contact')
-                    p(class='footer-text') For any questions or enquiries, please contact 0412 345 678 | utsmedical@uts.edu.au
-                div(class='footer-links')
-                    ul.nav-menu
-                        li
-                            a(href='/doctors') Doctors
-                        li
-                            a(href='/services') Services
-                        li
-                            a(href='/appointments/bookings') Bookings
-                        li
-                            a(href='/') Home
+                    p(class='footer-text') For any questions or enquiries, please contact
+                    p(class='footer-text') 0412 345 678 | utsmedical@uts.edu.au
+                    div(class='footer-links')
+                        a(href='/') Home
+                        a(href='/appointments/bookings') Bookings
+                        a(href='/services') Services
+                        a(href='/doctors') Doctors
 
