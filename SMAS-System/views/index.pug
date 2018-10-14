@@ -140,8 +140,12 @@ block content
             var service = $('#service').val();
             var date = $('#date').val();
             if(doctor != '') {
-                var today = new Date().toISOString().split('T')[0];
-                $('#date').attr('min', today);
+                var today = new Date();
+                var offset = (today).getTimezoneOffset() * 60000;
+                var newToday = (new Date(today - offset));
+                newToday.setDate(newToday.getDate() + 1);
+                var tomorrow = newToday.toISOString().split('T')[0];
+                $('#date').attr('min', tomorrow);
                 $('#date').removeAttr('disabled');
                 $.ajax({
                     type: "POST",
