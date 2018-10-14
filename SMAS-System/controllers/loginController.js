@@ -58,5 +58,6 @@ passport.deserializeUser(function(username, done) {
 });
 
 exports.login_get = function(req, res){
-    res.render('login', {authError: req.flash('error')});
+    var errorMessage = req.flash('error').toString();
+    res.render('login', {authError: errorMessage});
 };
