@@ -20,7 +20,7 @@ const expect = chai.expect;
                 .then(() => console.log('Login successful'));
         });
 
-        When("the user selects 'View Services'", function () {
+        When("the user selects 'Services'", function () {
             return this.driver.findElement(By.name('servicesLink')).click()
                 .then(() => console.log('Services page loaded'));
         });

@@ -4,5 +4,5 @@
 
   Scenario: User selects 'View Doctors'
     Given a user has opened SMAS
-    When the user selects 'View Doctors'
+    When the user selects 'Doctors'
     Then a list of medical staff information is visible on the screen
