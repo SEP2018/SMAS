@@ -32,7 +32,7 @@ block content
         p(class='sd-description') UTS Medical is proud to offer a wide range of services to our patients. Each service is provided by one or many of our professional staff, with a focus on personalised, quality health-care. These can vary from assessments through General Consultations, or to more specialised care such as Physiotherapy, Dental and Surgery.
         div(class='sd-container')
             for service in allService
-                div(class='sd-item-container')
+                div(name='itemDiv' class='sd-item-container')
                     img(src='/img/' + service.title + '.jpg' class='sd-img')
                     div(class='sd-item')
                         h3(class='sd-item-heading')=service.title

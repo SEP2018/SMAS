@@ -18,7 +18,7 @@ exports.bookings_get = function(req, res) {
 exports.bookings_post = [
     //Field Validation
     body('description').isLength({ max: 200 }).trim().withMessage('Description must be specified'),
-    body('time').optional().isISO8601(),
+    body('time').isISO8601(),
     body('appointTime').trim(),
     body('selectedStaff').trim(),
     body('selectedService').trim(),
