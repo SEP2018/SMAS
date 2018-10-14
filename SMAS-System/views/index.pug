@@ -95,16 +95,11 @@ block content
                 div(class='footer-contact')
                     p(class='footer-text') For any questions or enquiries, please contact
                     p(class='footer-text') 0412 345 678 | utsmedical@uts.edu.au
-                div(class='footer-links')
-                    ul.nav-menu-footer
-                        li
-                            a(href='/doctors') Doctors
-                        li
-                            a(href='/services') Services
-                        li
-                            a(href='/appointments/bookings') Bookings
-                        li
-                            a(href='/') Home
+                    div(class='footer-links')
+                        a(href='/') Home
+                        a(href='/appointments/bookings') Bookings
+                        a(href='/services') Services
+                        a(href='/doctors') Doctors
 
     script.
         $(document).on("change", '#service', function (e) {
