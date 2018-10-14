@@ -11,7 +11,7 @@ exports.createEvent = function() {
     const TOKEN_PATH = 'token.json';
 
     // Load client secrets from a local file.
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile('./public/javascripts/credentials.json', (err, content) => {
         if (err) return console.log('Error loading client secret file:', err);
         // Authorize a client with credentials, then call the Google Calendar API.
         authorize(JSON.parse(content), insertEvent);
@@ -25,6 +25,9 @@ exports.createEvent = function() {
      */
     function authorize(credentials, callback) {
         const {client_secret, client_id, redirect_uris} = credentials.installed;
+        console.log('client_secret: ' + client_secret);
+        console.log('client_id: ' + client_id);
+        console.log('redirect_uris: ' + redirect_uris[0]);
         const oAuth2Client = new google.auth.OAuth2(
             client_id, client_secret, redirect_uris[0]);
 
@@ -44,7 +47,7 @@ exports.createEvent = function() {
      */
     function getAccessToken(oAuth2Client, callback) {
         const authUrl = oAuth2Client.generateAuthUrl({
-            access_type: 'offline',
+            access_type: 'online',
             scope: SCOPES,
         });
         console.log('Authorize this app by visiting this url:', authUrl);
