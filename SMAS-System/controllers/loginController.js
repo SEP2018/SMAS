@@ -7,15 +7,10 @@ passport.use(new LocalStrategy(
     function(username, password, done) {
         Student.findUsernameByID(username).then(function(user) {
             if(user[0] === undefined ){
-                return done(null, false, { message: 'User does not exist.' })
-            }
-            if (!(user[0].username == username)) {
-                console.log('Incorrect username console.');
-                return done(null, false, { message: 'Incorrect username.' });
+                return done(null, false, { message: 'Incorrect username or password.' })
             }
             if (!(user[0].password == password)) {
-                console.log('Incorrect password console.');
-                return done(null, false, { message: 'Incorrect username.' });
+                return done(null, false, { message: 'Incorrect username or password.' });
             }
             console.log('Successfully authenticated.');
             done(null, user);
@@ -63,5 +58,5 @@ passport.deserializeUser(function(username, done) {
 });
 
 exports.login_get = function(req, res){
-    res.render('login');
+    res.render('login', {authError: req.flash('error')});
 };

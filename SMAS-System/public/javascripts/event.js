@@ -85,6 +85,7 @@ exports.createEvent = function() {
             'dateTime': '2018-10-26T15:30:00',
             'timeZone': 'Australia/Sydney',
         },
+        /*
         'recurrence': [
             'RRULE:FREQ=DAILY;COUNT=2'
         ],
@@ -92,6 +93,7 @@ exports.createEvent = function() {
             {'email': 'lpage@example.com'},
             {'email': 'sbrin@example.com'},
         ],
+        */
         'reminders': {
             'useDefault': false,
             'overrides': [
