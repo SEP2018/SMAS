@@ -7,6 +7,11 @@ body {
 	background-color: #ffffff;
 }
 
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
 /*--------------------------------------------------------------
 # Login Page
 --------------------------------------------------------------*/
@@ -268,7 +273,8 @@ h2{
 }
 
 .about-section{
-    padding: 40px;
+    padding: 5%;
+    display: table;
 }
 
 .about-side{
@@ -286,7 +292,7 @@ h2{
     width: 35%;
     background-color: #ffffff;
     box-shadow: 3px 3px 10px black;
-    top: 380px;
+    top: 60%;
     left: 55%;
     z-index: 99;
 }
@@ -312,13 +318,19 @@ h2{
 }
 
 .form-item{
-    width: 330px;
+    width: 80%;
+    padding: 5px;
+    margin: 7px;
+}
+
+.form-item-date{
+    width: 78%;
     padding: 5px;
     margin: 7px;
 }
 
 .form-item-desc{
-    width: 330px;
+    width: 77%;
     height: 70px;
     padding: 5px;
     margin: 10px;
@@ -329,7 +341,7 @@ h2{
 }
 
 .form-submit{
-    width: 340px;
+    width: 80%;
     background-color: #69be00;
     font-size: 15px;
     color: white;
@@ -507,10 +519,6 @@ h2{
     padding-bottom: 0;
 }
 
-.footer-links {
-    margin: 0 auto;
-    position: absolute;
-}
 
 .nav-menu-footer, .nav-menu-footer * {
     margin: 0;
@@ -764,4 +772,71 @@ table{
 
 .h2-left{
     text-align: left;
+}
+
+
+.footer-links a{
+    padding: 10px 15px 10px 15px;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #69be00;
+}
+
+.left-side{
+    padding:20px;
+    background-color: red;
+    float: left;
+    width: 40%;
+    display: inline-block;
+}
+
+.right-side{
+    padding:20px;
+    background-color: green;
+    float: left;
+    width: 40%;
+    display: inline-block;
+}
+
+.total-bg{
+    background: #F0F0F0;
+    border: 1px solid #808080;
+    width: 80%;
+    margin: 2em auto;
+    padding: 2em;
+}
+
+.booking-bg-v2 {
+    background: #F0F0F0;
+    border: 1px solid #808080;
+    width: 80%;
+    margin: 2em auto;
+    padding: 2em;
+    display: table;
+}
+
+.info-side-v2{
+    width: 45%;
+    float: left;
+    position: relative;
+}
+
+.info-side-center{
+    position: absolute;
+    margin: 0 auto;
+}
+
+.booking-side-v2{
+    width: 45%;
+    background-color: #ffffff;
+    box-shadow: 3px 3px 10px black;
+    float: right;
 }
