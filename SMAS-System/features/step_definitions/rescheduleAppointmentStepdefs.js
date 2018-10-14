@@ -27,7 +27,7 @@ const expect = chai.expect;
         });
 
 
-        When("the user selects 'Reschedule Appointment'", function () {
+        When("the user selects 'Edit'", function () {
             return this.driver.wait(Until.elementLocated(By.id('editButton')))
                 .then(() => this.driver.findElement(By.id('editButton')).click())
                     .then(() => console.log('Edit button selected'));

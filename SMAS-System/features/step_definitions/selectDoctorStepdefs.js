@@ -20,7 +20,7 @@ const expect = chai.expect;
                         .then(() => console.log('Login successful'));
         });
 
-        Given('they navigate to the Create Appointment screen', function () {
+        Given('they navigate to the bookings screen', function () {
             return this.driver.findElement(By.name('bookingsLink')).click()
                 .then(() => this.driver.wait(Until.elementLocated(By.name('selectedService'))))
                 .then(() => this.driver.wait(Until.elementLocated(By.name('selectedService'))))
