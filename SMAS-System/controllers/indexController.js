@@ -1,7 +1,8 @@
 const Appointment = require('../models/appointment')
     , Service = require('../models/service')
     , ServiceProvider = require('../models/serviceProvider')
-    , Staff = require('../models/staff');
+    , Staff = require('../models/staff')
+    , Event = require('../public/javascripts/event');
 // Validation of form data
 const {body,validationResult} = require('express-validator/check');
 const {sanitizeBody} = require('express-validator/filter');
@@ -68,6 +69,20 @@ exports.home_post = [
                         doctors = await doctors;
                         var make = Appointment.makeAppointment(req.body.description, req.user[0].username, doctors[0].staffid, req.body.appointTime, endTime[0].endTime, req.body.time, req.body.selectedService);
                         make.then(async function() {
+
+
+                            //Calendar event creation code if any doctors selected
+                            if(req.body.event){
+                                console.log('Beginning event creation.');
+                                let service = await Service.findServiceByID(req.body.selectedService);
+                                let serviceName = service.title;
+                                let staff = await Staff.findStaffByID(doctors['0'].dataValues.staffid);
+                                let staffLastName = staff.lastName;
+                                let createdEvent = await Event.createEvent(serviceName, staffLastName, req.body.appointTime, endTime['0'].endTime);
+                                console.log('Created Google Calendar Event: ' + createdEvent);
+                            }
+
+
                             var allService = Service.getAllServices();
                             allService.then(async function () {
                                 allService = await allService;
@@ -89,6 +104,30 @@ exports.home_post = [
                 else {
                     var make = Appointment.makeAppointment(req.body.description, req.user[0].username, req.body.selectedStaff, req.body.appointTime, endTime[0].endTime, req.body.time, req.body.selectedService);
                     make.then(async function() {
+
+
+                        //Calendar event creation code if specific doctor selected
+                        if(req.body.event){
+                            console.log('creating default event');
+                            Event.createEvent(); //testing create event with the dummy event
+                            /*
+                            console.log('Beginning event creation.');
+                            let service = await Service.findServiceByID(req.body.selectedService);
+                            console.log('Service: ' + service);
+                            let serviceName = service[0].title;
+                            console.log('Service Name: ' + serviceName);
+                            let staff = await Staff.findStaffByID(req.body.selectedStaff);
+                            console.log('Staff: ' + staff);
+                            let staffLastName = staff[0].lastName;
+                            console.log('Staff last name: ' + staffLastName);
+                            console.log('End time: ' + endTime['0'].endTime);
+                            console.log('Start time: ' + req.body.appointTime);
+                            let createdEvent = await Event.createEvent(serviceName, staffLastName, req.body.appointTime, endTime['0'].endTime);
+                            console.log('Created Google Calendar Event: ' + createdEvent);
+                            */
+                        }
+
+
                         var allService = Service.getAllServices();
                         allService.then(async function () {
                             allService = await allService;
