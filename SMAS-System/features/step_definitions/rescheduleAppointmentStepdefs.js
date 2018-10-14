@@ -35,7 +35,8 @@ const expect = chai.expect;
 
         When("the user selects a new time", function() {
             return this.driver.findElement(By.id('time_dropdown')).click()
-                .then(() => this.driver.findElement(By.id('9:15am')).click())
+                .then(this.driver.wait(Until.elementLocated(By.id("9:15am"))))
+                .then(() => this.driver.findElement(By.id("9:15am")).click())
                 .then(() => console.log('Time selected'));
         });
 
